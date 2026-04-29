@@ -1,34 +1,53 @@
-// Auth System - Grêmio Educa V2
+// Auth System - Grêmio Educa V2 (Supabase Integration)
+import { supabase } from './lib/supabaseClient.js';
+
 const auth = {
     async login(cpf, birthDate) {
-        console.log(`Tentando login: ${cpf}, ${birthDate}`);
+        console.log(`Tentando login via Supabase: ${cpf}, ${birthDate}`);
         
         try {
-            const response = await fetch('assets/json/membros.json');
-            const members = await response.json();
-            
-            // Normalize birthDate from DD/MM/AAAA to YYYY-MM-DD for comparison if needed
-            // or just compare raw strings if the JSON is updated.
-            const user = members.find(u => u.cpf === cpf);
+            // 1. Chama a função RPC no Supabase para validar CPF e Data de Nascimento
+            const { data, error } = await supabase.rpc('validate_cpf_birthdate', { 
+                input_cpf: cpf, 
+                input_birthdate: birthDate 
+            });
 
-            if (user) {
-                localStorage.setItem('gremio_user', JSON.stringify(user));
+            if (error) throw error;
+
+            if (data && data.length > 0) {
+                const userDetails = data[0]; // { email, user_id }
+                
+                // 2. Como o Supabase Auth exige email/password ou OAuth, 
+                // e queremos um login simplificado por CPF/Data, 
+                // vamos salvar a sessão localmente para simular a autenticação 
+                // (ou usar o email retornado para fazer sign-in se houvesse senha).
+                
+                // Para manter a simplicidade do fluxo do Elvey:
+                const userSession = {
+                    id: userDetails.user_id,
+                    email: userDetails.email,
+                    cpf: cpf,
+                    birthDate: birthDate,
+                    authenticated: true
+                };
+
+                localStorage.setItem('gremio_user', JSON.stringify(userSession));
                 window.location.href = 'index.html';
                 return { success: true };
             } else {
-                alert('CPF ou Data de Nascimento incorretos!');
+                alert('CPF ou Data de Nascimento não encontrados!');
                 return { success: false };
             }
         } catch (error) {
-            console.error('Erro ao carregar membros:', error);
-            alert('Erro no sistema de autenticação!');
+            console.error('Erro no login Supabase:', error);
+            alert('Erro no sistema de autenticação: ' + error.message);
             return { success: false };
         }
     },
 
     logout() {
         localStorage.removeItem('gremio_user');
-        window.location.href = '/login.html';
+        window.location.href = 'login.html';
     },
 
     getUser() {
