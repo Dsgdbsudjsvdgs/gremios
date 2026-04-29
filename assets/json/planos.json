@@ -1,0 +1,182 @@
+[
+    {
+        "id": 1,
+        "diretoria": "Educação e Cultura",
+        "cor": "#0000FF",
+        "membro": "Bianca",
+        "objetivo": "Promover atividades que valorizem a educação e cultura.",
+        "semestre1": [
+            "Organizar feira cultural com apresentações de música e dança (abril)",
+            "Promover oficina de arte com artistas locais (maio)"
+        ],
+        "semestre2": [
+            "Realizar semana da literatura com contadores de histórias (agosto)",
+            "Exposição de trabalhos de alunos no mural da escola (outubro)"
+        ]
+    },
+    {
+        "id": 2,
+        "diretoria": "Esportes e Lazer",
+        "cor": "#800080",
+        "membro": "Paulão",
+        "objetivo": "Promover saúde e bem-estar.",
+        "semestre1": [
+            "Organizar torneio de futebol interturmas (março)",
+            "Promover aulas de ginástica no pátio (abril-maio)"
+        ],
+        "semestre2": [
+            "Realizar campeonato de xadrez (agosto)",
+            "Promover passeio ao ar livre com alunos (outubro)"
+        ]
+    },
+    {
+        "id": 3,
+        "diretoria": "Comunicação e Marketing",
+        "cor": "#00FFFF",
+        "membro": "Fernanda",
+        "objetivo": "Divulgar ações do Grêmio.",
+        "semestre1": [
+            "Criar boletim informativo mensal (início em março)",
+            "Ativar redes sociais do Grêmio (março)"
+        ],
+        "semestre2": [
+            "Produzir vídeo sobre ações do Grêmio (agosto)",
+            "Criar mural de notícias no Centro Educa Mais (setembro)"
+        ]
+    },
+    {
+        "id": 4,
+        "diretoria": "Responsabilidade Social",
+        "cor": "#A52A2A",
+        "membro": "Agatha",
+        "objetivo": "Promover cidadania e ações sociais.",
+        "semestre1": [
+            "Campanha de doação de livros para biblioteca (abril)",
+            "Mutirão de limpeza no entorno da escola (maio)"
+        ],
+        "semestre2": [
+            "Ação de arrecadação de alimentos para comunidade (setembro)",
+            "Oficina de conscientização sobre direitos dos alunos (outubro)"
+        ]
+    },
+    {
+        "id": 5,
+        "diretoria": "Projetos e Inovação",
+        "cor": "#000000",
+        "membro": "Lohana",
+        "objetivo": "Incentivar criatividade e empreendedorismo.",
+        "semestre1": [
+            "Hackathon de soluções para problemas da escola (abril)",
+            "Oficina de design thinking para alunos (maio)"
+        ],
+        "semestre2": [
+            "Feira de startups com projetos dos alunos (setembro)",
+            "Workshop de inovação com convidado especial (outubro)"
+        ]
+    },
+    {
+        "id": 6,
+        "diretoria": "Eventos e Celebrações",
+        "cor": "#FFC0CB",
+        "membro": "Maria Eduarda",
+        "objetivo": "Organizar eventos comemorativos.",
+        "semestre1": [
+            "Festa junina com comidas típicas (junho)",
+            "Celebração do dia do estudante (agosto)"
+        ],
+        "semestre2": [
+            "Festa de encerramento do ano letivo (novembro)",
+            "Evento de premiação dos melhores projetos (dezembro)"
+        ]
+    },
+    {
+        "id": 7,
+        "diretoria": "Protagonismo Estudantil",
+        "cor": "#000000",
+        "membro": "Raphaella",
+        "objetivo": "Empoderar alunos líderes.",
+        "semestre1": [
+            "Oficinas de liderança para alunos (abril-maio)",
+            "Projeto 'aluno mentor' para apoiar colegas (maio)"
+        ],
+        "semestre2": [
+            "Palestra com líderes estudantis convidados (agosto)",
+            "Encontro de líderes para troca de experiências (outubro)"
+        ]
+    },
+    {
+        "id": 8,
+        "diretoria": "Inclusão e Diversidade",
+        "cor": "#A52A2A",
+        "membro": "Ana Luzia",
+        "objetivo": "Promover inclusão e valorizar diferenças.",
+        "semestre1": [
+            "Semana da diversidade com atividades culturais (abril)",
+            "Oficina de inclusão para professores e alunos (maio)"
+        ],
+        "semestre2": [
+            "Ação de conscientização sobre bullying (setembro)",
+            "Feira de culturas com apresentações (outubro)"
+        ]
+    },
+    {
+        "id": 9,
+        "diretoria": "Meio Ambiente e Sustentabilidade",
+        "cor": "#000000",
+        "membro": "Paulo Henrique",
+        "objetivo": "Promover sustentabilidade.",
+        "semestre1": [
+            "Implementar coleta seletiva de lixo (março)",
+            "Criar horta escolar com alunos (abril-maio)"
+        ],
+        "semestre2": [
+            "Campanha de economia de água e energia (agosto)",
+            "Mutirão de plantio de árvores (outubro)"
+        ]
+    },
+    {
+        "id": 10,
+        "diretoria": "Tecnologia e Inovação Educacional",
+        "cor": "#FFD700",
+        "membro": "Elvey",
+        "objetivo": "Integrar tecnologia ao aprendizado.",
+        "semestre1": [
+            "Oficinas de programação para iniciantes (abril)",
+            "Feira de tecnologia com projetos dos alunos (maio)"
+        ],
+        "semestre2": [
+            "Workshop de robótica educacional (setembro)",
+            "Desenvolvimento de app para apoio aos alunos (outubro)"
+        ]
+    },
+    {
+        "id": 11,
+        "diretoria": "Acompanhamento Acadêmico e Suporte",
+        "cor": "#FFC0CB",
+        "membro": "Maria Eduarda",
+        "objetivo": "Apoiar alunos com dificuldades.",
+        "semestre1": [
+            "Aulas de reforço em matemática e português (abril-maio)",
+            "Grupos de estudo com monitores (maio)"
+        ],
+        "semestre2": [
+            "Oficinas de técnicas de estudo (agosto)",
+            "Acompanhamento individualizado para alunos com dificuldades (set-out)"
+        ]
+    },
+    {
+        "id": 12,
+        "diretoria": "Integração com a Comunidade",
+        "cor": "#FFFF00",
+        "membro": "João Guilherme",
+        "objetivo": "Integrar Centro Educa Mais à comunidade.",
+        "semestre1": [
+            "Feira de serviços com parceiros locais (abril)",
+            "Visita a empresas locais com alunos (maio)"
+        ],
+        "semestre2": [
+            "Parceria com ONG para ações sociais (setembro)",
+            "Evento de integração com pais e comunidade (outubro)"
+        ]
+    }
+]

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tecnologia | Grêmio Educa V2</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        .tech-container {
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .tech-card {
+            background: var(--bg-card);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 30px;
+            backdrop-filter: blur(12px);
+            box-shadow: var(--glass-shadow);
+            transition: var(--transition);
+        }
+        .tech-card:hover {
+            border-color: var(--primary);
+        }
+        .tech-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .tech-icon {
+            width: 55px;
+            height: 55px;
+            background: var(--gradient-main);
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.8rem;
+        }
+        .tech-title h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        .tech-title p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+        }
+        .tool-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .tool-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-md);
+            padding: 20px;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .tool-item:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+        .tool-item h3 {
+            font-size: 1rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .tool-item p {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            line-height: 1.4;
+        }
+        .status-tag {
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body style="display: none;" id="body-auth">
+
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="../assets/img/logo-da-escola/educa_mais_sem_fundo.svg" alt="Grêmio Educa" style="height: 45px;">
+            </div>
+            <nav class="nav-links">
+                <a href="../index.html">🏠 Início</a>
+                <a href="agenda.html">📅 Agenda</a>
+                <a href="atividades.html">📝 Ativ.</a>
+                <a href="planos.html">🚀 Planos</a>
+                <a href="cultura.html">🎨 Cultura</a>
+                <a href="esportes.html">⚽ Esportes</a>
+                <a href="tecnologia.html" class="active">💻 Tec.</a>
+                <a href="comunicacao.html">📢 Comum.</a>
+                <a href="ouvidoria.html">💡 Ouvid.</a>
+                <a href="perfil.html">👤 Perfil</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="tech-container">
+            <div class="tech-card fade-in">
+                <div class="tech-header">
+                    <div class="tech-icon">⚙️</div>
+                    <div class="tech-title">
+                        <h2>Tecnologia & Inovação</h2>
+                        <p>Infraestrutura Digital e Desenvolvimento</p>
+                    </div>
+                </div>
+                
+                <div class="tool-grid">
+                    <div class="tool-item">
+                        <h3>📂 Gestão de Documentos <span class="status-tag">Ativo</span></h3>
+                        <p>Centralização de PDFs, Planilhas e Atas de reunião do Grêmio.</p>
+                    </div>
+                    <div class="tool-item">
+                        <h3>🔐 Autenticação Supabase</h3>
+                        <p>Sistema de login seguro com JWT e validação de CPF.</p>
+                    </div>
+                    <div class="tool-item">
+                        <h3>🌐 Hospedagem Cloud</h3>
+                        <p>Manutenção do servidor e deploy automático do site V2.</p>
+                    </div>
+                    <div class="tool-item">
+                        <h3>🤖 Automação de Avisos</h3>
+                        <p>Integração com Discord/WhatsApp para alertas de eventos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../assets/js/app.js"></script>
+    <script src="../assets/js/auth.js"></script>
+    <script>
+        window.onload = () => {
+            if (auth.getUser()) {
+                document.getElementById('body-auth').style.display = 'block';
+            } else {
+                window.location.href = '../login.html';
+            }
+        };
+    </script>
+</body>
+</html>

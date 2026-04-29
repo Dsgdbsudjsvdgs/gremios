@@ -1,0 +1,36 @@
+:root {
+    /* Cores Principais */
+    --primary-color: #004aad;
+    --primary-light: #3366ff;
+    --primary-dark: #003380;
+    --accent-color: #ffcc00;
+    --background-color: #f8f9fa;
+    --surface-color: #ffffff;
+    --text-main: #212529;
+    --text-muted: #6c757d;
+    --error-color: #dc3545;
+    --success-color: #28a745;
+
+    /* Espaçamentos */
+    --spacing-xs: 8px;
+    --spacing-sm: 12px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+
+    /* Bordas e Sombras */
+    --border-radius-sm: 4px;
+    --border-radius-md: 8px;
+    --border-radius-lg: 16px;
+    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
+    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
+
+    /* Tipografia */
+    --font-main: 'Poppins', sans-serif;
+    --fs-h1: 2rem;
+    --fs-h2: 1.5rem;
+    --fs-h3: 1.25rem;
+    --fs-body: 1rem;
+    --fs-small: 0.875rem;
+}

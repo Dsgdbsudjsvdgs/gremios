@@ -1,0 +1,99 @@
+[
+    {
+        "nome": "Bianca",
+        "cpf": "069.745.812-11",
+        "nascimento": "01/07/2009",
+        "role": "Vice Secretaria",
+        "cor": "#0000FF",
+        "setor": "secretaria"
+    },
+    {
+        "nome": "Paulão",
+        "cpf": "000.000.000-02",
+        "nascimento": "02/01/2000",
+        "role": "Bem estar",
+        "cor": "#800080",
+        "setor": "social"
+    },
+    {
+        "nome": "Fernanda",
+        "cpf": "000.000.000-03",
+        "nascimento": "03/01/2000",
+        "role": "Diretora de Comunicação",
+        "cor": "#00FFFF",
+        "setor": "Diretoria de Responsabilidade Social"
+    },
+    {
+        "nome": "Lohana",
+        "cpf": "626.237.743-31",
+        "nascimento": "24/07/2009",
+        "role": "Presidente",
+        "cor": "#000000",
+        "setor": "executive"
+    },
+    {
+        "nome": "Raphaella",
+        "cpf": "000.000.000-05",
+        "nascimento": "05/01/2000",
+        "role": "Vice-Presidente",
+        "cor": "#000000",
+        "setor": "executive"
+    },
+    {
+        "nome": "Paulo Henrique",
+        "cpf": "619.850.013-65",
+        "nascimento": "22/10/2009",
+        "role": "Lider dos Protagonistas",
+        "cor": "#000000",
+        "setor": "executive"
+    },
+    {
+        "nome": "Elvey",
+        "cpf": "100.302.232-45",
+        "nascimento": "21/06/2009",
+        "role": "Diretoria de Tecnologia e Inovação",
+        "cor": "#FFD700",
+        "setor": "tecnologia"
+    },
+    {
+        "nome": "Agatha",
+        "cpf": "000.000.000-07",
+        "nascimento": "07/01/2000",
+        "role": "Diretora de Responsabilidade Social",
+        "cor": "#A52A2A",
+        "setor": "social"
+    },
+    {
+        "nome": "Ana Luzia",
+        "cpf": "000.000.000-08",
+        "nascimento": "08/01/2000",
+        "role": "Diretora de Cultura",
+        "cor": "#800080",
+        "setor": "cultura"
+    },
+    {
+        "nome": "Atyla",
+        "cpf": "000.000.000-09",
+        "nascimento": "09/01/2000",
+        "role": "Diretor de Comunicação",
+        "cor": "#FF0000",
+        "setor": "comunicacao"
+    },
+    {
+        "nome": "Maria Eduarda",
+        "cpf": "000.000.000-10",
+        "nascimento": "10/01/2000",
+        "role": "Diretora de Eventos",
+        "cor": "#FFC0CB",
+        "setor": "eventos"
+    },
+    {
+        "nome": "João",
+        "cpf": "000.000.000-11",
+        "nascimento": "11/01/2000",
+        "role": "Diretor de Ouvidoria",
+        "cor": "#FFFF00",
+        "setor": "ouvidoria"
+    }
+
+]
