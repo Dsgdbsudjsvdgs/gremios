@@ -100,17 +100,7 @@ ON events FOR ALL USING (
 -- =============================================================================
 
 INSERT INTO profiles (full_name, cpf, birth_date, role, department, color_hex) VALUES
-('Lohanna', '000.000.000-00', '2000-01-01', 'Presidente', 'Geral', '#000000'),
-('Raphaella', '000.000.000-01', '2000-01-01', 'Vice-Presidente', 'Geral', '#000000'),
-('David', '000.000.000-02', '2000-01-01', 'Secretário Geral', 'Secretaria', '#FFFFFF'),
-('Bianca', '000.000.000-03', '2000-01-01', 'Secretária', 'Secretaria', '#0000FF'),
-('Ana Luzia', '000.000.000-04', '2000-01-01', 'Tesoureira', 'Financeiro', '#800080'),
-('Agatha', '000.000.000-05', '2000-01-01', 'Diretor', 'Cultura', '#A52A2A'),
-('Junior', '000.000.000-06', '2000-01-01', 'Diretor', 'Esportes', '#FFFFFF'),
-('Maria Eduarda', '000.000.000-07', '2000-01-01', 'Diretor', 'Eventos', '#FFC0CB'),
-('Atyla', '000.000.000-08', '2000-01-01', 'Diretor', 'Comunicação', '#FF0000'),
-('Maria Fernanda', '000.000.000-09', '2000-01-01', 'Diretor', 'Resp. Social', '#00FFFF'),
-('Kaylane', '000.000.000-10', '2000-01-01', 'Diretor', 'Meio Ambiente', '#FFFFFF'),
+
 ('Paulão', '000.000.000-11', '2000-01-01', 'Diretor', 'Protagonismo', '#800080'),
 ('Elvey', '100.302.232-45', '2009-06-21', 'Diretor', 'Tecnologia e Inovação', '#FFD700'),
 ('João Guilherme', '000.000.000-13', '2000-01-01', 'Ouvidoria', 'Ouvidoria', '#FFFF00');
