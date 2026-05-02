@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Grêmio Estudantil</title>
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="watermark">Grêmio Estudantil — uso interno</div>
+    
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="../assets/img/logo.png" alt="Grêmio Logo" onerror="this.src='https://via.placeholder.com/45x45?text=Grêmio'">
+            </div>
+            <div class="user-profile">
+                <span id="user-name" class="user-badge">Carregando...</span>
+                <span id="user-role-badge" class="user-badge" style="margin-left: 8px;">Cargo</span>
+                <a href="#" id="btn-logout" class="nav-links" style="margin-left: 15px; color: var(--error-color);">Sair</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1 class="dashboard-title fade-in">Painel de Controle</h1>
+        
+        <section class="grid-dashboard">
+            <div class="card fade-in" style="animation-delay: 0.1s;">
+                <h3>Tarefas Pendentes</h3>
+                <p id="count-tasks" style="font-size: 2rem; font-weight: 700; color: var(--text-main);">0</p>
+                <button class="btn-card">Ver Detalhes</button>
+            </div>
+            <div class="card fade-in" style="animation-delay: 0.2s;">
+                <h3>Eventos Próximos</h3>
+                <p id="count-events" style="font-size: 2rem; font-weight: 700; color: var(--text-main);">0</p>
+                <button class="btn-card">Calendário</button>
+            </div>
+            <div class="card fade-in" id="card-financeiro" style="display:none; animation-delay: 0.3s;">
+                <h3>Saldo Financeiro</h3>
+                <p id="finance-total" style="font-size: 2rem; font-weight: 700; color: var(--success-color);">R$ 0,00</p>
+                <button class="btn-card">Gerenciar</button>
+            </div>
+        </section>
+
+        <section class="content-section" style="margin-top: 40px;">
+            <h2 class="fade-in" style="margin-bottom: 20px; font-size: 1.5rem;">Minhas Tarefas</h2>
+            <div class="filter-bar" style="margin-bottom: 20px;">
+                <select id="filter-dept" style="padding: 8px; border-radius: var(--radius-md); background: var(--bg-surface); color: white; border: 1px solid var(--glass-border);">
+                    <option value="all">Todas as Diretorias</option>
+                </select>
+            </div>
+            <div id="tasks-list" class="grid-dashboard">
+                <!-- Tarefas injetadas via JS -->
+            </div>
+        </section>
+    </main>
+
+    <script src="../assets/js/dashboard.js"></script>
+</body>
+</html>

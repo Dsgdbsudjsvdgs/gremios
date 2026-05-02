@@ -1,36 +1,47 @@
 :root {
-    /* Cores Principais */
-    --primary-color: #004aad;
-    --primary-light: #3366ff;
-    --primary-dark: #003380;
-    --accent-color: #ffcc00;
-    --background-color: #f8f9fa;
-    --surface-color: #ffffff;
-    --text-main: #212529;
+    /* Cores Base - Dark Glassmorphism */
+    --bg-dark: #0a0b10;
+    --bg-surface: rgba(255, 255, 255, 0.05);
+    --bg-surface-hover: rgba(255, 255, 255, 0.08);
+    
+    /* Primárias */
+    --primary: #0062ff;
+    --primary-dark: #0048c2;
+    --accent: #00d4ff;
+    
+    /* Texto */
+    --text-main: #ffffff;
+    --text-dim: #a0a0a8;
     --text-muted: #6c757d;
-    --error-color: #dc3545;
-    --success-color: #28a745;
+    
+    /* Detalhes Glass */
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    
+    /* Raio e Transição */
+    --radius-lg: 24px;
+    --radius-md: 14px;
+    --radius-sm: 8px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Gradientes */
+    --gradient-main: linear-gradient(135deg, var(--primary), var(--accent));
+    --gradient-dark: linear-gradient(135deg, #003380, #001a40);
+    
+    /* Cores de Status */
+    --success-color: #4CAF50;
+    --error-color: #EF5350;
+    --warning-color: #FFA726;
 
-    /* Espaçamentos */
-    --spacing-xs: 8px;
-    --spacing-sm: 12px;
-    --spacing-md: 16px;
-    --spacing-lg: 24px;
-    --spacing-xl: 32px;
-
-    /* Bordas e Sombras */
-    --border-radius-sm: 4px;
-    --border-radius-md: 8px;
-    --border-radius-lg: 16px;
-    --shadow-sm: 0 2px 4px rgba(0,0,0,0.05);
-    --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
-    --shadow-lg: 0 10px 15px rgba(0,0,0,0.1);
-
-    /* Tipografia */
-    --font-main: 'Poppins', sans-serif;
-    --fs-h1: 2rem;
-    --fs-h2: 1.5rem;
-    --fs-h3: 1.25rem;
-    --fs-body: 1rem;
-    --fs-small: 0.875rem;
+    /* ── Paleta ORIGINAL de Diretorias (EXATAMENTE como era) ── */
+    --color-executivo: #2C3E50;
+    --color-cultura: #A569BD;
+    --color-esportes: #5499C7;
+    --color-eventos: #F5B7B1;
+    --color-comunicacao: #F8C471;
+    --color-social: #82E0AA;
+    --color-ambiente: #ABEBC6;
+    --color-protagonismo: #AED6F1;
+    --color-tecnologia: #D5A6BD;
+    --color-ouvidoria: #D7BDE2;
 }
