@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<<htmlhtml lang="pt-br">
+<<headhead>
+    <<metameta charset="UTF-8">
+    <<metameta name="viewport" content="width=device-width, initial-scale=1.0">
+    <<titletitle>Calendário - Grêmio Estudantil</title>
+    <<linklink rel="stylesheet" href="../assets/css/variables.css">
+    <<linklink rel="stylesheet" href="../assets/css/style.css">
+    <<scriptscript src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<<bodybody>
+    <<divdiv class="watermark">Grêmio Estudantil — Gestão de Tempo</div>
+    
+    <<headerheader>
+        <<divdiv class="container header-content">
+            <<divdiv class="logo">
+                <<imgimg src="../assets/img/logo.png" alt="Grêmio Logo" onerror="this.src='https://via.placeholder.com/45x45?text=G'">
+            </div>
+            <<aa href="dashboard.html" class="user-badge" style="text-decoration: none; color: white;">← Voltar</a>
+        </div>
+    </header>
+
+    <<mainmain class="container">
+        <<hh1 class="dashboard-title fade-in">Calendário de Eventos</h1>
+        
+        <<divdiv style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <<divdiv id="month-display" style="font-size: 1.2rem; font-weight: 600; color: var(--text-main);">Mês Ano</div>
+            <<buttonbutton id="btn-add-event" class="btn-login" style="width: auto; padding: 10px 20px;">+ Novo Evento</button>
+        </div>
+
+        <!-- Grid do Calendário -->
+        <<divdiv class="calendar-container fade-in">
+            <<divdiv class="calendar-grid" id="calendar-days">
+                <!-- Dias injetados via JS -->
+            </div>
+        </div>
+
+        <!-- Lista de Eventos do Dia Selecionado -->
+        <<sectionsection id="events-section" class="content-section fade-in" style="margin-top: 30px; display: none;">
+            <<hh2 id="selected-date-title" style="margin-bottom: 20px; font-size: 1.5rem;">Eventos do Dia</h2>
+            <<divdiv id="events-list" class="events-grid">
+                <!-- Eventos injetados via JS -->
+            </div>
+        </section>
+
+        <!-- Modal de Cadastro -->
+        <<divdiv id="event-modal" class="app-dialog-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); z-index: 2000; align-items: center; justify-content: center;">
+            <<divdiv class="form-modal" style="width: min(400px, 90%);">
+                <h2>Agendar Evento</h2>
+                <<formform id="event-form" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
+                    <<divdiv class="input-group">
+                        <<labellabel>Título do Evento</label>
+                        <<inputinput type="text" id="event-title" required placeholder="Ex: Reunião Geral">
+                    </div>
+                    <<divdiv class="input-group">
+                        <<labellabel>Data</label>
+                        <<inputinput type="date" id="event-date" required>
+                    </div>
+                    <<divdiv class="input-group">
+                        <<labellabel>Descrição</label>
+                        <<textareatextarea id="event-desc" style="width: 100%; padding: 10px; border-radius: var(--radius-md); background: rgba(0,0,0,0.2); color: white; border: 1px solid var(--glass-border); outline: none; height: 80px;"></textarea>
+                    </div>
+                    <<divdiv style="display: flex; gap: 10px; justify-content: flex-end;">
+                        <<buttonbutton type="button" id="btn-close-modal" class="btn-card" style="color: var(--text-dim);">Cancelar</button>
+                        <<buttonbutton type="submit" class="btn-login" style="width: auto;">Salvar Evento</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <<scriptscript src="../assets/js/calendar.js"></script>
+</body>
+</html>

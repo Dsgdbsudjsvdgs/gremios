@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Grêmio Estudantil</title>
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="watermark">Grêmio Estudantil — Painel Administrativo</div>
+    
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="../assets/img/logo.png" alt="Grêmio Logo" onerror="this.src='https://via.placeholder.com/45x45?text=G'">
+            </div>
+            <a href="dashboard.html" class="user-badge" style="text-decoration: none; color: white;">← Voltar ao Painel</a>
+        </div>
+    </header>
+
+    <main class="container">
+        <h1 class="dashboard-title fade-in">Gestão de Membros</h1>
+
+        <!-- Formulário de Cadastro -->
+        <section class="card fade-in" style="margin-bottom: 30px; text-align: left;">
+            <h3>Adicionar Novo Membro</h3>
+            <form id="add-member-form" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
+                <div class="input-group">
+                    <label>Nome Completo</label>
+                    <input type="text" id="new-name" required placeholder="Ex: João Silva">
+                </div>
+                <div class="input-group">
+                    <label>CPF</label>
+                    <input type="text" id="new-cpf" required placeholder="000.000.000-00">
+                </div>
+                <div class="input-group">
+                    <label>Data de Nascimento</label>
+                    <input type="date" id="new-birth" required>
+                </div>
+                <div class="input-group">
+                    <label>Cargo</label>
+                    <select id="new-role" style="width: 100%; padding: 12px; border-radius: var(--radius-md); background: rgba(0,0,0,0.2); color: white; border: 1px solid var(--glass-border); outline: none;">
+                        <option value="Membro">Membro</option>
+                        <option value="Presidente">Presidente</option>
+                        <option value="Vice-Presidente">Vice-Presidente</option>
+                        <option value="Tecnologia e Inovação">Tecnologia e Inovação</option>
+                        <option value="Tesoureiro">Tesoureiro</option>
+                        <option value="Secretário">Secretário</option>
+                    </select>
+                </div>
+                <div style="display: flex; align-items: flex-end;">
+                    <button type="submit" class="btn-login" style="width: 100%;">Cadastrar Membro</button>
+                </div>
+            </form>
+        </section>
+
+        <!-- Lista de Membros -->
+        <section class="content-section fade-in">
+            <h2 style="margin-bottom: 20px; font-size: 1.5rem;">Lista de Integrantes</h2>
+            <div id="members-list" class="grid-dashboard">
+                <!-- Membros injetados via JS -->
+            </div>
+        </section>
+    </main>
+
+    <script src="../assets/js/admin.js"></script>
+</body>
+</html>
