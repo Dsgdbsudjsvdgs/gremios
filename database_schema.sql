@@ -100,7 +100,3 @@ ON events FOR ALL USING (
 -- =============================================================================
 
 INSERT INTO profiles (full_name, cpf, birth_date, role, department, color_hex) VALUES
-
-('Paulão', '000.000.000-11', '2000-01-01', 'Diretor', 'Protagonismo', '#800080'),
-('Elvey', '100.302.232-45', '2009-06-21', 'Diretor', 'Tecnologia e Inovação', '#FFD700'),
-('João Guilherme', '000.000.000-13', '2000-01-01', 'Ouvidoria', 'Ouvidoria', '#FFFF00');
