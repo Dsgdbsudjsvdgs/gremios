@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<htmlhtml lang="pt-br">
+<headhead>
+    <metameta charset="UTF-8">
+    <metameta name="viewport" content="width=device-width, initial-scale=1.0">
+    <titletitle>Diretoria - Grêmio Estudantil</title>
+    <linklink rel="stylesheet" href="/assets/css/variables.css">
+    <linklink rel="stylesheet" href="/assets/css/style.css">
+    <scriptscript src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <divdiv class="watermark">Grêmio Estudantil — Identidade Organizacional</div>
+    
+    <headerheader>
+        <divdiv class="container header-content">
+            <divdiv class="logo">
+                <imgimg src="/assets/img/logo.png" alt="Grêmio Logo" onerror="this.src='https://via.placeholder.com/45x45?text=G'">
+            </div>
+            <aa href="/pages/dashboard.html" class="user-badge" style="text-decoration: none; color: white;">← Voltar ao Painel</a>
+        </div>
+    </header>
+
+    <mainmain class="container">
+        <divdiv id="dept-content" class="fade-in" style="margin-top: 40px; display: flex; flex-direction: column; align-items: center; text-align: center;">
+            <!-- Conteúdo Dinâmico Injetado via JS -->
+            <divdiv class="card" style="width: 100%; max-width: 600px;">
+                <divdiv id="dept-avatar" style="width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 20px; border: 4px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 3rem; font-weight: bold; color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">?</div>
+                <hh1 id="dept-name" style="font-size: 2.5rem; margin-bottom: 10px;">Carregando...</h1>
+                <spanspan id="dept-role" class="user-badge" style="font-size: 1.1rem; padding: 8px 20px;">Cargo</span>
+                
+                <divdiv id="dept-description" style="margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: var(--radius-md); border: 1px solid var(--glass-border); line-height: 1.8; color: var(--text-dim); font-size: 1.1rem;">
+                    Buscando funções da diretoria...
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <scriptscript src="/assets/js/diretoria.js"></script>
+</body>
+</html>

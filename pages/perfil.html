@@ -1,54 +1,54 @@
 <!DOCTYPE html>
-<<htmlhtml lang="pt-br">
-<<headhead>
-    <<metameta charset="UTF-8">
-    <<metameta name="viewport" content="width=device-width, initial-scale=1.0">
-    <<titletitle>Meu Perfil - Grêmio Estudantil</title>
-    <<linklink rel="stylesheet" href="../assets/css/variables.css">
-    <<linklink rel="stylesheet" href="../assets/css/style.css">
-    <<scriptscript src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Perfil - Grêmio Estudantil</title>
+    <link rel="stylesheet" href="/assets/css/variables.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-    <<divdiv class="watermark">Grêmio Estudantil — uso interno</div>
+    <div class="watermark">Grêmio Estudantil — uso interno</div>
     
-    <<headerheader>
-        <<divdiv class="container header-content">
-            <<divdiv class="logo">
-                <<imgimg src="../assets/img/logo.png" alt="Grêmio Logo" onerror="this.src='https://via.placeholder.com/45x45?text=G'">
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="/assets/img/logo.png" alt="Grêmio Logo" onerror="this.src='https://via.placeholder.com/45x45?text=G'">
             </div>
-            <<aa href="dashboard.html" class="user-badge" style="text-decoration: none; color: white;">← Voltar</a>
+            <a href="/pages/dashboard.html" class="user-badge" style="text-decoration: none; color: white;">← Voltar</a>
         </div>
     </header>
 
-    <<mainmain class="container">
-        <<hh1 class="dashboard-title fade-in">Personalizar Perfil</h1>
+    <main class="container">
+        <h1 class="dashboard-title fade-in">Personalizar Perfil</h1>
         
-        <<divdiv class="card fade-in" style="max-width: 600px; margin: 0 auto;">
-            <<divdiv style="text-align: center; margin-bottom: 30px;">
-                <<divdiv id="profile-pic" style="width: 100px; height: 100px; border-radius: 50%; background: var(--bg-surface); border: 3px solid var(--accent); margin: 0 auto 15px; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: bold;">?</div>
-                <<hh2 id="profile-name">Carregando...</h2>
-                <<spanspan id="profile-role" class="user-badge">Cargo</span>
+        <div class="card fade-in" style="max-width: 600px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <div id="profile-pic" style="width: 100px; height: 100px; border-radius: 50%; background: var(--bg-surface); border: 3px solid var(--accent); margin: 0 auto 15px; overflow: hidden; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: bold;">?</div>
+                <h2 id="profile-name">Carregando...</h2>
+                <span id="profile-role" class="user-badge">Cargo</span>
             </div>
 
-            <<formform id="profile-form" style="display: flex; flex-direction: column; gap: 20px; text-align: left;">
-                <<divdiv class="input-group">
-                    <<labellabel>Nome Completo</label>
-                    <<inputinput type="text" id="edit-name" required>
+            <form id="profile-form" style="display: flex; flex-direction: column; gap: 20px; text-align: left;">
+                <div class="input-group">
+                    <label>Nome Completo</label>
+                    <input type="text" id="edit-name" required>
                 </div>
                 
-                <<divdiv class="input-group">
-                    <<labellabel>Cor do Perfil (Hexadecimal)</label>
-                    <<divdiv style="display: flex; gap: 10px; align-items: center;">
-                        <<inputinput type="color" id="edit-color" style="width: 50px; height: 40px; border: none; background: none; cursor: pointer;">
-                        <<inputinput type="text" id="edit-color-hex" placeholder="#FFFFFF">
+                <div class="input-group">
+                    <label>Cor do Perfil (Hexadecimal)</label>
+                    <div style="display: flex; gap: 10px; align-items: center;">
+                        <input type="color" id="edit-color" style="width: 50px; height: 40px; border: none; background: none; cursor: pointer;">
+                        <input type="text" id="edit-color-hex" placeholder="#FFFFFF">
                     </div>
                 </div>
 
-                <<buttonbutton type="submit" class="btn-login">Salvar Alterações</button>
+                <button type="submit" class="btn-login">Salvar Alterações</button>
             </form>
         </div>
     </main>
 
-    <<scriptscript src="../assets/js/profile.js"></script>
+    <script src="/assets/js/profile.js"></script>
 </body>
 </html>

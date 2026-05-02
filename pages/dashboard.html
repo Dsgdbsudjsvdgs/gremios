@@ -1,48 +1,73 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Grêmio Estudantil</title>
-    <link rel="stylesheet" href="../assets/css/variables.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<htmlhtml lang="pt-br">
+<headhead>
+    <metameta charset="UTF-8">
+    <metameta name="viewport" content="width=device-width, initial-scale=1.0">
+    <titletitle>Dashboard - Grêmio Estudantil</title>
+    <linklink rel="stylesheet" href="/assets/css/variables.css">
+    <linklink rel="stylesheet" href="/assets/css/style.css">
+    <scriptscript src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body>
-    <div class="watermark">Grêmio Estudantil — uso interno</div>
+<bodybody>
+    <divdiv class="watermark">Grêmio Estudantil — uso interno</div>
     
-    <header>
-        <div class="container header-content">
-            <div class="logo">
-                <img src="../assets/img/logo.png" alt="Grêmio Logo" onerror="this.src='https://via.placeholder.com/45x45?text=Grêmio'">
+    <headerheader>
+        <divdiv class="container header-content">
+            <divdiv class="logo">
+                <imgimg src="/assets/img/logo.png" alt="Grêmio Logo" onerror="this.src='https://via.placeholder.com/45x45?text=G'">
             </div>
-            <div class="user-profile">
-                <span id="user-name" class="user-badge">Carregando...</span>
-                <span id="user-role-badge" class="user-badge" style="margin-left: 8px;">Cargo</span>
-                <a href="#" id="btn-logout" class="nav-links" style="margin-left: 15px; color: var(--error-color);">Sair</a>
+            <divdiv class="user-profile" style="display: flex; align-items: center; gap: 10px;">
+                <aa href="/pages/perfil.html" id="btn-profile" class="user-badge" style="text-decoration: none; color: white; cursor: pointer; font-weight: 600;">👤 Meu Perfil</a>
+                <spanspan id="user-name" class="user-badge">Carregando...</span>
+                <aa href="#" id="user-role-link" style="text-decoration: none;">
+                    <spanspan id="user-role-badge" class="user-badge" style="margin-left: 8px;">Cargo</span>
+                </a>
+                <aa href="#" id="btn-logout" class="nav-links" style="margin-left: 15px; color: var(--error-color); text-decoration: none; font-size: 0.85rem; font-weight: 600;">Sair</a>
             </div>
         </div>
     </header>
 
-    <main class="container">
-        <h1 class="dashboard-title fade-in">Painel de Controle</h1>
+    <mainmain class="container">
+        <hh1 class="dashboard-title fade-in">Painel de Controle</h1>
         
-        <section class="grid-dashboard">\n            <div class="card fade-in" style="animation-delay: 0.1s;">\n                <h3>Tarefas Pendentes</h3>\n                <p id="count-tasks" style="font-size: 2rem; font-weight: 700; color: var(--text-main);">0</p>\n                <button class="btn-card">Ver Detalhes</button>\n            </div>\n            <div class="card fade-in" style="animation-delay: 0.2s;">\n                <h3>Eventos Próximos</h3>\n                <p id="count-events" style="font-size: 2rem; font-weight: 700; color: var(--text-main);">0</p>\n                <button class="btn-card">Calendário</button>\n            </div>\n            <div class="card fade-in" id="card-financeiro" style="display:none; animation-delay: 0.3s;">\n                <h3>Saldo Financeiro</h3>\n                <p id="finance-total" style="font-size: 2rem; font-weight: 700; color: var(--success-color);">R$ 0,00</p>\n                <button class="btn-card">Gerenciar</button>\n            </div>\n            <div class="card fade-in" id="card-admin" style="display:none; animation-delay: 0.4s;">\n                <h3>Sist. Gestão</h3>\n                <p style="font-size: 1rem; color: var(--text-dim);">Controle de membros</p>\n                <a href="admin.html" class="btn-card" style="display: block; text-decoration: none; text-align: center; color: white;">Acessar Admin</a>\n            </div>\n        </section>
+        <sectionsection class="grid-dashboard">
+            <divdiv class="card fade-in" style="animation-delay: 0.1s;">
+                <hh3 style="color: var(--text-dim);">Tarefas Pendentes</h3>
+                <pp id="count-tasks" style="font-size: 2.5rem; font-weight: 800; color: var(--text-main); margin: 10px 0;">0</p>
+                <buttonbutton class="btn-card" style="width: 100%;">Ver Detalhes</button>
+            </div>
+            <divdiv class="card fade-in" style="animation-delay: 0.2s;">
+                <hh3 style="color: var(--text-dim);">Eventos Próximos</h3>
+                <pp id="count-events" style="font-size: 2.5rem; font-weight: 800; color: var(--text-main); margin: 10px 0;">0</p>
+                <aa href="/pages/calendario.html" class="btn-card" style="display: block; text-decoration: none; text-align: center; color: white;">Abrir Calendário</a>
+            </div>
+            <divdiv class="card fade-in" id="card-financeiro" style="display:none; animation-delay: 0.3s;">
+                <hh3 style="color: var(--text-dim);">Saldo Financeiro</h3>
+                <pp id="finance-total" style="font-size: 2.5rem; font-weight: 800; color: var(--success-color); margin: 10px 0;">R$ 0,00</p>
+                <buttonbutton class="btn-card" style="width: 100%;">Gerenciar</button>
+            </div>
+            <divdiv class="card fade-in" id="card-admin" style="display:none; animation-delay: 0.4s;">
+                <hh3 style="color: var(--text-dim);">Sist. Gestão</h3>
+                <pp style="font-size: 1rem; color: var(--text-dim); margin: 10px 0;">Controle de membros</p>
+                <aa href="/pages/admin.html" class="btn-card" style="display: block; text-decoration: none; text-align: center; color: white;">Acessar Admin</a>
+            </div>
         </section>
 
-        <section class="content-section" style="margin-top: 40px;">
-            <h2 class="fade-in" style="margin-bottom: 20px; font-size: 1.5rem;">Minhas Tarefas</h2>
-            <div class="filter-bar" style="margin-bottom: 20px;">
-                <select id="filter-dept" style="padding: 8px; border-radius: var(--radius-md); background: var(--bg-surface); color: white; border: 1px solid var(--glass-border);">
-                    <option value="all">Todas as Diretorias</option>
-                </select>
+        <sectionsection class="content-section" style="margin-top: 40px;">
+            <divdiv style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <hh2 class="fade-in" style="font-size: 1.5rem;">Minhas Tarefas</h2>
+                <divdiv class="filter-bar">
+                    <selectselect id="filter-dept" style="padding: 8px 12px; border-radius: var(--radius-sm); background: var(--bg-surface); color: white; border: 1px solid var(--glass-border); outline: none; cursor: pointer;">
+                        <optionoption value="all">Todas as Diretorias</option>
+                    </select>
+                </div>
             </div>
-            <div id="tasks-list" class="grid-dashboard">
+            <divdiv id="tasks-list" class="grid-dashboard">
                 <!-- Tarefas injetadas via JS -->
             </div>
         </section>
     </main>
 
-    <script src="../assets/js/dashboard.js"></script>
+    <scriptscript src="/assets/js/dashboard.js"></script>
 </body>
 </html>

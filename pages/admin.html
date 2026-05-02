@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Grêmio Estudantil</title>
-    <link rel="stylesheet" href="../assets/css/variables.css">
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="/assets/css/variables.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
@@ -14,16 +14,15 @@
     <header>
         <div class="container header-content">
             <div class="logo">
-                <img src="../assets/img/logo.png" alt="Grêmio Logo" onerror="this.src='https://via.placeholder.com/45x45?text=G'">
+                <img src="/assets/img/logo.png" alt="Grêmio Logo" onerror="this.src='https://via.placeholder.com/45x45?text=G'">
             </div>
-            <a href="dashboard.html" class="user-badge" style="text-decoration: none; color: white;">← Voltar ao Painel</a>
+            <a href="/pages/dashboard.html" class="user-badge" style="text-decoration: none; color: white;">← Voltar ao Painel</a>
         </div>
     </header>
 
     <main class="container">
         <h1 class="dashboard-title fade-in">Gestão de Membros</h1>
 
-        <!-- Formulário de Cadastro -->
         <section class="card fade-in" style="margin-bottom: 30px; text-align: left;">
             <h3>Adicionar Novo Membro</h3>
             <form id="add-member-form" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
@@ -56,7 +55,6 @@
             </form>
         </section>
 
-        <!-- Lista de Membros -->
         <section class="content-section fade-in">
             <h2 style="margin-bottom: 20px; font-size: 1.5rem;">Lista de Integrantes</h2>
             <div id="members-list" class="grid-dashboard">
@@ -65,6 +63,6 @@
         </section>
     </main>
 
-    <script src="../assets/js/admin.js"></script>
+    <script src="/assets/js/admin.js"></script>
 </body>
 </html>
