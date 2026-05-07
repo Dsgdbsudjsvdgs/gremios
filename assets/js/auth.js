@@ -63,9 +63,9 @@ async function handleLogin(codeInput, dateInput, loginBtn, errorMsg) {
             throw new Error('Supabase não inicializado');
         }
 
-        // Query directly from 'membros' table instead of using RPC
+        // Query directly from 'profiles' table instead of using RPC
         const { data: members, error: queryError } = await supabase
-            .from('membros')
+            .from('profiles')
             .select('*')
             .eq('codigo_acesso', accessCode)
             .limit(1);
