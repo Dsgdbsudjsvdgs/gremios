@@ -71,15 +71,21 @@ async function handleLogin(codeInput, dateInput, loginBtn, errorMsg) {
             .limit(1);
 
         if (queryError) {
-            console.error('Query Error:', queryError);
-            throw new Error('Erro ao validar código. Tente novamente.');
+            console.error('❌ Supabase Query Error Detail:', {
+                message: queryError.message,
+                details: queryError.details,
+                hint: queryError.hint
+            });
+            throw new Error(`Erro no banco: ${queryError.message}`);
         }
 
         if (!members || members.length === 0) {
+            console.log('🔍 Busca realizada. Código:', accessCode, 'Resultado: Nenhum membro encontrado.');
             throw new Error('Código de acesso inválido');
         }
 
         const profile = members[0];
+        console.log('✅ Membro encontrado:', profile);
 
         // Validate birth date matches
         if (profile.birth_date && profile.birth_date !== birthDate) {
