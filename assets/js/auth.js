@@ -67,7 +67,7 @@ async function handleLogin(codeInput, dateInput, loginBtn, errorMsg) {
         const { data: members, error: queryError } = await supabase
             .from('profiles')
             .select('*')
-            .eq('codigo_acesso', accessCode)
+            .eq('access_code', accessCode)
             .limit(1);
 
         if (queryError) {
