@@ -77,7 +77,7 @@ async function updateCounters() {
     try {
         // Count pending tasks
         const pendingTasks = await UTILS.supabaseQuery('tasks', {
-            where: { status: CONFIG.STATUS.PENDING }
+            where: { status: 'pending' }
         });
         const pendingCount = pendingTasks ? pendingTasks.length : 0;
         const pendingElement = document.getElementById('pending-tasks-count');

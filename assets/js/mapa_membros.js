@@ -28,11 +28,32 @@ async function loadMembers() {
             order: { column: 'full_name', ascending: true }
         });
         
-        members = allMembers || [];
+        if (!allMembers) {
+            members = [];
+            renderMembers();
+            return;
+        }
+
+        // Resolve department names for each member
+        const membersWithDept = await Promise.all(allMembers.map(async (member) => {
+            if (member.department_id) {
+                const dept = await UTILS.supabaseQuery('departments', {
+                    where: { id: member.department_id }
+                });
+                return { 
+                    ...member, 
+                    department_name: dept && dept[0] ? dept[0].name : 'Sem departamento' 
+                };
+            }
+            return { ...member, department_name: 'Sem departamento' };
+        }));
+        
+        members = membersWithDept;
         filteredMembers = members;
         renderMembers();
     } catch (error) {
         console.error('❌ Error loading members:', error);
+        UTILS.showError('Erro ao carregar membros');
     }
 }
 
