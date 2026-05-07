@@ -1,0 +1,156 @@
+/* Refinamentos de UI para Perfil e Admin - Interface de Gestão */
+
+.profile-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+}
+
+.profile-header-section {
+    text-align: center;
+    background: var(--bg-surface);
+    padding: 40px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--glass-shadow);
+    width: 100%;
+    max-width: 600px;
+}
+
+.profile-avatar-wraper {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+}
+
+.profile-avatar-main {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: var(--bg-surface);
+    border: 4px solid var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--text-main);
+    box-shadow: 0 0 20px var(--accent);
+    transition: all 0.3s ease;
+}
+
+.profile-name-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: var(--text-main);
+}
+
+/* Estilização do Formulário de Edição */
+.profile-form-container {
+    background: var(--bg-surface);
+    padding: 30px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--glass-border);
+    width: 100%;
+    max-width: 600px;
+    box-shadow: var(--glass-shadow);
+}
+
+.field-row {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.field-row label {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    font-weight: 500;
+    margin-left: 5px;
+}
+
+.color-picker-wraper {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    background: rgba(0,0,0,0.2);
+    padding: 10px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--glass-border);
+}
+
+.color-picker-input {
+    width: 50px;
+    height: 50px;
+    border: none;
+    cursor: pointer;
+    background: transparent;
+}
+
+.color-hex-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: white;
+    font-family: 'SF Mono', monospace;
+    font-size: 1rem;
+    outline: none;
+}
+
+/* Admin Panel Enhancements */
+.admin-member-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: var(--bg-surface);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--glass-border);
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.admin-member-card:hover {
+    border-color: var(--accent);
+    background: var(--bg-surface-hover);
+    transform: translateX(5px);
+}
+
+.member-info-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.member-initial-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: white;
+    font-size: 0.9rem;
+}
+
+.btn-delete {
+    background: rgba(239, 83, 80, 0.1);
+    color: var(--error-color);
+    border: 1px solid var(--error-color);
+    padding: 6px 12px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-size: 0.8rem;
+    transition: all 0.2s;
+}
+
+.btn-delete:hover {
+    background: var(--error-color);
+    color: white;
+}

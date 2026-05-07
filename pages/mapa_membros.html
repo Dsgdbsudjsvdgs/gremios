@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mapa de Membros - Grêmio Estudantil</title>
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body style="background: var(--bg-main);">
+    <div class="watermark">Grêmio Estudantil — Organograma</div>
+    
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="../assets/img/logo-da-escola/educa_mais_sem_fundo.svg" alt="Grêmio Logo">
+            </div>
+            <a href="dashboard.html" class="user-badge" style="text-decoration: none; color: white; font-weight: 600;">← Voltar ao Painel</a>
+        </div>
+    </header>
+    
+    <main class="container">
+        <h1 class="dashboard-title fade-in">Mapa de Membros</h1>
+        <p style="text-align: center; color: var(--text-dim); margin-bottom: 30px;">Visão geral de todos os cargos e responsáveis</p>
+        
+        <div id="members-map" class="grid-dashboard fade-in" style="grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));">
+            <!-- Membros injetados dinamicamente pelo JS -->
+        </div>
+    </main>
+    
+    <script src="../assets/js/mapa_membros.js"></script>
+</body>
+</html>

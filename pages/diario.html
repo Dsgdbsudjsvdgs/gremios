@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diário do Grêmio - Registro</title>
+    <link rel="stylesheet" href="../assets/css/variables.css">
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+    <div class="watermark">Grêmio Estudantil — Registro Diário</div>
+    <header>
+        <div class="container header-content">
+            <div class="logo">
+                <img src="../assets/img/logo-da-escola/educa_mais_sem_fundo.svg" alt="Grêmio Logo">
+            </div>
+            <a href="dashboard.html" class="user-badge" style="text-decoration: none; color: white;">← Voltar</a>
+        </div>
+    </header>
+    <main class="container">
+        <h1 class="dashboard-title fade-in">Diário de Atividades</h1>
+        <div class="card fade-in" style="max-width: 800px; margin: 0 auto;">
+            <form id="diary-form" style="display: flex; flex-direction: column; gap: 20px;">
+                <div class="input-group">
+                    <label>Data da Anotação</label>
+                    <input type="date" id="diary-date" required>
+                </div>
+                <div class="input-group">
+                    <label>Ocorrência/Ação</label>
+                    <textarea id="diary-text" style="width: 100%; height: 150px; background: rgba(0,0,0,0.2); color: white; border: 1px solid var(--glass-border); border-radius: var(--radius-md); padding: 10px; outline: none;" placeholder="Descreva o que aconteceu..."></textarea>
+                </div>
+                <button type="submit" class="btn-login">Registrar no Diário</button>
+            </form>
+        </div>
+        <div id="diary-logs" class="content-section fade-in" style="margin-top: 40px; display: grid; gap: 15px;">
+            <!-- Logs injetados via JS -->
+        </div>
+    </main>
+    <script src="../assets/js/diary.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+/* Adicionando estilos específicos para a tela de login para evitar "cara de cru" */
+.login-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.login-header h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    background: var(--gradient-main);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 8px;
+}
+
+.login-header p {
+    color: var(--text-dim);
+    font-size: 0.9rem;
+}
+
+.login-logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 0 20px var(--primary);
+    border: 2px solid var(--glass-border);
+}
+
+.error-msg {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: var(--radius-sm);
+    background: rgba(239, 83, 80, 0.1);
+    border: 1px solid var(--error-color);
+    color: var(--error-color);
+    font-size: 0.85rem;
+    text-align: center;
+}

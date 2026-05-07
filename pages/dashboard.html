@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Dashboard - Grêmio Estudantil</title>
+    <link rel="stylesheet" href="/assets/css/variables.css">
+    <link rel="stylesheet" href="/assets/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body {
+            background: var(--bg-dark);
+            margin: 0;
+            font-family: var(--font-main, 'Poppins', sans-serif);
+            color: white;
+        }
+        .watermark {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            opacity: 0.5;
+            pointer-events: none;
+            z-index: 1000;
+        }
+        header {
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--glass-border);
+            padding: 12px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+        }
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .user-info {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+        #user-name {
+            font-size: 0.85rem;
+            font-weight: 600;
+            line-height: 1.2;
+            max-width: 120px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        .user-role-badge {
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        #btn-logout {
+            color: var(--error-color);
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 6px 12px;
+            border: 1px solid var(--error-color);
+            border-radius: var(--radius-sm);
+            transition: all 0.3s ease;
+        }
+        #btn-logout:hover {
+            background: var(--error-color);
+            color: white;
+        }
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .dashboard-title {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 24px;
+            font-weight: 700;
+        }
+        .grid-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 16px;
+            margin-bottom: 30px;
+        }
+        .card {
+            background: var(--bg-surface);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-lg);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: var(--glass-shadow);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        .card h3 {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+        .card .value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin: 0 0 15px 0;
+        }
+        .btn-card {
+            width: 100%;
+            padding: 8px;
+            border-radius: var(--radius-md);
+            border: none;
+            background: var(--primary);
+            color: white;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: filter 0.3s;
+        }
+        .btn-card:hover {
+            filter: brightness(1.2);
+        }
+        .quick-actions-section {
+            margin-bottom: 40px;
+        }
+        .section-label {
+            font-size: 1rem;
+            color: var(--text-dim);
+            margin-bottom: 15px;
+            display: block;
+            text-align: center;
+            font-weight: 500;
+        }
+        .quick-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .btn-quick {
+            padding: 16px;
+            border-radius: var(--radius-md);
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+        .btn-quick:hover {
+            transform: scale(1.02);
+            filter: brightness(1.1);
+        }
+        .btn-quick:active {
+            transform: scale(0.98);
+        }
+        .content-section {
+            margin-top: 40px;
+        }
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .section-header h2 {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        .filter-bar select {
+            padding: 8px 12px;
+            border-radius: var(--radius-md);
+            background: var(--bg-surface);
+            color: white;
+            border: 1px solid var(--glass-border);
+            outline: none;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        #tasks-list {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        .task-card {
+            background: var(--bg-surface);
+            border-radius: var(--radius-md);
+            padding: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-left: 5px solid #ddd;
+            transition: transform 0.2s ease;
+        }
+        .task-card:hover {
+            transform: translateX(5px);
+        }
+        .task-info strong {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 4px;
+        }
+        .task-info span {
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+        .task-status {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 4px 8px;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        .status-pendente { background: rgba(255, 165, 0, 0.2); color: #ffa500; }
+        .status-concluido { background: rgba(0, 255, 0, 0.2); color: #00ff00; }
+        .status-andamento { background: rgba(0, 191, 255, 0.2); color: #00bfff; }
+
+        @media (max-width: 480px) {
+            .quick-grid {
+                grid-template-columns: 1fr;
+            }
+            .header-content {
+                padding: 0 15px;
+            }
+            #user-name {
+                max-width: 80px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="watermark">Grêmio Estudantil — uso interno</div>
+    
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <img src="/assets/img/logo-da-escola/educa_mais_sem_fundo.svg" alt="Grêmio Logo">
+            </div>
+            <div class="user-profile">
+                <div class="user-info">
+                    <span id="user-name">Carregando...</span>
+                    <a href="#" id="user-role-link" style="text-decoration: none;">
+                        <span id="user-role-badge" class="user-role-badge">Cargo</span>
+                    </a>
+                </div>
+                <a href="#" id="btn-logout">Sair</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <h1 class="dashboard-title fade-in">Painel de Controle</h1>
+        
+        <section class="grid-dashboard">
+            <div class="card fade-in" style="animation-delay: 0.1s;">
+                <h3>Tarefas</h3>
+                <p id="count-tasks" class="value">0</p>
+                <button class="btn-card">Ver Tudo</button>
+            </div>
+            <div class="card fade-in" style="animation-delay: 0.2s;">
+                <h3>Eventos</h3>
+                <p id="count-events" class="value">0</p>
+                <a href="/pages/calendario.html" class="btn-card" style="display:block; text-decoration:none; text-align:center;">Abrir</a>
+            </div>
+            <div class="card fade-in" id="card-financeiro" style="display:none; animation-delay: 0.3s;">
+                <h3>Saldo</h3>
+                <p id="finance-total" class="value" style="color: var(--success-color);">R$ 0</p>
+                <button class="btn-card">Gerenciar</button>
+            </div>
+            <div class="card fade-in" id="card-admin" style="display:none; animation-delay: 0.4s;">
+                <h3>Gestão</h3>
+                <p class="value" style="font-size: 1rem; color: var(--text-dim);">Administrador</p>
+                <a href="/pages/admin.html" class="btn-card" style="display:block; text-decoration:none; text-align:center;">Acessar</a>
+            </div>
+        </section>
+
+        <div class="quick-actions-section">
+            <span class="section-label">Ações Rápidas</span>
+            <div class="quick-grid">
+                <a href="/pages/calendario.html" class="btn-quick" style="background: var(--accent);">📅 Novo Evento</a>
+                <a href="/pages/diario.html" class="btn-quick" style="background: #4a90e2;">📝 Registro</a>
+                <a href="/pages/perfil.html" class="btn-quick" style="background: #f39c12;">👤 Perfil</a>
+                <a href="/pages/mapa_membros.html" class="btn-quick" style="background: #9b59b6;">👥 Membros</a>
+            </div>
+        </div>
+
+        <section class="content-section">
+            <div class="section-header">
+                <h2>Minhas Tarefas</h2>
+                <div class="filter-bar">
+                    <select id="filter-dept">
+                        <option value="all">Todas</option>
+                    </select>
+                </div>
+            </div>
+            <div id="tasks-list">
+                <!-- JS -->
+            </div>
+        </section>
+    </main>
+    
+    <script src="/assets/js/dashboard.js"></script>
+</body>
+</html>

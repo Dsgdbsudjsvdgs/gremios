@@ -1,0 +1,105 @@
+/* Refinamentos de UI para o Dashboard - Experiência Premium */
+
+.dashboard-title {
+    text-align: center;
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 30px;
+    background: linear-gradient(135deg, var(--text-main), var(--accent));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -1px;
+}
+
+.grid-dashboard {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 25px;
+    padding: 10px 0;
+}
+
+.card {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: var(--glass-shadow);
+}
+
+.card:hover {
+    transform: translateY(-10px) scale(1.02);
+    background: var(--bg-surface-hover);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+    border-color: var(--accent);
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.05), transparent);
+    pointer-events: none;
+}
+
+.card h3 {
+    font-size: 1rem;
+    text-transform: upercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.card p {
+    transition: all 0.3s ease;
+}
+
+.card:hover p {
+    transform: scale(1.1);
+    color: var(--accent);
+}
+
+/* Estilização da Lista de Tarefas */
+.content-section {
+    background: rgba(255, 255, 255, 0.02);
+    padding: 30px;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--glass-border);
+    margin-top: 40px;
+}
+
+.task-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-md);
+    padding: 18px 24px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.task-card:hover {
+    border-color: var(--accent);
+    background: var(--bg-surface-hover);
+    transform: translateX(10px);
+}
+
+.task-info strong {
+    font-size: 1.1rem;
+    color: var(--text-main);
+}
+
+.task-status {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+/* Animação de Entrada em Cascata */
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}

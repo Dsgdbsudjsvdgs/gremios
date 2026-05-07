@@ -1,0 +1,47 @@
+:root {
+    /* Cores Base - Dark Glassmorphism */
+    --bg-dark: #0a0b10;
+    --bg-surface: rgba(255, 255, 255, 0.05);
+    --bg-surface-hover: rgba(255, 255, 255, 0.08);
+    
+    /* Primárias */
+    --primary: #0062ff;
+    --primary-dark: #0048c2;
+    --accent: #00d4ff;
+    
+    /* Texto */
+    --text-main: #ffffff;
+    --text-dim: #a0a0a8;
+    --text-muted: #6c757d;
+    
+    /* Detalhes Glass */
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    
+    /* Raio e Transição */
+    --radius-lg: 24px;
+    --radius-md: 14px;
+    --radius-sm: 8px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Gradientes */
+    --gradient-main: linear-gradient(135deg, var(--primary), var(--accent));
+    --gradient-dark: linear-gradient(135deg, #003380, #001a40);
+    
+    /* Cores de Status */
+    --success-color: #4CAF50;
+    --error-color: #EF5350;
+    --warning-color: #FFA726;
+
+    /* ── Paleta ORIGINAL de Diretorias (EXATAMENTE como era) ── */
+    --color-executivo: #2C3E50;
+    --color-cultura: #A569BD;
+    --color-esportes: #5499C7;
+    --color-eventos: #F5B7B1;
+    --color-comunicacao: #F8C471;
+    --color-social: #82E0AA;
+    --color-ambiente: #ABEBC6;
+    --color-protagonismo: #AED6F1;
+    --color-tecnologia: #D5A6BD;
+    --color-ouvidoria: #D7BDE2;
+}
