@@ -67,7 +67,7 @@ async function handleLogin(codeInput, dateInput, loginBtn, errorMsg) {
         const { data: members, error: queryError } = await supabase
             .from('membros')
             .select('*')
-            .eq('cpf', accessCode)
+            .eq('codigo_acesso', accessCode)
             .limit(1);
 
         if (queryError) {
