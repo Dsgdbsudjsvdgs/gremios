@@ -38,21 +38,21 @@ const APP_CONFIG = {
     SESSION_TIMEOUT: 24 * 60 * 60 * 1000, // 24 horas
 };
 
-// Departamentos Mapping
+// Departamentos Mapping (Sincronizado com nomes de arquivos em /pages)
 const DEPARTMENTS = {
-    'Presidente': { slug: 'presidente', color: '#FF6B6B' },
-    'Vice-Presidente': { slug: 'vice-presidente', color: '#4ECDC4' },
-    'Secretário Geral': { slug: 'secretario_geral', color: '#45B7D1' },
-    'Secretária': { slug: 'secretaria', color: '#FFA07A' },
-    'Tesoureira': { slug: 'tesoureira', color: '#98D8C8' },
-    'Tecnologia e Inovação': { slug: 'tecnologia_e_inovacao', color: '#F7DC6F' },
-    'Eventos': { slug: 'eventos', color: '#BB8FCE' },
-    'Esportes': { slug: 'esportes', color: '#85C1E2' },
-    'Cultura': { slug: 'cultura', color: '#52C9A0' },
-    'Ouvidoria': { slug: 'ouvidoria', color: '#F8B739' },
-    'Responsabilidade Social': { slug: 'resp_social', color: '#52C9A0' },
-    'Protagonismo': { slug: 'protagonismo', color: '#A8D8EA' },
-    'Meio Ambiente': { slug: 'meio_ambiente', color: '#7FD8BE' },
+    'Presidente': { slug: 'dept_presidente', color: '#FF6B6B' },
+    'Vice-Presidente': { slug: 'dept_vice-presidente', color: '#4ECDC4' },
+    'Secretário Geral': { slug: 'dept_secretário_geral', color: '#45B7D1' },
+    'Secretária': { slug: 'dept_secretária', color: '#FFA07A' },
+    'Tesoureira': { slug: 'dept_tesoureira', color: '#98D8C8' },
+    'Tecnologia e Inovação': { slug: 'dept_tecnologia_e_inovacao', color: '#F7DC6F' },
+    'Eventos': { slug: 'dept_eventos', color: '#BB8FCE' },
+    'Esportes': { slug: 'dept_esportes', color: '#85C1E2' },
+    'Cultura': { slug: 'dept_cultura', color: '#52C9A0' },
+    'Ouvidoria': { slug: 'dept_ouvidoria', color: '#F8B739' },
+    'Responsabilidade Social': { slug: 'dept_resp._social', color: '#52C9A0' },
+    'Protagonismo': { slug: 'dept_protagonismo', color: '#A8D8EA' },
+    'Meio Ambiente': { slug: 'dept_meio_ambiente', color: '#7FD8BE' },
     'Diretoria': { slug: 'diretoria', color: '#E8A0BF' }
 };
 
