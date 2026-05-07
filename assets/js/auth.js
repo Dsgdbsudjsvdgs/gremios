@@ -57,26 +57,29 @@ async function handleLogin(codeInput, dateInput, loginBtn, errorMsg) {
             throw new Error(dateValidation.error);
         }
 
-        // Call Supabase RPC
+        // Call Supabase Query (Direct Table Access)
         const supabase = CONFIG.getSupabase();
         if (!supabase) {
             throw new Error('Supabase não inicializado');
         }
 
-        const { data: rpcData, error: rpcError } = await supabase.rpc('validate_access_code', {
-            input_code: accessCode
-        });
+        // Query directly from 'membros' table instead of using RPC
+        const { data: members, error: queryError } = await supabase
+            .from('membros')
+            .select('*')
+            .eq('cpf', accessCode)
+            .limit(1);
 
-        if (rpcError) {
-            console.error('RPC Error:', rpcError);
+        if (queryError) {
+            console.error('Query Error:', queryError);
             throw new Error('Erro ao validar código. Tente novamente.');
         }
 
-        if (!rpcData || rpcData.length === 0) {
+        if (!members || members.length === 0) {
             throw new Error('Código de acesso inválido');
         }
 
-        const profile = rpcData[0];
+        const profile = members[0];
 
         // Validate birth date matches
         if (profile.birth_date && profile.birth_date !== birthDate) {

@@ -1,0 +1,228 @@
+/* ===== DARK MODE ===== */
+
+:root {
+    --color-bg-light: #ffffff;
+    --color-bg-dark: #1a1a1a;
+    --color-text-light: #333333;
+    --color-text-dark: #ffffff;
+    --color-border-light: #e0e0e0;
+    --color-border-dark: #333333;
+}
+
+html[data-theme="light"] {
+    --color-bg: var(--color-bg-light);
+    --color-text: var(--color-text-light);
+    --color-border: var(--color-border-light);
+}
+
+html[data-theme="dark"] {
+    --color-bg: var(--color-bg-dark);
+    --color-text: var(--color-text-dark);
+    --color-border: var(--color-border-dark);
+}
+
+body.dark-mode {
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-dark);
+}
+
+body.dark-mode * {
+    background-color: inherit;
+    color: inherit;
+}
+
+body.dark-mode .card,
+body.dark-mode .panel,
+body.dark-mode .modal {
+    background-color: #2a2a2a;
+    border-color: var(--color-border-dark);
+}
+
+body.dark-mode input,
+body.dark-mode textarea,
+body.dark-mode select {
+    background-color: #333333;
+    color: var(--color-text-dark);
+    border-color: var(--color-border-dark);
+}
+
+body.dark-mode button {
+    background-color: #444444;
+    color: var(--color-text-dark);
+}
+
+body.dark-mode button:hover {
+    background-color: #555555;
+}
+
+/* Dark Mode Toggle Button */
+.dark-mode-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid var(--color-border);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-size: 24px;
+    cursor: pointer;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+    .dark-mode-toggle {
+        width: 45px;
+        height: 45px;
+        font-size: 20px;
+        top: 10px;
+        right: 10px;
+    }
+}
+
+/* ===== NOTIFICATIONS ===== */
+
+#notification-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    max-width: 400px;
+    pointer-events: none;
+}
+
+.notification {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: slideIn 0.3s ease-out;
+    pointer-events: auto;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(400px);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-content h4 {
+    margin: 0 0 4px 0;
+    font-weight: 600;
+    font-size: 15px;
+}
+
+.notification-content p {
+    margin: 0;
+    font-size: 13px;
+    opacity: 0.9;
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    color: inherit;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 0 8px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+}
+
+.notification-close:hover {
+    opacity: 1;
+}
+
+/* Notification Types */
+.notification-info {
+    background-color: #e3f2fd;
+    color: #1565c0;
+    border-left: 4px solid #1976d2;
+}
+
+body.dark-mode .notification-info {
+    background-color: #1e3a5f;
+    color: #64b5f6;
+    border-left-color: #42a5f5;
+}
+
+.notification-success {
+    background-color: #e8f5e9;
+    color: #2e7d32;
+    border-left: 4px solid #4caf50;
+}
+
+body.dark-mode .notification-success {
+    background-color: #1b5e20;
+    color: #81c784;
+    border-left-color: #66bb6a;
+}
+
+.notification-warning {
+    background-color: #fff3e0;
+    color: #e65100;
+    border-left: 4px solid #ff9800;
+}
+
+body.dark-mode .notification-warning {
+    background-color: #4a2511;
+    color: #ffb74d;
+    border-left-color: #ffa726;
+}
+
+.notification-error {
+    background-color: #ffebee;
+    color: #c62828;
+    border-left: 4px solid #f44336;
+}
+
+body.dark-mode .notification-error {
+    background-color: #5a1a1a;
+    color: #ef5350;
+    border-left-color: #e53935;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 480px) {
+    #notification-container {
+        max-width: calc(100vw - 20px);
+        left: 10px;
+        right: 10px;
+        top: 70px;
+    }
+
+    .notification {
+        padding: 12px;
+        font-size: 13px;
+    }
+
+    .notification-content h4 {
+        font-size: 14px;
+    }
+
+    .notification-content p {
+        font-size: 12px;
+    }
+}
