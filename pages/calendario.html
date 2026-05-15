@@ -2,70 +2,95 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendário - Grêmio Estudantil</title>
-    <link rel="stylesheet" href="../assets/css/variables.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Calendário de Eventos | Grêmio Estudantil</title>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-    <div class="watermark">Grêmio Estudantil — Gestão de Tempo</div>
-    
-    <header>
-        <div class="container header-content">
-            <div class="logo">
-                <img src="../assets/img/logo-da-escola/educa_mais_sem_fundo.svg" alt="Grêmio Logo">
-            </div>
-            <a href="dashboard.html" class="user-badge" style="text-decoration: none; color: white;">← Voltar</a>
-        </div>
-    </header>
-    
-    <main class="container">
-        <h1 class="dashboard-title fade-in">Calendário de Eventos</h1>
-        
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-            <div id="month-display" style="font-size: 1.2rem; font-weight: 600; color: var(--text-main);">Mês Ano</div>
-            <button id="btn-add-event" class="btn-login" style="width: auto; padding: 10px 20px;">+ Novo Evento</button>
-        </div>
-
-        <div class="calendar-container fade-in">
-            <div class="calendar-grid" id="calendar-days">
-                <!-- Dias injetados via JS -->
+    <nav class="side-nav">
+        <div class="logo-container">
+            <div class="mobile-nav-trigger">
+                <div class="logo-pulse-btn">
+                    <img src="../assets/img/logo-da-escola/file_000000000d1871f59dac366c408947b5.svg" alt="Logo Escola">
+                </div>
             </div>
         </div>
+        <ul class="nav-links">
+            <li class="nav-item"><a href="dashboard.html" class="nav-link"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+            <li class="nav-item"><a href="diretoria.html" class="nav-link"><i class="fa-solid fa-users"></i> Diretoria</a></li>
+            <li class="nav-item"><aC href="calendario.html" class="nav-link active"><i class="fa-solid fa-calendar-days"></i> Calendário</a></li>
+            <li class="nav-item"><a href="diario.html" class="nav-link"><i class="fa-solid fa-book"></i> Diário/Notas</a></li>
+            <li class="nav-item"><a href="perfil.html" class="nav-link"><i class="fa-solid fa-user"></i> Meu Perfil</a></li>
+            <li class="nav-item"><a href="../index.html" class="nav-link" style="color: var(--danger);"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
+        </ul>
+    </nav>
 
-        <section id="events-section" class="content-section fade-in" style="margin-top: 30px; display: none;">
-            <h2 id="selected-date-title" style="margin-bottom: 20px; font-size: 1.5rem;">Eventos do Dia</h2>
-            <div id="events-list" class="events-grid">
-                <!-- Eventos injetados via JS -->
+    <main class="main-content">
+        <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+            <h1>📅 Calendário de Eventos</h1>
+            <button id="btn-add-event" class="btn-primary"><i class="fa-solid fa-plus"></i> Novo Evento</button>
+        </header>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px;">
+            <div class="glass-card">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <button id="btn-prev-month" class="btn-outline"><i class="fa-solid fa-chevron-left"></i></button>
+                    <h2 id="current-month" style="margin: 0;">Carregando...</h2>
+                    <button id="btn-next-month" class="btn-outline"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+
+                <div id="calendar-grid" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px; text-align: center; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px; margin-bottom: 10px;">
+                    <div style="font-weight: bold; color: var(--text-muted);">Dom</div>
+                    <div style="font-weight: bold; color: var(--text-muted);">Seg</div>
+                    <div style="font-weight: bold; color: var(--text-muted);">Ter</div>
+                    <div style="font-s-weight: bold; color: var(--text-muted);">Qua</div>
+                    <div style="font-weight: bold; color: var(--text-muted);">Qui</div>
+                    <div style="font-weight: bold; color: var(--text-muted);">Sex</div>
+                    <div style="font-weight: bold; color: var(--text-muted);">Sáb</div>
+                </div>
+                <div id="calendar-days" style="display: grid; grid-template-columns: repeat(7, 1fr); gap: 10px;">
+                    <!-- Dias injetados via JS -->
+                </div>
             </div>
-        </section>
 
-        <div id="event-modal" class="ap-dialog-overlay" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); z-index: 2000; align-items: center; justify-content: center;">
-            <div class="form-modal" style="width: min(400px, 90%);">
-                <h2>Agendar Evento</h2>
-                <form id="event-form" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;">
-                    <div class="input-group">
-                        <label>Título do Evento</label>
-                        <input type="text" id="event-title" required placeholder="Ex: Reunião Geral">
-                    </div>
-                    <div class="input-group">
-                        <label>Data</label>
-                        <input type="date" id="event-date" required>
-                    </div>
-                    <div class="input-group">
-                        <label>Descrição</label>
-                        <textarea id="event-desc" style="width: 100%; padding: 10px; border-radius: var(--radius-md); background: rgba(0,0,0,0.2); color: white; border: 1px solid var(--glass-border); outline: none; height: 80px;"></textarea>
-                    </div>
-                    <div style="display: flex; gap: 10px; justify-content: flex-end;">
-                        <button type="button" id="btn-close-modal" class="btn-card" style="color: var(--text-dim);">Cancelar</button>
-                        <button type="submit" class="btn-login" style="width: auto;">Salvar Evento</button>
-                    </div>
-                </form>
+            <div class="glass-card">
+                <h3 style="color: var(--primary); margin-top: 0;">Eventos do Dia</h3>
+                <div id="day-events">
+                    <p class="empty-state">Selecione um dia para ver os eventos</p>
+                </div>
             </div>
         </div>
     </main>
-    
+
+    <div id="event-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); align-items: center; justify-content: center; z-index: 1000;">
+        <div class="glass-card" style="width: 400px; max-width: 90%;">
+            <h2 style="margin-top: 0;">Novo Evento</h2>
+            <form id="event-form">
+                <label>Título do Evento</label>
+                <input type="text" name="event-title" required placeholder="Ex: Reunião Geral">
+                
+                <label>Data</label>
+                <input type="date" name="event-date" required>
+                
+                <label>Local</label>
+                <input type="text" name="event-location" placeholder="Ex: Auditório">
+                
+                <label>Descrição</label>
+                <textarea name="event-desc" rows="3" placeholder="Detalhes do evento..."></textarea>
+                
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="button" id="btn-close-modal" class="btn-outline" style="flex: 1;">Cancelar</button>
+                    <button type="submit" class="btn-primary" style="flex: 1;">Salvar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/utils.js"></script>
     <script src="../assets/js/calendar.js"></script>
+    <script src="../assets/js/mobile-nav.js"></script>
 </body>
 </html>

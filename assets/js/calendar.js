@@ -31,9 +31,11 @@ async function loadEvents() {
         
         if (events) {
             events.forEach(event => {
-                const date = event.date.split('T')[0];
-                if (!eventsMap[date]) eventsMap[date] = [];
-                eventsMap[date].push(event);
+                const date = event.date ? event.date.split('T')[0] : null;
+                if (date) {
+                    if (!eventsMap[date]) eventsMap[date] = [];
+                    eventsMap[date].push(event);
+                }
             });
         }
     } catch (error) {

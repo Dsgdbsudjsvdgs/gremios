@@ -24,6 +24,8 @@ async function initDiary() {
 async function loadDiaryEntries() {
     try {
         const user = UTILS.getStorageUser();
+        if (!user) throw new Error('Usuário não autenticado');
+
         const entries = await UTILS.supabaseQuery('diary_entries', {
             where: { created_by: user.id },
             order: { column: 'created_at', ascending: false }
@@ -33,6 +35,7 @@ async function loadDiaryEntries() {
         renderDiaryEntries();
     } catch (error) {
         console.error('❌ Error loading diary entries:', error);
+        UTILS.showError('Erro ao carregar diário');
     }
 }
 

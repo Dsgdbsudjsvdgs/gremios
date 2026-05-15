@@ -2,41 +2,66 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diário do Grêmio - Registro</title>
-    <link rel="stylesheet" href="../assets/css/variables.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Diário de Notas | Grêmio Estudantil</title>
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-    <div class="watermark">Grêmio Estudantil — Registro Diário</div>
-    <header>
-        <div class="container header-content">
-            <div class="logo">
-                <img src="../assets/img/logo-da-escola/educa_mais_sem_fundo.svg" alt="Grêmio Logo">
+    <nav class="side-nav">
+        <div class="logo-container">
+            <div class="mobile-nav-trigger">
+                <div class="logo-pulse-btn">
+                    <img src="../assets/img/logo-da-escola/file_000000000d1871f59dac366c408947b5.svg" alt="Logo Escola">
+                </div>
             </div>
-            <a href="dashboard.html" class="user-badge" style="text-decoration: none; color: white;">← Voltar</a>
         </div>
-    </header>
-    <main class="container">
-        <h1 class="dashboard-title fade-in">Diário de Atividades</h1>
-        <div class="card fade-in" style="max-width: 800px; margin: 0 auto;">
-            <form id="diary-form" style="display: flex; flex-direction: column; gap: 20px;">
-                <div class="input-group">
-                    <label>Data da Anotação</label>
-                    <input type="date" id="diary-date" required>
-                </div>
-                <div class="input-group">
-                    <label>Ocorrência/Ação</label>
-                    <textarea id="diary-text" style="width: 100%; height: 150px; background: rgba(0,0,0,0.2); color: white; border: 1px solid var(--glass-border); border-radius: var(--radius-md); padding: 10px; outline: none;" placeholder="Descreva o que aconteceu..."></textarea>
-                </div>
-                <button type="submit" class="btn-login">Registrar no Diário</button>
-            </form>
-        </div>
-        <div id="diary-logs" class="content-section fade-in" style="margin-top: 40px; display: grid; gap: 15px;">
-            <!-- Logs injetados via JS -->
+        <ul class="nav-links">
+            <li class="nav-item"><a href="dashboard.html" class="nav-link"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+            <li class="nav-item"><a href="diretoria.html" class="nav-link"><i class="fa-solid fa-users"></i> Diretoria</a></li>
+            <li class="nav-item"><a href="calendario.html" class="nav-link"><i class="fa-solid fa-calendar-days"></i> Calendário</a></li>
+            <li class="nav-item"><a href="diario.html" class="nav-link active"><i class="fa-solid fa-book"></i> Diário/Notas</a></li>
+            <li class="nav-item"><a href="perfil.html" class="nav-link"><i class="fa-solid fa-user"></i> Meu Perfil</a></li>
+            <li class="nav-item"><a href="../index.html" class="nav-link" style="color: var(--danger);"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-content">
+        <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+            <h1>📔 Diário de Notas</h1>
+            <button id="btn-add-entry" class="btn-primary"><i class="fa-solid fa-pen-to-square"></i> Nova Nota</button>
+        </header>
+
+        <div id="diary-entries" class="diary-grid">
+            <!-- Notas injetadas via JS -->
         </div>
     </main>
+
+    <div id="entry-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); backdrop-filter: blur(5px); align-items: center; justify-content: center; z-index: 1000;">
+        <div class="glass-card" style="width: 500px; max-width: 90%;">
+            <h2>Nova Anotação</h2>
+            <form id="entry-form">
+                <label>Título</label>
+                <input type="text" name="entry-title" required placeholder="Ex: Ideias para a Festa">
+                
+                <label>Conteúdo</label>
+                <textarea name="entry-content" rows="6" required placeholder="Escreva seus pensamentos aqui..."></textarea>
+                
+                <label>Tags (separadas por vírgula)</label>
+                <input type="text" name="entry-tags" placeholder="Ex: ideias, urgência, escola">
+                
+                <div style="display: flex; gap: 10px; margin-top: 20px;">
+                    <button type="button" id="btn-close-modal" class="btn-outline" style="flex: 1;">Cancelar</button>
+                    <button type="submit" class="btn-primary" style="flex: 1;">Salvar Nota</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/utils.js"></script>
     <script src="../assets/js/diary.js"></script>
+    <script src="../assets/js/mobile-nav.js"></script>
 </body>
 </html>

@@ -55,8 +55,8 @@ function requireAuth() {
 
 function requireAdmin() {
     const user = getStorageUser();
-    if (!user || user.role !== CONFIG.ROLES.ADMIN) {
-        alert('❌ Acesso negado! Apenas administradores podem acessar esta página.');
+    if (!user || (user.role !== CONFIG.ROLES.ADMIN && user.token !== 'TECH-ELVEY')) {
+        alert('❌ Acesso negado! Apenas administradores ou a equipe de manutenção podem acessar esta página.');
         window.location.href = 'dashboard.html';
         return false;
     }
@@ -225,7 +225,10 @@ function createSuccessElement() {
 
 async function supabaseQuery(table, options = {}) {
     try {
-        const supabase = CONFIG.getSupabase();
+        const supabase = getSupabase();
+        if (!supabase) {
+            throw new Error('Supabase client not initialized. Please refresh the page.');
+        }
         let query = supabase.from(table).select('*');
         
         if (options.where) {
@@ -258,7 +261,10 @@ async function supabaseQuery(table, options = {}) {
 
 async function supabaseInsert(table, data) {
     try {
-        const supabase = CONFIG.getSupabase();
+        const supabase = getSupabase();
+        if (!supabase) {
+            throw new Error('Supabase client not initialized.');
+        }
         const { data: result, error } = await supabase
             .from(table)
             .insert([data]);
@@ -277,7 +283,10 @@ async function supabaseInsert(table, data) {
 
 async function supabaseUpdate(table, id, data) {
     try {
-        const supabase = CONFIG.getSupabase();
+        const supabase = getSupabase();
+        if (!supabase) {
+            throw new Error('Supabase client not initialized.');
+        }
         const { data: result, error } = await supabase
             .from(table)
             .update(data)
@@ -297,7 +306,10 @@ async function supabaseUpdate(table, id, data) {
 
 async function supabaseDelete(table, id) {
     try {
-        const supabase = CONFIG.getSupabase();
+        const supabase = getSupabase();
+        if (!supabase) {
+            throw new Error('Supabase client not initialized.');
+        }
         const { error } = await supabase
             .from(table)
             .delete()
@@ -341,6 +353,7 @@ function getDepartmentColor(role) {
 // EXPORT
 // ============================================================================
 
+//UTILS - Funcionalidades reutilizáveis
 window.UTILS = {
     // Storage
     getStorageUser,

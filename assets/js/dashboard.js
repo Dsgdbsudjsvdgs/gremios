@@ -25,7 +25,7 @@ async function initDashboard() {
         updateUserInfo();
 
         // Load data
-        await loadDashboardData();
+        await loadDashboardData(); // Carregar dados do dashboard
 
         // Setup event listeners
         setupEventListeners();

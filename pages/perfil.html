@@ -3,252 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Meu Perfil - Grêmio Estudantil</title>
-    <link rel="stylesheet" href="/assets/css/variables.css">
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <style>
-        body {
-            background: var(--bg-dark);
-            margin: 0;
-            font-family: var(--font-main, 'Poppins', sans-serif);
-            color: white;
-        }
-        .watermark {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            font-size: 0.7rem;
-            color: var(--text-dim);
-            opacity: 0.5;
-            pointer-events: none;
-            z-index: 1000;
-        }
-        header {
-            background: var(--bg-surface);
-            border-bottom: 1px solid var(--glass-border);
-            padding: 12px 0;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-        }
-        .header-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        .logo img {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
-        }
-        .btn-back {
-            text-decoration: none;
-            color: white;
-            font-size: 0.85rem;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            padding: 6px 12px;
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-md);
-            transition: all 0.3s ease;
-        }
-        .btn-back:hover {
-            background: var(--bg-surface);
-            border-color: var(--primary);
-        }
-        main {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        .page-title {
-            text-align: center;
-            font-size: 1.5rem;
-            margin-bottom: 24px;
-            font-weight: 700;
-        }
-        .profile-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-lg);
-            padding: 30px;
-            max-width: 500px;
-            margin: 0 auto;
-            box-shadow: var(--glass-shadow);
-            text-align: center;
-        }
-        .profile-header {
-            margin-bottom: 30px;
-        }
-        .profile-pic-container {
-            width: 110px;
-            height: 110px;
-            border-radius: 50%;
-            background: var(--bg-surface);
-            border: 4px solid var(--primary);
-            margin: 0 auto 15px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.5rem;
-            font-weight: 800;
-            box-shadow: 0 0 20px rgba(0, 98, 255, 0.2);
-        }
-        .profile-name {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin: 0 0 8px 0;
-        }
-        .profile-role-badge {
-            font-size: 0.7rem;
-            padding: 4px 12px;
-            border-radius: 12px;
-            font-weight: 700;
-            text-transform: uppercase;
-            background: var(--primary);
-        }
-        .profile-form {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            text-align: left;
-            margin-top: 30px;
-        }
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        .input-group label {
-            font-size: 0.85rem;
-            color: var(--text-dim);
-            margin-left: 4px;
-            font-weight: 500;
-        }
-        .input-group input[type="text"] {
-            width: 100%;
-            padding: 12px 16px;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--glass-border);
-            background: rgba(0,0,0,0.2);
-            color: white;
-            font-size: 1rem;
-            outline: none;
-            box-sizing: border-box;
-            transition: all 0.3s ease;
-        }
-        .input-group input[type="text"]:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(0, 98, 255, 0.2);
-        }
-        .color-picker-container {
-            display: flex;
-            gap: 12px;
-            align-items: center;
-        }
-        .color-picker-container input[type="color"] {
-            width: 50px;
-            height: 40px;
-            border: none;
-            background: none;
-            cursor: pointer;
-            border-radius: 4px;
-        }
-        .color-picker-container input[type="text"] {
-            flex: 1;
-            padding: 10px 16px;
-            border-radius: var(--radius-md);
-            border: 1px solid var(--glass-border);
-            background: rgba(0,0,0,0.2);
-            color: white;
-            font-size: 0.9rem;
-            outline: none;
-            box-sizing: border-box;
-        }
-        .btn-save {
-            width: 100%;
-            padding: 14px;
-            border-radius: var(--radius-md);
-            border: none;
-            background: var(--gradient-main);
-            color: white;
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 98, 255, 0.3);
-        }
-        .btn-save:hover {
-            filter: brightness(1.1);
-            transform: translateY(-2px);
-        }
-        .btn-save:active {
-            transform: translateY(0);
-        }
-        .btn-save:disabled {
-            background: var(--text-dim);
-            opacity: 0.7;
-            cursor: not-allowed;
-        }
-
-        @media (max-width: 480px) {
-            .profile-card {
-                padding: 20px;
-            }
-        }
-    </style>
-</head>
+    <title>Meu Perfil | Grêmio Estudantil</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    </head>
 <body>
-    <div class="watermark">Grêmio Estudantil — uso interno</div>
-    
-    <header>
-        <div class="header-content">
-            <div class="logo">
-                <img src="/assets/img/logo-da-escola/educa_mais_sem_fundo.svg" alt="Grêmio Logo">
+    <nav class="side-nav">
+        <div class="logo-container">
+            <div class="mobile-nav-trigger">
+                <div class="logo-pulse-btn">
+                    <img src="../assets/img/logo-da-escola/file_000000000d1871f59dac366c408947b5.svg" alt="Logo Escola">
+                </div>
             </div>
-            <a href="/pages/dashboard.html" class="btn-back">← Voltar</a>
         </div>
-    </header>
+        <ul class="nav-links">
+            <li class="nav-item"><a href="dashboard.html" class="nav-link"><i class="fa-solid fa-house"></i> Dashboard</a></li>
+            <li class="nav-item"><a href="diretoria.html" class="nav-link"><i class="fa-solid fa-users"></i> Diretoria</a></li>
+            <li class="nav-item"><a href="calendario.html" class="nav-link"><i class="fa-solid fa-calendar-days"></i> Calendário</a></li>
+            <li class="nav-item"><a href="diario.html" class="nav-link"><i class="fa-solid fa-book"></i> Diário/Notas</a></li>
+            <li class="nav-item"><a href="perfil.html" class="nav-link active"><i class="fa-solid fa-user"></i> Meu Perfil</a></li>
+            <li class="nav-item"><a href="../index.html" class="nav-link" style="color: var(--danger);"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
+        </ul>
+    </nav>
 
-    <main>
-        <h1 class="page-title fade-in">Personalizar Perfil</h1>
-        
-        <div class="profile-card fade-in">
-            <div class="profile-header">
-                <div id="profile-pic" class="profile-pic-container">?</div>
-                <h2 id="profile-name" class="profile-name">Carregando...</h2>
-                <span id="profile-role" class="profile-role-badge">Cargo</span>
+    <main class="main-content">
+        <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
+            <h1>Meu Perfil</h1>
+            <div id="user-status" class="role-badge" style="background: white; color: black;">Autenticado</div>
+        </header>
+
+        <div class="glass-card" style="max-width: 600px; margin: 0 auto;">
+            <div style="text-align: center; margin-bottom: 30px;">
+                <div id="profile-pic" style="width: 100px; height: 100px; background: white; color: black; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 40px; font-weight: bold; margin: 0 auto 15px auto; overflow: hidden;">
+                    U
+                </div>
+                <h2 id="profile-name" style="margin: 0;">Carregando...</h2>
+                <span id="profile-role" class="role-badge">Cargo</span>
             </div>
 
-            <form id="profile-form" class="profile-form">
-                <div class="input-group">
-                    <label>Nome Completo</label>
-                    <input type="text" id="edit-name" required>
-                </div>
+            <form id="profile-form">
+                <label>Nome Completo</label>
+                <input type="text" id="edit-name" placeholder="Seu nome aqui...">
                 
-                <div class="input-group">
-                    <label>Cor do Perfil</label>
-                    <div class="color-picker-container">
-                        <input type="color" id="edit-color">
-                        <input type="text" id="edit-color-hex" placeholder="#FFFFFF">
-                    </div>
+                <label>Cor do Perfil</label>
+                <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 15px;">
+                    <input type="color" id="edit-color" style="width: 50px; padding: 0; height: 40px; cursor: pointer;">
+                    <input type="text" id="edit-color-hex" placeholder="#FFFFFF" style="margin-bottom: 0;">
                 </div>
 
-                <button type="submit" id="btn-save-profile" class="btn-save">Salvar Alterações</button>
+                <button type="submit" class="btn-primary" style="width: 100%; margin-top: 20px;">Salvar Alterações</button>
             </form>
         </div>
     </main>
-    
-    <script src="/assets/js/profile.js"></script>
+
+    <script src="../assets/js/config.js"></script>
+    <script src="../assets/js/utils.js"></script>
+    <script src="../assets/js/profile.js"></script>
 </body>
 </html>

@@ -11,7 +11,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function initAdmin() {
     if (!UTILS.requireAdmin()) return;
-
     try {
         await loadMembers();
         setupEventListeners();
@@ -23,23 +22,28 @@ async function initAdmin() {
 
 async function loadMembers() {
     try {
-        const allMembers = await UTILS.supabaseQuery('profiles', {
-            order: { column: 'full_name', ascending: true }
-        });
-        
-        members = allMembers || [];
-        renderMembers();
+        const { data: members, error } = await supabase
+            .from('profiles')
+            .select('*')
+            .order('full_name', { ascending: true });
+
+        if (error) {
+            console.error('❌ Error loading members:', error);
+            throw error;
+        }
+
+        renderMembers(members);
     } catch (error) {
         console.error('❌ Error loading members:', error);
     }
 }
 
-function renderMembers() {
+function renderMembers(members) {
     const container = document.getElementById('members-list');
     if (!container) return;
 
     if (members.length === 0) {
-        container.innerHTML = '<p class="empty-state">Nenhum membro</p>';
+        container.innerHTML = '<p class="empty-state">Nenhum membro encontrado</p>';
         return;
     }
 
@@ -60,28 +64,22 @@ function renderMembers() {
 
 function setupEventListeners() {
     const addMemberBtn = document.getElementById('btn-add-member');
-    if (addMemberBtn) {
-        addMemberBtn.addEventListener('click', () => {
-            const modal = document.getElementById('member-modal');
-            if (modal) modal.style.display = 'flex';
-        });
-    }
+    addMemberBtn.addEventListener('click', () => {
+        const modal = document.getElementById('member-modal');
+        modal.style.display = 'flex';
+    });
 
     const memberForm = document.getElementById('member-form');
-    if (memberForm) {
-        memberForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            await handleAddMember(e.target);
-        });
-    }
+    memberForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        await handleAddMember(e.target);
+    });
 
     const closeModalBtn = document.getElementById('btn-close-modal');
-    if (closeModalBtn) {
-        closeModalBtn.addEventListener('click', () => {
-            const modal = document.getElementById('member-modal');
-            if (modal) modal.style.display = 'none';
-        });
-    }
+    closeModalBtn.addEventListener('click', () => {
+        const modal = document.getElementById('member-modal');
+        modal.style.display = 'none';
+    });
 }
 
 async function handleAddMember(form) {
@@ -94,19 +92,10 @@ async function handleAddMember(form) {
             access_code: form.querySelector('[name="member-code"]')?.value
         };
 
-        if (!memberData.full_name || !memberData.email || !memberData.access_code) {
-            throw new Error('Preencha todos os campos obrigatórios');
-        }
-
         await UTILS.supabaseInsert('profiles', memberData);
         UTILS.showSuccess('Membro adicionado com sucesso!');
-        
         form.reset();
-        const modal = document.getElementById('member-modal');
-        if (modal) modal.style.display = 'none';
-        
-        await loadMembers();
-
+        loadMembers();
     } catch (error) {
         console.error('❌ Error adding member:', error);
         UTILS.showError(error.message);
@@ -119,7 +108,7 @@ async function deleteMember(id) {
     try {
         await UTILS.supabaseDelete('profiles', id);
         UTILS.showSuccess('Membro deletado com sucesso!');
-        await loadMembers();
+        loadMembers();
     } catch (error) {
         console.error('❌ Error deleting member:', error);
         UTILS.showError('Erro ao deletar membro');

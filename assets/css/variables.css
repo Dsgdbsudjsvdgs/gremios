@@ -1,37 +1,37 @@
 :root {
-    /* Cores Base - Dark Glassmorphism */
-    --bg-dark: #0a0b10;
-    --bg-surface: rgba(255, 255, 255, 0.05);
-    --bg-surface-hover: rgba(255, 255, 255, 0.08);
+    /* Cores Base - Educa Mais Style (Preto & Branco / Cyan Accent) */
+    --bg-dark: #000000;
+    --bg-surface: rgba(255, 255, 255, 0.08);
+    --bg-surface-hover: rgba(255, 255, 255, 0.12);
     
-    /* Primárias */
-    --primary: #0062ff;
-    --primary-dark: #0048c2;
-    --accent: #00d4ff;
+    /* Primárias - Educa Mais Cyan */
+    --primary: #00E5FF;
+    --primary-dark: #00B2CC;
+    --accent: #FFFFFF;
     
     /* Texto */
-    --text-main: #ffffff;
-    --text-dim: #a0a0a8;
-    --text-muted: #6c757d;
+    --text-main: #FFFFFF;
+    --text-dim: #B0B0B0;
+    --text-muted: #707070;
     
     /* Detalhes Glass */
-    --glass-border: rgba(255, 255, 255, 0.12);
-    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    --glass-border: rgba(255, 255, 255, 0.15);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
     
     /* Raio e Transição */
-    --radius-lg: 24px;
-    --radius-md: 14px;
-    --radius-sm: 8px;
+    --radius-lg: 20px;
+    --radius-md: 12px;
+    --radius-sm: 6px;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     
-    /* Gradientes */
-    --gradient-main: linear-gradient(135deg, var(--primary), var(--accent));
-    --gradient-dark: linear-gradient(135deg, #003380, #001a40);
+    /* Gradientes - Black & Cyan */
+    --gradient-main: linear-gradient(135deg, #000000, #00E5FF);
+    --gradient-dark: linear-gradient(135deg, #000000, #1a1a1a);
     
     /* Cores de Status */
-    --success-color: #4CAF50;
-    --error-color: #EF5350;
-    --warning-color: #FFA726;
+    --success-color: #00FF88;
+    --error-color: #FF4C4C;
+    --warning-color: #FFD700;
 
     /* ── Paleta ORIGINAL de Diretorias (EXATAMENTE como era) ── */
     --color-executivo: #2C3E50;
