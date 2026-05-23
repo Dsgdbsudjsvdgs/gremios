@@ -65,24 +65,26 @@ const API_ENDPOINTS = {
     GET_MEMBERS: 'get_members'
 };
 
-// Status Codes
+// Status Codes (sincronizado com SQL v4)
 const STATUS = {
-    PENDING: 'pendente',
-    IN_PROGRESS: 'em_andamento',
-    COMPLETED: 'concluido'
+  PENDING: 'pending',
+  IN_PROGRESS: 'in_progress',
+  COMPLETED: 'completed'
 };
 
-// Priority Levels
+// Priority Levels (sincronizado com SQL v4)
 const PRIORITY = {
-    LOW: 'baixa',
-    MEDIUM: 'media',
-    HIGH: 'alta'
+  LOW: 'low',
+  MEDIUM: 'medium',
+  HIGH: 'high'
 };
 
-// Roles
+// Roles (sincronizado com ENUM user_role do SQL)
 const ROLES = {
-    ADMIN: 'admin',
-    USER: 'user'
+  ADMIN: 'Presidente',        // Presidente = admin do sistema
+  VICE_ADMIN: 'Vice-Presidente',
+  TECH: 'Diretor',            // Diretores (inclui Tech)
+  USER: 'user'
 };
 
 // Export for use

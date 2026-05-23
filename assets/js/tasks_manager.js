@@ -55,12 +55,12 @@ function renderTasks() {
                 <span>Vencimento: ${UTILS.formatDate(task.due_date) || 'Sem data'}</span>
             </div>
             <div class="task-actions">
-                <select onchange="updateTaskStatus(${task.id}, this.value)">
-                    <option value="pendente" ${task.status === 'pendente' ? 'selected' : ''}>Pendente</option>
-                    <option value="em_andamento" ${task.status === 'em_andamento' ? 'selected' : ''}>Em Andamento</option>
-                    <option value="concluido" ${task.status === 'concluido' ? 'selected' : ''}>Concluído</option>
-                </select>
-                <button onclick="deleteTask(${task.id})" class="btn-delete">Deletar</button>
+    <select onchange="updateTaskStatus('${task.id}', this.value)">
+      <option value="pending" ${task.status === 'pending' ? 'selected' : ''}>Pendente</option>
+      <option value="in_progress" ${task.status === 'in_progress' ? 'selected' : ''}>Em Andamento</option>
+      <option value="completed" ${task.status === 'completed' ? 'selected' : ''}>Concluído</option>
+    </select>
+                <button onclick="deleteTask('${task.id}')" class="btn-delete">Deletar</button>
             </div>
         </div>
     `).join('');
@@ -68,53 +68,53 @@ function renderTasks() {
 
 function setupEventListeners() {
     const addTaskBtn = document.getElementById('btn-add-task');
-    if (addTaskBtn) {
-        addTaskBtn.addEventListener('click', () => {
-            const modal = document.getElementById('task-modal');
-            if (modal) modal.style.display = 'flex';
-        });
-    }
+  if (addTaskBtn) {
+    addTaskBtn.addEventListener('click', () => {
+      const modal = document.getElementById('task-modal');
+      if (modal) modal.classList.add('active');
+    });
+  }
 
-    const taskForm = document.getElementById('task-form');
-    if (taskForm) {
-        taskForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            await handleAddTask(e.target);
-        });
-    }
+  const taskForm = document.getElementById('task-form');
+  if (taskForm) {
+    taskForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      await handleAddTask(e.target);
+    });
+  }
 
-    const closeModalBtn = document.getElementById('btn-close-modal');
-    if (closeModalBtn) {
-        closeModalBtn.addEventListener('click', () => {
-            const modal = document.getElementById('task-modal');
-            if (modal) modal.style.display = 'none';
-        });
-    }
+  const closeModalBtn = document.getElementById('btn-close-modal');
+  if (closeModalBtn) {
+    closeModalBtn.addEventListener('click', () => {
+      const modal = document.getElementById('task-modal');
+      if (modal) modal.classList.remove('active');
+    });
+  }
 }
 
 async function handleAddTask(form) {
     try {
         const user = UTILS.getStorageUser();
-        const taskData = {
-            title: form.querySelector('[name="task-title"]')?.value,
-            description: form.querySelector('[name="task-desc"]')?.value,
-            priority: form.querySelector('[name="task-priority"]')?.value || 'media',
-            due_date: form.querySelector('[name="task-date"]')?.value,
-            status: CONFIG.STATUS.PENDING,
-            created_by: user.id
-        };
+ const taskData = {
+ title: form.querySelector('[name="task-title"]')?.value,
+ description: form.querySelector('[name="task-desc"]')?.value,
+ priority: form.querySelector('[name="task-priority"]')?.value || 'media',
+ due_date: form.querySelector('[name="task-date"]')?.value,
+ status: CONFIG.STATUS.PENDING,
+ assigned_to: user.id
+ };
 
         const validation = UTILS.validateTaskTitle(taskData.title);
         if (!validation.valid) {
             throw new Error(validation.error);
         }
 
-        await UTILS.supabaseInsert('tasks', taskData);
-        UTILS.showSuccess('Tarefa adicionada com sucesso!');
-        
-        form.reset();
-        const modal = document.getElementById('task-modal');
-        if (modal) modal.style.display = 'none';
+  await UTILS.supabaseInsert('tasks', taskData);
+  UTILS.showSuccess('Tarefa adicionada com sucesso!');
+  
+  form.reset();
+  const modal = document.getElementById('task-modal');
+  if (modal) modal.classList.remove('active');
         
         await loadTasks();
 

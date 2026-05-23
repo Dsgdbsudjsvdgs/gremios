@@ -1,73 +1,188 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <script src="/assets/js/core-guard.js"></script>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Admin - Grêmio Estudantil</title>
-    <link rel="stylesheet" href="/assets/css/variables.css">
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    </head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Painel Admin | Grêmio Estudantil</title>
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(4px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-overlay.active { display: flex; }
+    .modal-box {
+      background: var(--bg-surface);
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      width: 100%;
+      max-width: 480px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-box h2 { color: var(--primary); margin-bottom: 16px; font-size: 1.1rem; }
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+      text-align: center;
+    }
+    .calendar-day {
+      padding: 8px 4px;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--transition);
+      color: var(--text-main);
+    }
+    .calendar-day:hover { background: rgba(0,229,255,0.1); }
+    .calendar-day.other-month { color: var(--text-muted); opacity: 0.4; }
+    .calendar-day.today { background: var(--primary); color: #000; font-weight: 700; border-radius: 50%; }
+    .calendar-day.has-events { border: 2px solid var(--primary); }
+    .calendar-weekday { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; padding: 4px; }
+    .member-card, .director-card {
+      text-align: center;
+    }
+    .member-avatar, .director-avatar {
+      width: 56px; height: 56px; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; font-size: 1.4rem;
+      font-weight: 700; margin: 0 auto 10px; color: #000;
+      background: var(--primary);
+    }
+    .member-name, .director-name { font-size: 0.95rem; font-weight: 600; color: var(--text-main); }
+    .member-position, .director-position { font-size: 0.8rem; color: var(--primary); font-weight: 500; }
+    .member-department, .director-department { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; }
+    .btn-view {
+      margin-top: 10px; display: inline-block; padding: 6px 14px;
+      border-radius: 20px; font-size: 0.75rem; font-weight: 600;
+      background: rgba(0,229,255,0.1); color: var(--primary);
+      border: 1px solid var(--glass-border); cursor: pointer; transition: var(--transition);
+    }
+    .btn-view:hover { background: rgba(0,229,255,0.2); }
+    .profile-avatar {
+      width: 80px; height: 80px; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; font-size: 2.5rem;
+      font-weight: 700; margin: 0 auto 12px; color: #000;
+      background: var(--primary); border: 3px solid var(--primary);
+    }
+    .task-item .task-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+    .task-title { font-size: 0.95rem; font-weight: 600; color: var(--text-main); }
+    .task-status { font-size: 0.7rem; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
+    .task-status.status-pending { background: rgba(255,193,7,0.15); color: #ffc107; }
+    .task-status.status-in_progress { background: rgba(0,229,255,0.15); color: var(--primary); }
+    .task-status.status-completed { background: rgba(16,185,129,0.15); color: #10b981; }
+    .task-description { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; }
+    .task-meta { display: flex; gap: 12px; font-size: 0.75rem; color: var(--text-muted); }
+    .task-actions { display: flex; gap: 8px; margin-top: 10px; align-items: center; }
+    .task-actions select { padding: 6px 10px; border-radius: 8px; background: rgba(0,0,0,0.3); color: var(--text-main); border: 1px solid var(--glass-border); font-size: 0.8rem; }
+    .btn-delete { padding: 6px 12px; border-radius: 8px; background: rgba(255,75,75,0.1); color: var(--danger); border: 1px solid rgba(255,75,75,0.3); font-size: 0.8rem; cursor: pointer; }
+    .btn-delete:hover { background: rgba(255,75,75,0.2); }
+    .diary-item { padding: 16px; }
+    .diary-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+    .diary-content { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
+    .diary-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .diary-actions { display: flex; gap: 8px; margin-top: 10px; }
+    .btn-edit { padding: 6px 12px; border-radius: 8px; background: rgba(0,229,255,0.1); color: var(--primary); border: 1px solid var(--glass-border); font-size: 0.8rem; cursor: pointer; }
+    .btn-edit:hover { background: rgba(0,229,255,0.2); }
+    .admin-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--glass-border); }
+    .admin-item-info h4 { font-size: 0.95rem; color: var(--text-main); margin-bottom: 2px; }
+    .admin-item-info p { font-size: 0.8rem; color: var(--text-muted); }
+    .admin-item-info small { font-size: 0.75rem; color: var(--text-muted); }
+    .admin-item-actions { display: flex; gap: 6px; }
+    .event-item { padding: 12px 0; border-bottom: 1px solid var(--glass-border); }
+    .event-item h4 { font-size: 0.95rem; color: var(--text-main); margin-bottom: 4px; }
+    .event-item p { font-size: 0.85rem; color: var(--text-muted); }
+    .event-item small { font-size: 0.75rem; color: var(--text-muted); }
+    .search-bar { position: relative; margin-bottom: 16px; }
+    .search-bar input { width: 100%; padding: 12px 14px 12px 40px; border-radius: var(--radius-md); border: 1px solid var(--glass-border); background: rgba(0,0,0,0.3); color: var(--text-main); font-size: 0.95rem; }
+    .search-bar i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+    .members-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
+    .filter-row { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
+    .filter-row select { padding: 8px 12px; border-radius: 8px; background: rgba(0,0,0,0.3); color: var(--text-main); border: 1px solid var(--glass-border); font-size: 0.85rem; flex: 1; min-width: 140px; }
+  </style>
+</head>
 <body>
-    <div class="watermark">Grêmio Estudantil — Painel Administrativo</div>
-    
-    <header>
-        <div class="container header-content">
-            <div class="logo">
-                <img src="/assets/img/logo-da-escola/file_000000000d1871f59dac366c408947b5.svg" alt="Grêmio Logo">
-            </div>
-            <a href="/pages/dashboard.html" class="user-badge" style="text-decoration: none; color: white;">← Voltar ao Painel</a
-        </div>
-    </header>
 
-    <main class="container">
-        <h1 class="dashboard-title fade-in">Gestão de Membros</h1>
-        <div id="admin-loader">Carregando membros...</div>
+  <main class="main-content">
+    <div class="page-header">
+      <h1>Painel Admin</h1>
+      <div class="page-header-actions"></div>
+    </div>
 
-        <section class="card fade-in" style="margin-bottom: 30px; text-align: left;">
-            <h3>Adicionar Novo Membro</h3>
-            <form id="add-member-form" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 20px;">
-                <div class="input-group">
-                    <label>Nome Completo</label>
-                    <input type="text" id="new-name" required placeholder="Ex: João Silva">
-                </div>
-                <div class="input-group">
-                    <label>CPF</label>
-                    <input type="text" id="new-cpf" required placeholder="000.000.000-00">
-                </div>
-                <div class="input-group">
-                    <label>Data de Nascimento</label>
-                    <input type="date" id="new-birth" required>
-                </div>
-                <div class="input-group">
-                    <label>Cargo</label>
-                    <select id="new-role" style="width: 100%; padding: 12px; border-radius: var(--radius-md); background: rgba(0,0,0,0.2); color: white; border: 1px solid var(--glass-border); outline: none;">
-                        <option value="Membro">Membro</option>
-                        <option value="Presidente">Presidente</option>
-                        <option value="Vice-Presidente">Vice-Presidente</option>
-                        <option value="Tecnologia e Inovação">Tecnologia e Inovação</option>
-                        <option value="Tesoureiro">Tesoureiro</option>
-                        <option value="Secretário">Secretário</option>
-                    </select>
-                </div>
-                <div style="display: flex; align-items: flex-end;">
-                    <button type="submit" class="btn-login" style="width: 100%;">Cadastrar Membro</button>
-                </div>
-            </form>
-        </section>
 
-        <section class="content-section fade-in">
-            <h2 style="margin-bottom: 20px; font-size: 1.5rem;">Lista de Integrantes</h2>
-            <div id="members-list" class="grid-dashboard">
-                <!-- Membros injetados via JS -->
-            </div>
-        </section>
-    </main>
+    <div class="flex-between mb-2">
+      <p style="color:var(--text-muted);font-size:0.85rem;">Gerenciamento de membros do grêmio</p>
+      <button id="btn-add-member" class="btn btn-primary btn-sm"><i class="fa-solid fa-user-plus"></i> Adicionar Membro</button>
+    </div>
 
-    <script src="/assets/js/admin.js"></script>
-<script src="/assets/js/logout.js"></script>
+    <div class="glass-card">
+      <div id="members-list">
+        <p class="empty-state">Carregando membros...</p>
+      </div>
+    </div>
+
+    <!-- Modal Novo Membro -->
+    <div id="member-modal" class="modal-overlay">
+      <div class="modal-box">
+        <h2><i class="fa-solid fa-user-plus"></i> Novo Membro</h2>
+        <form id="member-form">
+          <div class="form-group">
+            <label>Nome Completo</label>
+            <input type="text" name="member-name" class="form-input" required>
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input type="email" name="member-email" class="form-input">
+          </div>
+          <div class="form-group">
+            <label>Cargo</label>
+            <select name="member-role" class="form-input">
+              <option value="Presidente">Presidente</option>
+              <option value="Vice-Presidente">Vice-Presidente</option>
+              <option value="Secretário Geral">Secretário Geral</option>
+              <option value="Secretária">Secretária</option>
+              <option value="Tesoureira">Tesoureira</option>
+              <option value="Diretor" selected>Diretor</option>
+              <option value="Ouvidoria">Ouvidoria</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Departamento</label>
+            <select name="member-dept" class="form-input">
+              <option value="">Selecione...</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Código de Acesso</label>
+            <input type="text" name="member-code" class="form-input" placeholder="Ex: CULT-MARIA" required>
+          </div>
+          <div style="display:flex;gap:10px;">
+            <button type="submit" class="btn btn-primary" style="flex:1;">Adicionar</button>
+            <button type="button" id="btn-close-modal" class="btn btn-ghost">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+
+  </main>
+
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/utils.js"></script>
+  <script src="../assets/js/nav-component.js"></script>
+  <script src="../assets/js/theme-manager.js"></script>
+  <script src="../assets/js/core-guard.js"></script>
+  <script src="../assets/js/admin.js"></script>
 </body>
 </html>

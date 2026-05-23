@@ -150,28 +150,28 @@ function setupEventListeners() {
         });
     }
 
-    if (addEventBtn) {
-        addEventBtn.addEventListener('click', () => {
-            const modal = document.getElementById('event-modal');
-            if (modal) modal.style.display = 'flex';
-        });
-    }
+  if (addEventBtn) {
+    addEventBtn.addEventListener('click', () => {
+      const modal = document.getElementById('event-modal');
+      if (modal) modal.classList.add('active');
+    });
+  }
 
-    const eventForm = document.getElementById('event-form');
-    if (eventForm) {
-        eventForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            await handleAddEvent(e.target);
-        });
-    }
+  const eventForm = document.getElementById('event-form');
+  if (eventForm) {
+    eventForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      await handleAddEvent(e.target);
+    });
+  }
 
-    const closeModalBtn = document.getElementById('btn-close-modal');
-    if (closeModalBtn) {
-        closeModalBtn.addEventListener('click', () => {
-            const modal = document.getElementById('event-modal');
-            if (modal) modal.style.display = 'none';
-        });
-    }
+  const closeModalBtn = document.getElementById('btn-close-modal');
+  if (closeModalBtn) {
+    closeModalBtn.addEventListener('click', () => {
+      const modal = document.getElementById('event-modal');
+      if (modal) modal.classList.remove('active');
+    });
+  }
 }
 
 async function handleAddEvent(form) {
@@ -188,12 +188,12 @@ async function handleAddEvent(form) {
             throw new Error('Preencha todos os campos obrigatórios');
         }
 
-        await UTILS.supabaseInsert('events', eventData);
-        UTILS.showSuccess('Evento adicionado com sucesso!');
-        
-        form.reset();
-        const modal = document.getElementById('event-modal');
-        if (modal) modal.style.display = 'none';
+  await UTILS.supabaseInsert('events', eventData);
+  UTILS.showSuccess('Evento adicionado com sucesso!');
+  
+  form.reset();
+  const modal = document.getElementById('event-modal');
+  if (modal) modal.classList.remove('active');
         
         await loadEvents();
         renderCalendar();

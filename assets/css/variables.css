@@ -33,15 +33,15 @@
     --error-color: #FF4C4C;
     --warning-color: #FFD700;
 
-    /* ── Paleta ORIGINAL de Diretorias (EXATAMENTE como era) ── */
-    --color-executivo: #2C3E50;
-    --color-cultura: #A569BD;
-    --color-esportes: #5499C7;
-    --color-eventos: #F5B7B1;
-    --color-comunicacao: #F8C471;
-    --color-social: #82E0AA;
-    --color-ambiente: #ABEBC6;
-    --color-protagonismo: #AED6F1;
-    --color-tecnologia: #D5A6BD;
-    --color-ouvidoria: #D7BDE2;
+    /* ── Paleta ATUALIZADA de Diretorias (Black & Cyan Theme) ── */
+    --color-executivo: var(--primary);
+    --color-cultura: var(--primary-dark);
+    --color-esportes: var(--text-dim);
+    --color-eventos: var(--accent);
+    --color-comunicacao: var(--primary);
+    --color-social: var(--success-color);
+    --color-ambiente: var(--success-color);
+    --color-protagonismo: var(--primary-dark);
+    --color-tecnologia: var(--primary);
+    --color-ouvidoria: var(--text-dim);
 }

@@ -1,44 +1,33 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <script src="/assets/js/core-guard.js"></script>
-    
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Resp. Social - Grêmio Estudantil</title>
-    <link rel="stylesheet" href="/assets/css/variables.css">
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    </head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Resp Social | Grêmio Estudantil</title>
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
 <body>
-    <div class="watermark">Grêmio Estudantil — Identidade Organizacional</div>
-    
-    <header>
-        <div class="container header-content">
-            <div class="logo">
-                <img src="/assets/img/logo-da-escola/file_000000000d1871f59dac366c408947b5.svg" alt="Grêmio Logo">
-            </div>
-            <a href="/pages/dashboard.html" class="user-badge" style="text-decoration: none; color: white;">← Voltar ao Painel</a
-        </div>
-    </header>
+  <!-- Nav injetada via nav-component.js -->
 
-    <main class="container">
-        <div id="dept-content" class="fade-in" style="margin-top: 40px; display: flex; flex-direction: column; align-items: center; text-align: center;">
-            <!-- Conteúdo Dinâmico Injetado via JS -->
-            <div class="card" style="width: 100%; max-width: 600px;">
-                <div id="dept-avatar" style="width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 20px; border: 4px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 3rem; font-weight: bold; color: white; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">?</div>
-                <h1 id="dept-name" style="font-size: 2.5rem; margin-bottom: 10px;">Carregando...</h1>
-                <span id="dept-role" class="user-badge" style="font-size: 1.1rem; padding: 8px 20px;">Cargo</span>
-                
-                <div id="dept-description" style="margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.05); border-radius: var(--radius-md); border: 1px solid var(--glass-border); line-height: 1.8; color: var(--text-dim); font-size: 1.1rem;">
-                    Coordenação de campanhas de caridade
-                </div>
-            </div>
-        </div>
-    </main>
+  <main class="main-content">
+    <div class="page-header">
+      <h1>Resp Social</h1>
+      <div class="page-header-actions">
+        <a href="diretoria.html" class="btn btn-ghost btn-sm"><i class="fa-solid fa-arrow-left"></i> Diretoria</a>
+      </div>
+    </div>
 
-    <script src="/assets/js/diretoria.js"></script>
-<script src="/assets/js/logout.js"></script>
+    <section id="content-container" class="content-grid">
+      <!-- Conteúdo injetado via JS -->
+    </section>
+  </main>
+
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/utils.js"></script>
+  <script src="../assets/js/nav-component.js"></script>
+  <script src="../assets/js/theme-manager.js"></script>
 </body>
 </html>

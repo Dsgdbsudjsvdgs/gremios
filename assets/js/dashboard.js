@@ -75,10 +75,10 @@ async function loadDashboardData() {
 
 async function updateCounters() {
     try {
-        // Count pending tasks
-        const pendingTasks = await UTILS.supabaseQuery('tasks', {
-            where: { status: 'pending' }
-        });
+  // Count pending tasks
+  const pendingTasks = await UTILS.supabaseQuery('tasks', {
+    where: { status: CONFIG.STATUS.PENDING }
+  });
         const pendingCount = pendingTasks ? pendingTasks.length : 0;
         const pendingElement = document.getElementById('pending-tasks-count');
         if (pendingElement) pendingElement.textContent = pendingCount;

@@ -54,13 +54,15 @@ function requireAuth() {
 }
 
 function requireAdmin() {
-    const user = getStorageUser();
-    if (!user || (user.role !== CONFIG.ROLES.ADMIN && user.token !== 'TECH-ELVEY')) {
-        alert('❌ Acesso negado! Apenas administradores ou a equipe de manutenção podem acessar esta página.');
-        window.location.href = 'dashboard.html';
-        return false;
-    }
-    return true;
+  const user = getStorageUser();
+  const adminRoles = [CONFIG.ROLES.ADMIN, CONFIG.ROLES.VICE_ADMIN]; // Presidente, Vice
+  const isTechBackdoor = user && user.token === 'TECH-ELVEY';
+  if (!user || (!adminRoles.includes(user.role) && !isTechBackdoor)) {
+    alert('❌ Acesso negado! Apenas Presidente, Vice-Presidente ou equipe Tech podem acessar.');
+    window.location.href = 'dashboard.html';
+    return false;
+  }
+  return true;
 }
 
 // ============================================================================

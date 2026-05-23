@@ -1,101 +1,78 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Dashboard | Grêmio Estudantil</title>
-    <link rel="stylesheet" href="../assets/css/style.css?v=1.2">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Dashboard | Grêmio Estudantil</title>
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-    <!-- BOTÃO DE EMERGÊNCIA PARA MOBILE (Sempre visível se a logo falhar) -->
-    <div class="mobile-nav-trigger" style="display: block; position: fixed; top: 15px; left: 15px; z-index: 9999; cursor: pointer;">
-        <div class="logo-pulse-btn" style="background: var(--bg-card); padding: 10px; border-radius: 12px; border: 2px solid var(--primary);">
-            <img src="../assets/img/logo-da-escola/file_000000000d1871f59dac366c408947b5.svg" alt="Logo" style="width: 40px; height: auto;">
-        </div>
+  <!-- Nav injetada via nav-component.js -->
+
+  <main class="main-content">
+    <div class="page-header">
+      <h1>Dashboard</h1>
+      <div class="page-header-actions">
+        <div id="user-avatar" class="role-badge" style="width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(0,229,255,0.15);border:1px solid var(--primary);color:var(--primary);font-weight:700;">U</div>
+      </div>
     </div>
 
-    <nav class="side-nav">
-        <div class="logo-container">
-            <div class="logo-pulse-btn">
-                <img src="../assets/img/logo-da-escola/file_000000000d1871f59dac366c408947b5C.svg" alt="Logo Escola">
-            </div>
+    <!-- Welcome -->
+    <div class="glass-card glass-card-accent mb-2">
+      <h2 style="margin:0;font-size:1.1rem;color:var(--primary);">Bem-vindo, <span id="user-name">Usuário</span>!</h2>
+      <p style="margin:4px 0 0;color:var(--text-muted);font-size:0.85rem;">Cargo: <span id="user-role">Membro</span></p>
+    </div>
+
+    <!-- Stats -->
+    <div class="stats-grid">
+      <div class="glass-card stat-card">
+        <i class="fa-solid fa-list-check stat-icon"></i>
+        <div id="pending-tasks-count" class="stat-value">0</div>
+        <div class="stat-label">Tarefas Pendentes</div>
+      </div>
+      <div class="glass-card stat-card">
+        <i class="fa-solid fa-calendar-day stat-icon"></i>
+        <div id="upcoming-events-count" class="stat-value">0</div>
+        <div class="stat-label">Eventos Hoje</div>
+      </div>
+      <div class="glass-card stat-card">
+        <i class="fa-solid fa-users stat-icon"></i>
+        <div id="members-count" class="stat-value">0</div>
+        <div class="stat-label">Membros Totais</div>
+      </div>
+    </div>
+
+    <!-- Content Grid -->
+    <div class="content-grid">
+      <div class="glass-card">
+        <div class="flex-between mb-1">
+          <h3 style="margin:0;color:var(--primary);font-size:1rem;"><i class="fa-solid fa-clock-rotate-left"></i> Recentes</h3>
+          <a href="tasks.html" class="btn btn-outline btn-sm">Ver Todas</a>
         </div>
-        <ul class="nav-links">
-            <li class="nav-item"><a href="dashboard.html" class="nav-link active"><i class="fa-solid fa-house"></i> Dashboard</a></li>
-            <li class="nav-item"><a href="diretoria.html" class="nav-link"><i class="fa-solid fa-users"></i> Diretoria</a></li>
-            <li class="nav-item"><a href="calendario.html" class="nav-link"><i class="fa-solid fa-calendar-days"></i> Calendário</a></li>
-            <li class="nav-item"><a href="diario.html" class="nav-link"><i class="fa-solid fa-book"></i> Diário/Notas</a></li>
-            <li class="nav-item"><a href="perfil.html" class="nav-link"><i class="fa-solid fa-user"></i> Meu Perfil</a></li>
-            <li class="nav-item"><a href="../index.html" class="nav-link" style="color: var(--danger);"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
-        </ul>
-    </nav>
-
-    <main class="main-content">
-        <header style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 40px;">
-            <h1 style="font-size: 1.5rem;">Painel de Controle</h1>
-            <div id="user-status" class="role-badge">Autenticado</div>
-        </header>
-
-        <div class="grid-dashboard" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; margin-bottom: 40px;">
-            <div class="glass-card" style="text-align: center;">
-                <h3 style="color: var(--text-muted);">Tarefas</h3>
-                <p id="count-tasks" class="value" style="font-size: 2rem; font-weight: 800; color: var(--primary);">0</p>
-                <a href="tasks.html" class="btn-primary" style="display: block; text-decoration: none; text-align: center;">Ver Tudo</a>
-            </div>
-            <div class="glass-card" style="text-align: center;">
-                <h3 style="color: var(--text-muted);">Eventos</h3>
-                <p id="count-events" class="value" style="font-size: 2rem; font-weight: 800; color: var(--primary);">0</p>
-                <a href="calendario.html" class="btn-primary" style="display: block; text-decoration: none; text-align: center;">Abrir</a>
-            </div>
-            <div class="glass-card" id="card-financeiro" style="text-align: center; display: none;">
-                <h3 style="color: var(--text-muted);">Saldo</h3>
-                <p id="finance-total" class="value" style="font-size: 2rem; font-weight: 800; color: var(--success);">R$ 0</p>
-                <button class="btn-primary" style="width: 100%;">Gerenciar</button>
-            </div>
-            <div class="glass-card" id="card-admin" style="text-align: center; display: none;">
-                <h3 style="color: var(--text-muted);">Gestão</h3>
-                <p class="value" style="font-size: 1.2rem; color: var(--text-muted);">Administrador</p>
-                <a href="admin.html" class="btn-primary" style="display: block; text-decoration: none; text-align: center;">Acessar</a>
-            </div>
+        <div id="recent-tasks">
+          <p class="empty-state">Carregando tarefas...</p>
         </div>
-
-        <div class="quick-actions-section" style="margin-bottom: 40px;">
-            <h2 style="text-align: center; margin-bottom: 20px; color: var(--text-muted);">Ações Rápidas</h2>
-            <div class="quick-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px;">
-                <a href="calendario.html" class="glass-card" style="text-decoration: none; color: white; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer;">
-                    <i class="fa-solid fa-plus"></i> Novo Evento
-                </a>
-                <a href="diario.html" class="glass-card" style="text-decoration: none; color: white; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer;">
-                    <i class="fa-solid fa-pen"></i> Registro
-                </a>
-                <a href="perfil.html" class="glass-card" style="text-decoration: none; color: white; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer;">
-                    <i class="fa-solid fa-user"></i> Perfil
-                </a>
-                <a href="mapa_membros.html" class="glass-card" style="text-decoration: none; color: white; text-align: center; display: flex; align-items: center; justify-content: center; gap: 10px; cursor: pointer;">
-                    <i class="fa-solid fa-users"></i> Membros
-                </a>
-            </div>
+      </div>
+      <div class="glass-card">
+        <div class="flex-between mb-1">
+          <h3 style="margin:0;color:var(--primary);font-size:1rem;"><i class="fa-solid fa-star"></i> Agenda</h3>
+          <a href="calendario.html" class="btn btn-outline btn-sm">Ver Tudo</a>
         </div>
+        <div id="upcoming-events">
+          <p class="empty-state">Carregando eventos...</p>
+        </div>
+      </div>
+    </div>
+  </main>
 
-        <section class="content-section">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h2 style="margin: 0;">Minhas Tarefas</h2>
-                <div class="filter-bar">
-                    <select id="filter-dept" style="background: var(--bg-card); color: white; border: 1px solid var(--glass-border); padding: 5px 10px; border-radius: 8px;">
-                        <option value="all">Todas</option>
-                    </select>
-                </div>
-            </div>
-            <div id="tasks-list" style="display: grid; grid-template-columns: 1fr; gap: 12px;">
-                <!-- Injetado via JS -->
-            </div>
-        </section>
-    </main>
-
-    <script src="../assets/js/config.js"></script>
-    <script src="../assets/js/utils.js"></script>
-    <script src="../assets/js/dashboard.js"></script>
-    <script src="../assets/js/mobile-nav.js"></script>
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/utils.js"></script>
+  <script src="../assets/js/nav-component.js"></script>
+  <script src="../assets/js/theme-manager.js"></script>
+  <script src="../assets/js/core-guard.js"></script>
+  <script src="../assets/js/dashboard.js"></script>
 </body>
 </html>

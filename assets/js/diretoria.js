@@ -22,17 +22,28 @@ async function initDiretoria() {
 }
 
 async function loadDirectors() {
-    try {
-        const allMembers = await UTILS.supabaseQuery('profiles', {
-            where: { role: 'admin' },
-            order: { column: 'full_name', ascending: true }
-        });
-        
-        directors = allMembers || [];
-        renderDirectors();
-    } catch (error) {
-        console.error('❌ Error loading directors:', error);
-    }
+  try {
+    const allMembers = await UTILS.supabaseQuery('profiles', {
+      order: { column: 'full_name', ascending: true }
+    });
+    
+    // Filtrar membros da diretoria (Presidente, Vice, Secretário, Tesoureira, Diretor, Ouvidoria)
+    const leadershipRoles = ['Presidente', 'Vice-Presidente', 'Secretário Geral', 'Secretária', 'Tesoureira', 'Diretor', 'Ouvidoria'];
+    directors = (allMembers || []).filter(m => leadershipRoles.includes(m.role));
+    
+    // Resolver nomes de departamento
+    directors = await Promise.all(directors.map(async (d) => {
+      if (d.department_id) {
+        const dept = await UTILS.supabaseQuery('departments', { where: { id: d.department_id } });
+        return { ...d, department_name: dept && dept[0] ? dept[0].name : 'Sem departamento' };
+      }
+      return { ...d, department_name: 'Sem departamento' };
+    }));
+    
+    renderDirectors();
+  } catch (error) {
+    console.error('❌ Error loading directors:', error);
+  }
 }
 
 function renderDirectors() {
@@ -51,7 +62,7 @@ function renderDirectors() {
             <p class="director-position">${director.role || 'Diretor'}</p>
             <p class="director-department">${director.department_name || 'Sem departamento'}</p>
             <p class="director-email">${director.email || 'Sem email'}</p>
-            <button onclick="viewDirectorProfile(${director.id})" class="btn-view">Ver Perfil</button>
+            <button onclick="viewDirectorProfile('${director.id}')" class="btn-view">Ver Perfil</button>
         </div>
     `).join('');
 }
