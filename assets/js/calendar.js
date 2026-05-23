@@ -175,14 +175,26 @@ function setupEventListeners() {
 }
 
 async function handleAddEvent(form) {
-    try {
-        const eventData = {
-            name: form.querySelector('[name="event-title"]')?.value,
-            date: form.querySelector('[name="event-date"]')?.value,
-            location: form.querySelector('[name="event-location"]')?.value,
-            description: form.querySelector('[name="event-desc"]')?.value,
-            created_by: UTILS.getStorageUser().id
-        };
+ try {
+ const user = UTILS.getStorageUser();
+ if (!user?.id) throw new Error('Sessão expirada. Faça login novamente.');
+
+ // Verifica se o perfil existe no banco antes de inserir
+ const { data: profile, error: profileError } = await CONFIG.getSupabase()
+ .from('profiles')
+ .select('id')
+ .eq('id', user.id)
+ .limit(1);
+
+ var createdBy = (profileError || !profile?.length) ? null : user.id;
+
+ const eventData = {
+ name: form.querySelector('[name="event-title"]')?.value,
+ date: form.querySelector('[name="event-date"]')?.value,
+ location: form.querySelector('[name="event-location"]')?.value,
+ description: form.querySelector('[name="event-desc"]')?.value,
+ created_by: createdBy
+ };
 
         if (!eventData.name || !eventData.date) {
             throw new Error('Preencha todos os campos obrigatórios');

@@ -130,38 +130,50 @@
       <p class="empty-state">Carregando tarefas...</p>
     </div>
 
-    <!-- Modal Nova Tarefa -->
-    <div id="task-modal" class="modal-overlay">
-      <div class="modal-box">
-        <h2><i class="fa-solid fa-list-check"></i> Nova Tarefa</h2>
-        <form id="task-form">
-          <div class="form-group">
-            <label>Título *</label>
-            <input type="text" name="task-title" class="form-input" placeholder="Título da tarefa" required>
-          </div>
-          <div class="form-group">
-            <label>Descrição</label>
-            <textarea name="task-desc" class="form-input" rows="3" placeholder="Detalhes..."></textarea>
-          </div>
-          <div class="form-group">
-            <label>Prioridade</label>
-            <select name="task-priority" class="form-input">
-              <option value="low">Baixa</option>
-              <option value="medium" selected>Média</option>
-              <option value="high">Alta</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Data de Vencimento</label>
-            <input type="date" name="task-date" class="form-input">
-          </div>
-          <div style="display:flex;gap:10px;">
-            <button type="submit" class="btn btn-primary" style="flex:1;">Criar Tarefa</button>
-            <button type="button" id="btn-close-modal" class="btn btn-ghost">Cancelar</button>
-          </div>
-        </form>
-      </div>
-    </div>
+ <!-- Modal Nova Tarefa -->
+ <div id="task-modal" class="modal-overlay">
+ <div class="modal-box">
+ <h2><i class="fa-solid fa-list-check"></i> Nova Tarefa</h2>
+ <form id="task-form">
+ <div class="form-group">
+ <label>Título *</label>
+ <input type="text" name="task-title" class="form-input" placeholder="Título da tarefa" required>
+ </div>
+ <div class="form-group">
+ <label>Descrição</label>
+ <textarea name="task-desc" class="form-input" rows="3" placeholder="Detalhes..."></textarea>
+ </div>
+ <div class="form-group">
+ <label>Prioridade</label>
+ <select name="task-priority" class="form-input">
+ <option value="low">Baixa</option>
+ <option value="medium" selected>Média</option>
+ <option value="high">Alta</option>
+ </select>
+ </div>
+ <div class="form-group">
+ <label>Data de Vencimento</label>
+ <input type="date" name="task-date" class="form-input">
+ </div>
+ <div style="display:flex;gap:10px;">
+ <button type="submit" class="btn btn-primary" style="flex:1;">Criar Tarefa</button>
+ <button type="button" id="btn-close-modal" class="btn btn-ghost">Cancelar</button>
+ </div>
+ </form>
+ </div>
+ </div>
+
+ <!-- Modal Confirmar Exclusão -->
+ <div id="confirm-modal" class="modal-overlay">
+ <div class="modal-box" style="max-width:360px;text-align:center;">
+ <h2><i class="fa-solid fa-trash"></i> Confirmar Exclusão</h2>
+ <p style="color:var(--text-muted);margin-bottom:20px;">Tem certeza que deseja deletar esta tarefa?</p>
+ <div style="display:flex;gap:10px;justify-content:center;">
+ <button id="confirm-yes" class="btn btn-primary" style="background:rgba(255,75,75,0.8);flex:1;">Deletar</button>
+ <button id="confirm-no" class="btn btn-ghost" style="flex:1;">Cancelar</button>
+ </div>
+ </div>
+ </div>
 
 
   </main>

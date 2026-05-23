@@ -136,16 +136,44 @@ async function updateTaskStatus(id, status) {
 }
 
 async function deleteTask(id) {
-    if (!confirm('Tem certeza que deseja deletar esta tarefa?')) return;
-
+ // Verificar se existe modal de confirmação, senão usar confirm nativo
+ const confirmModal = document.getElementById('confirm-modal');
+ if (confirmModal) {
+  return new Promise((resolve) => {
+   confirmModal.classList.add('active');
+   const onConfirm = async () => {
+    cleanup();
     try {
-        await UTILS.supabaseDelete('tasks', id);
-        UTILS.showSuccess('Tarefa deletada com sucesso!');
-        await loadTasks();
+     await UTILS.supabaseDelete('tasks', id);
+     UTILS.showSuccess('Tarefa deletada com sucesso!');
+     await loadTasks();
     } catch (error) {
-        console.error('❌ Error deleting task:', error);
-        UTILS.showError('Erro ao deletar tarefa');
+     console.error('❌ Error deleting task:', error);
+     UTILS.showError('Erro ao deletar tarefa');
     }
+    resolve();
+   };
+   const onCancel = () => { cleanup(); resolve(); };
+   const cleanup = () => {
+    confirmModal.classList.remove('active');
+    document.getElementById('confirm-yes')?.removeEventListener('click', onConfirm);
+    document.getElementById('confirm-no')?.removeEventListener('click', onCancel);
+   };
+   document.getElementById('confirm-yes')?.addEventListener('click', onConfirm);
+   document.getElementById('confirm-no')?.addEventListener('click', onCancel);
+  });
+ }
+ // Fallback: confirm nativo
+ if (!confirm('Tem certeza que deseja deletar esta tarefa?')) return;
+
+ try {
+  await UTILS.supabaseDelete('tasks', id);
+  UTILS.showSuccess('Tarefa deletada com sucesso!');
+  await loadTasks();
+ } catch (error) {
+  console.error('❌ Error deleting task:', error);
+  UTILS.showError('Erro ao deletar tarefa');
+ }
 }
 
 console.log('✅ Tasks module loaded');
