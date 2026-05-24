@@ -11,6 +11,7 @@ const NavComponent = {
  { href: 'diario.html', icon: 'fa-solid fa-book', label: 'Diário' },
  { href: 'tasks.html', icon: 'fa-solid fa-list-check', label: 'Tarefas' },
  { href: 'perfil.html', icon: 'fa-solid fa-user', label: 'Perfil' },
+ { href: 'sobre.html', icon: 'fa-solid fa-circle-info', label: 'Sobre' },
   ],
 
   // Detecta a página atual pelo filename
