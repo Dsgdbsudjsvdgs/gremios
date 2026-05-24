@@ -67,25 +67,11 @@
   </div>
 
   <script src="assets/js/auth.js"></script>
+ <script src="assets/js/app-banner.js"></script>
  <script>
  if ('serviceWorker' in navigator) {
  navigator.serviceWorker.register('sw.js').then(() => console.log('✅ SW registered'));
  }
-
- // Detecção Android/iOS — banner de download
- (function() {
- const ua = navigator.userAgent.toLowerCase();
- const isAndroid = ua.includes('android');
- const isIOS = /iphone|ipad|ipod/.test(ua);
- const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
- const dismissed = localStorage.getItem('app_banner_dismissed');
-
- if (isAndroid && !isStandalone && !dismissed) {
- document.getElementById('app-banner').style.display = 'block';
- document.getElementById('app-download-btn').href = 'https://github.com/Dsgdbsudjsvdgs/gremios/releases/latest/download/app-debug.apk';
- }
- // iOS: sem banner, usa o navegador mesmo
- })();
  </script>
 </body>
 </html>

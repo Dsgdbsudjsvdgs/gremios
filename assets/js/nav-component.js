@@ -56,12 +56,12 @@ const NavComponent = {
             </a>
           </li>`;
         }).join('')}
-        <li class="nav-item nav-item-logout">
-          <a href="${logoutHref}" class="nav-link nav-logout">
-            <i class="fa-solid fa-right-from-bracket"></i>
-            <span>Sair</span>
-          </a>
-        </li>
+ <li class="nav-item nav-item-logout">
+ <a href="#" class="nav-link nav-logout" onclick="handleLogout(event)">
+ <i class="fa-solid fa-right-from-bracket"></i>
+ <span>Sair</span>
+ </a>
+ </li>
       </ul>
     `;
 
