@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+ <title>Instalar App | Grêmio Estudantil</title>
+ <link rel="stylesheet" href="../assets/css/variables.css">
+ <link rel="stylesheet" href="../assets/css/style.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+ <style>
+  .install-container { max-width: 480px; margin: 0 auto; padding: 32px 16px; text-align: center; }
+  .install-icon { font-size: 4rem; color: var(--primary); margin-bottom: 16px; }
+  .install-icon .pulse { animation: pulse 2s ease-in-out infinite; }
+  @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
+  .install-title { font-size: 1.5rem; font-weight: 800; color: var(--text-main); margin-bottom: 8px; }
+  .install-subtitle { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 24px; line-height: 1.5; }
+  .install-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 24px; margin: 16px 0; text-align: left; }
+  .install-card h3 { font-size: 0.95rem; color: var(--primary); margin-bottom: 12px; }
+  .install-card .step { display: flex; gap: 12px; align-items: flex-start; padding: 10px 0; border-bottom: 1px solid var(--glass-border); }
+  .install-card .step:last-child { border: none; }
+  .step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--primary); color: #000; font-weight: 700; font-size: 0.85rem; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step-text { font-size: 0.85rem; color: var(--text-main); line-height: 1.5; }
+  .step-text strong { color: var(--primary); }
+  .btn-download { display: inline-block; padding: 14px 32px; background: var(--primary); color: #000; font-weight: 800; font-size: 1rem; border-radius: 28px; text-decoration: none; margin: 8px 0; transition: transform 0.15s, box-shadow 0.15s; box-shadow: 0 4px 24px rgba(0,229,255,0.3); }
+  .btn-download:hover { transform: translateY(-2px); box-shadow: 0 6px 32px rgba(0,229,255,0.4); }
+  .btn-download:active { transform: scale(0.97); }
+  .ios-msg { display: none; background: rgba(0,229,255,0.08); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 16px; margin: 16px 0; font-size: 0.85rem; color: var(--text-muted); line-height: 1.5; }
+  .ios-msg i { color: var(--primary); margin-right: 6px; }
+  .features { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0; }
+  .feature-item { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-md); padding: 14px; text-align: center; }
+  .feature-item i { font-size: 1.3rem; color: var(--primary); margin-bottom: 6px; display: block; }
+  .feature-item span { font-size: 0.75rem; color: var(--text-muted); }
+  .apk-size { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; }
+  .already-installed { display: none; background: rgba(76,175,80,0.1); border: 1px solid #4CAF50; border-radius: var(--radius-lg); padding: 16px; margin: 16px 0; text-align: center; }
+  .already-installed i { font-size: 2rem; color: #4CAF50; }
+  .already-installed p { font-size: 0.9rem; color: #4CAF50; margin-top: 8px; font-weight: 600; }
+ </style>
+</head>
+<body>
+ <main class="main-content">
+  <!-- Nav injetada via nav-component.js -->
+  <div class="install-container">
+   <div class="install-icon"><div class="pulse">📱</div></div>
+   <h1 class="install-title">App Grêmio Estudantil</h1>
+   <p class="install-subtitle">Versão nativa pra Android — mais rápido,<br>funciona offline e integra com o Supabase</p>
+
+   <div class="features">
+    <div class="feature-item"><i class="fa-solid fa-bolt"></i><span>Carregamento instantâneo</span></div>
+    <div class="feature-item"><i class="fa-solid fa-wifi"></i><span>Funciona offline</span></div>
+    <div class="feature-item"><i class="fa-solid fa-shield"></i><span>Login seguro</span></div>
+    <div class="feature-item"><i class="fa-solid fa-rotate"></i><span>Atualização automática</span></div>
+   </div>
+
+   <div id="android-install">
+    <a id="download-btn" href="https://github.com/Dsgdbsudjsvdgs/gremios/releases/latest/download/app-debug.apk" class="btn-download">
+     <i class="fa-solid fa-download"></i> Baixar APK
+    </a>
+    <p class="apk-size">~2.5 MB • Android 7.0+</p>
+
+    <div class="install-card">
+     <h3><i class="fa-solid fa-circle-question"></i> Como instalar</h3>
+     <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-text">Toque em <strong>Baixar APK</strong> acima</div>
+     </div>
+     <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-text">Abra o arquivo baixado (pasta <strong>Downloads</strong>)</div>
+     </div>
+     <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-text">Permita instalação de <strong>fontes desconhecidas</strong> se o Android pedir</div>
+     </div>
+     <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-text">Toque em <strong>Instalar</strong> e pronto! 🎉</div>
+     </div>
+    </div>
+   </div>
+
+   <div id="ios-install" class="ios-msg">
+    <i class="fa-brands fa-apple"></i> No iPhone/iPad, use o site pelo navegador mesmo — o app é exclusivo Android por enquanto. Adicione à tela inicial pelo botão de compartilhar <i class="fa-solid fa-arrow-up-from-bracket"></i> pra ter um atalho rápido.
+   </div>
+
+   <div id="already-app" class="already-installed">
+    <i class="fa-solid fa-circle-check"></i>
+    <p>Você já está usando o app!</p>
+   </div>
+  </div>
+ </main>
+
+ <script src="../assets/js/config.js"></script>
+ <script src="../assets/js/utils.js"></script>
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+ <script src="../assets/js/logout.js"></script>
+ <script src="../assets/js/nav-component.js"></script>
+ <script src="../assets/js/theme-manager.js"></script>
+ <script src="../assets/js/core-guard.js"></script>
+ <script>
+  (function() {
+   const ua = navigator.userAgent.toLowerCase();
+   const isAndroid = ua.includes('android');
+   const isIOS = /iphone|ipad|ipod/.test(ua);
+   const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+   const isWebView = typeof window.AndroidBridge !== 'undefined' || ua.includes('wv');
+
+   // Já tá no app — esconde tudo de instalação
+   if (isStandalone || isWebView) {
+    document.getElementById('android-install').style.display = 'none';
+    document.getElementById('already-app').style.display = 'block';
+    return;
+   }
+
+   // iOS — mostra mensagem específica
+   if (isIOS) {
+    document.getElementById('android-install').style.display = 'none';
+    document.getElementById('ios-install').style.display = 'block';
+   }
+
+   // Android no navegador — mostra tudo normalmente (já é o default)
+  })();
+ </script>
+</body>
+</html>

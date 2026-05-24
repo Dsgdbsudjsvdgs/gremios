@@ -4,15 +4,16 @@
 // ============================================================================
 
 const NavComponent = {
-  links: [
-    { href: 'dashboard.html', icon: 'fa-solid fa-house', label: 'Dashboard' },
+ links: [
+ { href: 'dashboard.html', icon: 'fa-solid fa-house', label: 'Dashboard' },
  { href: 'mapa_membros.html', icon: 'fa-solid fa-users', label: 'Membros' },
  { href: 'calendario.html', icon: 'fa-solid fa-calendar-days', label: 'Calendário' },
  { href: 'diario.html', icon: 'fa-solid fa-book', label: 'Diário' },
  { href: 'tasks.html', icon: 'fa-solid fa-list-check', label: 'Tarefas' },
  { href: 'perfil.html', icon: 'fa-solid fa-user', label: 'Perfil' },
  { href: 'sobre.html', icon: 'fa-solid fa-circle-info', label: 'Sobre' },
-  ],
+ { href: 'instalar.html', icon: 'fa-solid fa-mobile-screen-button', label: 'Instalar App', browserOnly: true },
+ ],
 
   // Detecta a página atual pelo filename
   getCurrentPage() {
@@ -26,11 +27,14 @@ const NavComponent = {
     const current = this.getCurrentPage();
 
     // Detecta se tá em /pages/ ou na raiz
-    const inPages = window.location.pathname.includes('/pages/');
-    const prefix = inPages ? '' : 'pages/';
-    const logoutHref = inPages ? '../index.html' : 'index.html';
+ const inPages = window.location.pathname.includes('/pages/');
+ const prefix = inPages ? '' : 'pages/';
+ const logoutHref = inPages ? '../index.html' : 'index.html';
 
-    // Mobile trigger (hamburger)
+ // Detecta se tá no app nativo (WebView)
+ const isApp = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone || /wv/.test(navigator.userAgent.toLowerCase());
+
+ // Mobile trigger (hamburger)
     const trigger = document.createElement('div');
     trigger.className = 'mobile-nav-trigger';
     trigger.innerHTML = `<i class="fa-solid fa-bars"></i>`;
@@ -46,7 +50,7 @@ const NavComponent = {
         <span class="nav-brand">Conecta Jovem</span>
       </div>
       <ul class="nav-links">
-        ${this.links.map(link => {
+        ${this.links.filter(link => !link.browserOnly || !isApp).map(link => {
           const pageName = link.href.replace('.html', '');
           const isActive = pageName === current ? ' active' : '';
           return `<li class="nav-item">

@@ -3,7 +3,7 @@
 <head>
  <meta charset="UTF-8">
  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
- <title>Sobre o App | Grêmio Estudantil</title>
+ <title>Sobre | Grêmio Estudantil</title>
  <link rel="stylesheet" href="../assets/css/variables.css">
  <link rel="stylesheet" href="../assets/css/style.css">
  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
@@ -13,8 +13,8 @@
   .about-logo .logo-circle { width: 80px; height: 80px; border-radius: 50%; background: var(--primary); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; font-size: 2rem; font-weight: 800; color: #000; }
   .about-logo h1 { font-size: 1.3rem; color: var(--text-main); }
   .about-logo p { font-size: 0.85rem; color: var(--text-muted); }
-  .update-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 20px; margin: 20px 0; }
-  .update-card h2 { font-size: 1rem; color: var(--primary); margin-bottom: 12px; }
+  .about-card { background: var(--glass-bg); border: 1px solid var(--glass-border); border-radius: var(--radius-lg); padding: 20px; margin: 20px 0; }
+  .about-card h2 { font-size: 1rem; color: var(--primary); margin-bottom: 12px; }
   .version-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
   .version-label { font-size: 0.85rem; color: var(--text-muted); }
   .version-value { font-size: 0.95rem; color: var(--text-main); font-weight: 600; font-family: monospace; }
@@ -33,6 +33,8 @@
   .info-item .value { font-size: 0.85rem; color: var(--text-main); }
   .check-btn { padding: 8px 20px; border-radius: 16px; background: rgba(0,229,255,0.1); color: var(--primary); border: 1px solid var(--glass-border); font-size: 0.85rem; cursor: pointer; margin-top: 4px; }
   .check-btn:hover { background: rgba(0,229,255,0.2); }
+  .site-info { display: none; }
+  .app-info { display: none; }
  </style>
 </head>
 <body>
@@ -45,37 +47,72 @@
     <p id="version-display">Carregando...</p>
    </div>
 
-   <div class="update-card">
-    <h2>🔄 Atualizações</h2>
-    <div class="version-row">
-     <span class="version-label">Versão instalada</span>
-     <span class="version-value" id="installed-version">—</span>
+   <!-- CONTEÚDO DO APP (WebView) -->
+   <div class="app-info">
+    <div class="about-card">
+     <h2>🔄 Atualizações</h2>
+     <div class="version-row">
+      <span class="version-label">Versão instalada</span>
+      <span class="version-value" id="installed-version">—</span>
+     </div>
+     <div id="update-status">—</div>
+     <button id="update-btn">⬇ Baixar Atualização</button>
+     <button class="check-btn" onclick="checkForUpdates()">Verificar agora</button>
+     <div class="changelog-box">
+      <h3>Novidades:</h3>
+      <ul id="changelog"></ul>
+     </div>
     </div>
-    <div id="update-status">—</div>
-    <button id="update-btn">⬇ Baixar Atualização</button>
-    <button class="check-btn" onclick="checkForUpdates()">Verificar agora</button>
-    <div class="changelog-box">
-     <h3>Novidades:</h3>
-     <ul id="changelog"></ul>
+
+    <div class="info-section">
+     <div class="info-item">
+      <span class="label">Plataforma</span>
+      <span class="value">Android (WebView)</span>
+     </div>
+     <div class="info-item">
+      <span class="label">Backend</span>
+      <span class="value">Supabase</span>
+     </div>
+     <div class="info-item">
+      <span class="label">Desenvolvedor</span>
+      <span class="value">Dir. Tecnologia — Elvey</span>
+     </div>
+     <div class="info-item">
+      <span class="label">Repo</span>
+      <span class="value" style="color:var(--primary)">GitHub</span>
+     </div>
     </div>
    </div>
 
-   <div class="info-section">
-    <div class="info-item">
-     <span class="label">Desenvolvedor</span>
-     <span class="value">Dir. Tecnologia — Elvey</span>
+   <!-- CONTEÚDO DO NAVEGADOR (site) -->
+   <div class="site-info">
+    <div class="about-card">
+     <h2>🌐 Sobre o site</h2>
+     <p style="font-size:0.85rem;color:var(--text-main);line-height:1.6;margin-bottom:12px;">
+      O site do Grêmio Estudantil ConecTiva é a versão web do nosso sistema de gestão. Funciona em qualquer navegador e sincroniza tudo com o Supabase em tempo real.
+     </p>
+     <p style="font-size:0.85rem;color:var(--text-muted);">
+      Pra uma experiência melhor no Android, <a href="instalar.html" style="color:var(--primary);font-weight:600;">instale o app nativo</a> — carrega mais rápido e funciona offline.
+     </p>
     </div>
-    <div class="info-item">
-     <span class="label">Backend</span>
-     <span class="value">Supabase</span>
-    </div>
-    <div class="info-item">
-     <span class="label">Plataforma</span>
-     <span class="value">Android (WebView)</span>
-    </div>
-    <div class="info-item">
-     <span class="label">Repo</span>
-     <span class="value" style="color:var(--primary)">GitHub</span>
+
+    <div class="info-section">
+     <div class="info-item">
+      <span class="label">Plataforma</span>
+      <span class="value">Web (PWA)</span>
+     </div>
+     <div class="info-item">
+      <span class="label">Hospedagem</span>
+      <span class="value">Vercel</span>
+     </div>
+     <div class="info-item">
+      <span class="label">Backend</span>
+      <span class="value">Supabase</span>
+     </div>
+     <div class="info-item">
+      <span class="label">Desenvolvedor</span>
+      <span class="value">Dir. Tecnologia — Elvey</span>
+     </div>
     </div>
    </div>
   </div>
@@ -88,11 +125,27 @@
  <script src="../assets/js/nav-component.js"></script>
  <script src="../assets/js/theme-manager.js"></script>
  <script src="../assets/js/core-guard.js"></script>
- <script src="../assets/js/app-banner.js"></script>
  <script src="../assets/js/update.js"></script>
  <script>
-  document.getElementById('installed-version').textContent = `v${UPDATE_CONFIG.CURRENT_VERSION} (${UPDATE_CONFIG.CURRENT_BUILD})`;
-  checkForUpdates();
+  (function() {
+   const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+   const isWebView = /wv/.test(navigator.userAgent.toLowerCase()) || typeof window.AndroidBridge !== 'undefined';
+   const isApp = isStandalone || isWebView;
+
+   if (isApp) {
+    // APK — mostra info do app + verificação de atualização
+    document.querySelector('.app-info').style.display = 'block';
+    document.querySelector('.site-info').style.display = 'none';
+    document.getElementById('version-display').textContent = `v${UPDATE_CONFIG.CURRENT_VERSION} (${UPDATE_CONFIG.CURRENT_BUILD})`;
+    document.getElementById('installed-version').textContent = `v${UPDATE_CONFIG.CURRENT_VERSION} (${UPDATE_CONFIG.CURRENT_BUILD})`;
+    checkForUpdates();
+   } else {
+    // Navegador — mostra info do site
+    document.querySelector('.app-info').style.display = 'none';
+    document.querySelector('.site-info').style.display = 'block';
+    document.getElementById('version-display').textContent = 'Versão Web';
+   }
+  })();
  </script>
 </body>
 </html>
