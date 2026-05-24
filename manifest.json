@@ -1,6 +1,6 @@
 {
-  "name": "Grêmio Estudantil ConecTiva",
-  "short_name": "Grêmio",
+  "name": "Grêmio Conecta Jovem",
+  "short_name": "Conecta Jovem",
   "description": "Sistema de gestão do Grêmio Estudantil ConecTiva",
   "start_url": "/gremios/index.html",
   "scope": "/gremios/",

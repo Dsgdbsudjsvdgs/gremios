@@ -1,12 +1,12 @@
 {
-  "version": "2.3.0",
-  "build": 6,
+  "version": "2.4.0",
+  "build": 7,
   "apk_url": "https://github.com/Dsgdbsudjsvdgs/gremios/releases/latest/download/app-debug.apk",
   "changelog": [
+    "Versão detectada automaticamente (sem hardcode)",
+    "Nome: Grêmio Conecta Jovem",
     "Página Instalar App dedicada",
     "Página Sobre dinâmica (app vs navegador)",
-    "Nav: link Instalar App só no navegador",
-    "Banner de download só no login (Android)",
     "Logout corrigido em todas as páginas"
   ]
 }
