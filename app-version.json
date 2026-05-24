@@ -1,12 +1,12 @@
 {
-  "version": "2.2.0",
-  "build": 5,
+  "version": "2.3.0",
+  "build": 6,
   "apk_url": "https://github.com/Dsgdbsudjsvdgs/gremios/releases/latest/download/app-debug.apk",
   "changelog": [
-    "Logout corrigido em todas as páginas",
-    "Banner de download modular (app-banner.js)",
-    "Página Sobre sem duplicatas",
-    "Detecção Android/iOS — banner só no Android",
-    "Sincronização repo ↔ APK via sync-assets.sh"
+    "Página Instalar App dedicada",
+    "Página Sobre dinâmica (app vs navegador)",
+    "Nav: link Instalar App só no navegador",
+    "Banner de download só no login (Android)",
+    "Logout corrigido em todas as páginas"
   ]
 }
