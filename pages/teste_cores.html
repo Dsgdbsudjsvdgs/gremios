@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+ <meta charset="UTF-8">
+ <title>Teste de Cores — Grêmio</title>
+ <style>
+  body { font-family: sans-serif; background: #111; color: #fff; padding: 20px; }
+  h1 { color: #00E5FF; }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { padding: 8px 12px; border: 1px solid #333; text-align: left; font-size: 0.9rem; }
+  th { background: #1a1a1a; color: #00E5FF; }
+  .color-swatch { width: 32px; height: 32px; border-radius: 50%; display: inline-block; vertical-align: middle; }
+  .err { color: #FF4B4B; font-weight: bold; }
+  .ok { color: #10b981; }
+ </style>
+</head>
+<body>
+<h1>🧪 Teste de Cores — Departamentos</h1>
+<p id="result"></p>
+<table>
+ <tr><th>Membro</th><th>Dept Resolvido</th><th>Cor Dept (getDeptColorByName)</th><th>Swatch</th><th>color_hex banco</th><th>Status</th></tr>
+ <tbody id="tbody"></tbody>
+</table>
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/utils.js"></script>
+<script>
+const MEMBER_DEPT_MAP = {
+ 'Agatha': 'Cultura',
+ 'Junior': 'Esportes',
+ 'Maria Eduarda': 'Eventos',
+ 'Atyla': 'Comunicação',
+ 'Maria Fernanda': 'Responsabilidade Social',
+ 'Kaylane': 'Meio Ambiente',
+ 'Paulo Henrique': 'Protagonismo',
+ 'Elvey': 'Tecnologia e Inovação',
+ 'João Guilherme': 'Ouvidoria',
+ 'Lohanna': 'Presidência',
+ 'Raphaella': 'Vice-Presidência',
+ 'David': 'Secretaria Geral',
+ 'Bianca': 'Secretaria',
+ 'Luzia': 'Tesouraria'
+};
+
+// Cores esperadas (o que deveria ser)
+const EXPECTED_COLORS = {
+ 'Presidência': '#FF6B6B',
+ 'Vice-Presidência': '#4ECDC4',
+ 'Secretaria Geral': '#45B7D1',
+ 'Secretaria': '#FFA07A',
+ 'Tesouraria': '#FF6B6B',
+ 'Cultura': '#BB8FCE',
+ 'Esportes': '#85C1E2',
+ 'Eventos': '#BB8FCE',
+ 'Comunicação': '#F7DC6F',
+ 'Responsabilidade Social': '#52C9A0',
+ 'Meio Ambiente': '#7FD8BE',
+ 'Protagonismo': '#A8D8EA',
+ 'Tecnologia e Inovação': '#00E5FF',
+ 'Ouvidoria': '#F8B739'
+};
+
+const tbody = document.getElementById('tbody');
+let errors = 0;
+
+Object.entries(MEMBER_DEPT_MAP).forEach(([name, dept]) => {
+ const color = UTILS.getDeptColorByName(dept);
+ const expected = EXPECTED_COLORS[dept] || '?';
+ const match = color.toLowerCase() === expected.toLowerCase();
+ if (!match) errors++;
+ 
+ const tr = document.createElement('tr');
+ tr.innerHTML = `
+  <td>${name}</td>
+  <td>${dept}</td>
+  <td>${color}</td>
+  <td><span class="color-swatch" style="background:${color}"></span></td>
+  <td>${expected}</td>
+  <td class="${match ? 'ok' : 'err'}">${match ? '✅ OK' : '❌ ERRADO — deveria ser ' + expected}</td>
+ `;
+ tbody.appendChild(tr);
+});
+
+document.getElementById('result').innerHTML = errors === 0
+ ? '<span class="ok">✅ Todas as cores corretas!</span>'
+ : `<span class="err">❌ ${errors} cor(es) errada(s) — precisa corrigir CONFIG.DEPARTMENTS</span>`;
+</script>
+</body>
+</html>

@@ -196,7 +196,7 @@ function navigateToPage(page) {
         'members': 'mapa_membros.html',
         'profile': 'perfil.html',
         'admin': 'admin.html',
-        'diretoria': 'diretoria.html'
+        'diretoria': 'mapa_membros.html'
     };
 
     const url = pages[page];

@@ -6,12 +6,11 @@
 const NavComponent = {
   links: [
     { href: 'dashboard.html', icon: 'fa-solid fa-house', label: 'Dashboard' },
-    { href: 'diretoria.html', icon: 'fa-solid fa-users', label: 'Diretoria' },
-    { href: 'calendario.html', icon: 'fa-solid fa-calendar-days', label: 'Calendário' },
-    { href: 'diario.html', icon: 'fa-solid fa-book', label: 'Diário' },
-    { href: 'tasks.html', icon: 'fa-solid fa-list-check', label: 'Tarefas' },
-    { href: 'perfil.html', icon: 'fa-solid fa-user', label: 'Perfil' },
-    { href: 'mapa_membros.html', icon: 'fa-solid fa-map', label: 'Mapa' },
+ { href: 'mapa_membros.html', icon: 'fa-solid fa-users', label: 'Membros' },
+ { href: 'calendario.html', icon: 'fa-solid fa-calendar-days', label: 'Calendário' },
+ { href: 'diario.html', icon: 'fa-solid fa-book', label: 'Diário' },
+ { href: 'tasks.html', icon: 'fa-solid fa-list-check', label: 'Tarefas' },
+ { href: 'perfil.html', icon: 'fa-solid fa-user', label: 'Perfil' },
   ],
 
   // Detecta a página atual pelo filename

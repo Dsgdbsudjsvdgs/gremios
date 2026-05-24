@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<style>
+@page { size: A4 landscape; margin: 0; }
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Segoe UI', Calibri, sans-serif;
+  color: #FFFFFF;
+  background: #000;
+}
+
+.slide {
+  page-break-after: always;
+  width: 297mm;
+  height: 210mm;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+}
+
+/* ═══ VARIABLES ═══ */
+:root {
+  --cyan: #00E5FF;
+  --cyan-dark: #00B2CC;
+  --black: #000000;
+  --surface: #12121E;
+  --surface2: #1E1E32;
+  --dim: #B0B0B0;
+  --muted: #707070;
+  --green: #00FF88;
+  --red: #FF4C4C;
+  --yellow: #FFD700;
+  --white: #FFFFFF;
+  --glass-border: rgba(255,255,255,0.12);
+}
+
+/* ═══ SLIDE 1: CAPA ═══ */
+.s1 {
+  background: linear-gradient(135deg, #000000 0%, #001A22 100%);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.s1-circle {
+  width: 120mm;
+  height: 50mm;
+  border: 2px solid var(--cyan);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,229,255,0.04);
+  margin-bottom: 12mm;
+  font-size: 36mm;
+}
+
+.s1 h1 {
+  font-size: 14mm;
+  font-weight: 800;
+  color: var(--cyan);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 4mm;
+}
+
+.s1 h2 {
+  font-size: 7mm;
+  font-weight: 400;
+  color: var(--dim);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 8mm;
+}
+
+.s1-line {
+  width: 60mm;
+  height: 1.5mm;
+  background: var(--cyan);
+  border-radius: 1mm;
+  margin: 0 auto 8mm;
+}
+
+.s1 p {
+  font-size: 4.5mm;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.s1 a {
+  color: var(--cyan-dark);
+  text-decoration: none;
+}
+
+/* ═══ SHARED ═══ */
+.slide-title {
+  font-size: 9mm;
+  font-weight: 800;
+  color: var(--cyan);
+  margin-bottom: 5mm;
+  padding-left: 2mm;
+  border-left: 2mm solid var(--cyan);
+  padding-top: 1mm;
+  padding-bottom: 1mm;
+}
+
+.glass-card {
+  background: var(--surface2);
+  border: 1px solid var(--glass-border);
+  border-radius: 4mm;
+  padding: 6mm;
+  position: relative;
+  overflow: hidden;
+}
+
+.glass-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1.5mm;
+  background: var(--cyan);
+}
+
+.glass-card.accent-white::before { background: var(--white); }
+.glass-card.accent-green::before { background: var(--green); }
+.glass-card.accent-yellow::before { background: var(--yellow); }
+.glass-card.accent-red::before { background: var(--red); }
+.glass-card.accent-dim::before { background: var(--dim); }
+
+/* ═══ SLIDE 2: O SISTEMA ═══ */
+.s2 {
+  background: linear-gradient(135deg, #000000 0%, #050A14 100%);
+  padding: 12mm;
+  gap: 8mm;
+}
+
+.s2-left {
+  flex: 1.3;
+  display: flex;
+  flex-direction: column;
+  gap: 5mm;
+}
+
+.s2-right {
+  flex: 0.7;
+  display: flex;
+  flex-direction: column;
+  gap: 5mm;
+}
+
+.s2-left .glass-card { flex: 1; }
+.s2-right .glass-card { flex: 1; }
+
+.feature-list {
+  list-style: none;
+  padding: 0;
+}
+
+.feature-list li {
+  font-size: 4mm;
+  color: var(--dim);
+  padding: 1.5mm 0 1.5mm 6mm;
+  position: relative;
+  line-height: 1.5;
+}
+
+.feature-list li::before {
+  content: '▸';
+  position: absolute;
+  left: 0;
+  color: var(--cyan);
+  font-weight: 700;
+}
+
+.tech-item {
+  margin-bottom: 4mm;
+}
+
+.tech-item h4 {
+  font-size: 4.5mm;
+  color: var(--cyan);
+  font-weight: 700;
+  margin-bottom: 1mm;
+}
+
+.tech-item p {
+  font-size: 3.5mm;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.card-title {
+  font-size: 5.5mm;
+  font-weight: 700;
+  color: var(--cyan);
+  margin-bottom: 3mm;
+}
+
+.card-desc {
+  font-size: 3.8mm;
+  color: var(--dim);
+  line-height: 1.6;
+}
+
+/* ═══ SLIDE 3: ESTRUTURA ═══ */
+.s3 {
+  background: linear-gradient(135deg, #020510 0%, #000F19 100%);
+  padding: 12mm;
+  flex-direction: column;
+}
+
+.s3-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 4mm;
+  flex: 1;
+}
+
+.s3-card {
+  background: var(--surface2);
+  border: 1px solid var(--glass-border);
+  border-radius: 3mm;
+  padding: 4mm;
+  position: relative;
+  overflow: hidden;
+}
+
+.s3-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1.2mm;
+}
+
+.s3-card:nth-child(1)::before { background: var(--white); }
+.s3-card:nth-child(2)::before { background: var(--dim); }
+.s3-card:nth-child(3)::before { background: var(--dim); }
+.s3-card:nth-child(4)::before { background: var(--dim); }
+.s3-card:nth-child(5)::before { background: var(--white); }
+.s3-card:nth-child(6)::before { background: var(--cyan-dark); }
+.s3-card:nth-child(7)::before { background: var(--dim); }
+.s3-card:nth-child(8)::before { background: var(--white); }
+.s3-card:nth-child(9)::before { background: var(--cyan); }
+.s3-card:nth-child(10)::before { background: var(--green); }
+.s3-card:nth-child(11)::before { background: var(--green); }
+.s3-card:nth-child(12)::before { background: var(--cyan-dark); }
+.s3-card:nth-child(13)::before { background: var(--cyan); }
+.s3-card:nth-child(14)::before { background: var(--dim); }
+
+.s3-card h4 {
+  font-size: 3.5mm;
+  font-weight: 700;
+  color: var(--cyan);
+  margin-bottom: 2mm;
+}
+
+.s3-card p {
+  font-size: 3mm;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.s3-card:nth-child(1) h4 { color: var(--white); }
+.s3-card:nth-child(5) h4 { color: var(--white); }
+.s3-card:nth-child(6) h4 { color: var(--cyan-dark); }
+.s3-card:nth-child(7) h4 { color: var(--dim); }
+.s3-card:nth-child(8) h4 { color: var(--white); }
+.s3-card:nth-child(10) h4 { color: var(--green); }
+.s3-card:nth-child(11) h4 { color: var(--green); }
+.s3-card:nth-child(12) h4 { color: var(--cyan-dark); }
+.s3-card:nth-child(14) h4 { color: var(--dim); }
+
+/* ═══ SLIDE 4: BANCO DE DADOS ═══ */
+.s4 {
+  background: linear-gradient(135deg, #000510 0%, #001420 100%);
+  padding: 12mm;
+  flex-direction: column;
+}
+
+.s4-sub {
+  font-size: 4.5mm;
+  color: var(--muted);
+  margin-bottom: 5mm;
+}
+
+.s4-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5mm;
+  flex: 1;
+}
+
+.s4-card {
+  background: var(--surface2);
+  border: 1px solid var(--glass-border);
+  border-radius: 3mm;
+  padding: 5mm;
+  position: relative;
+  overflow: hidden;
+}
+
+.s4-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1.2mm;
+}
+
+.s4-card.t-cyan::before { background: var(--cyan); }
+.s4-card.t-white::before { background: var(--white); }
+.s4-card.t-cyan-dark::before { background: var(--cyan-dark); }
+.s4-card.t-green::before { background: var(--green); }
+.s4-card.t-yellow::before { background: var(--yellow); }
+.s4-card.t-red::before { background: var(--red); }
+.s4-card.t-dim::before { background: var(--dim); }
+
+.s4-card h4 {
+  font-size: 5mm;
+  font-weight: 700;
+  margin-bottom: 3mm;
+}
+
+.s4-card.t-cyan h4 { color: var(--cyan); }
+.s4-card.t-white h4 { color: var(--white); }
+.s4-card.t-cyan-dark h4 { color: var(--cyan-dark); }
+.s4-card.t-green h4 { color: var(--green); }
+.s4-card.t-yellow h4 { color: var(--yellow); }
+.s4-card.t-red h4 { color: var(--red); }
+.s4-card.t-dim h4 { color: var(--dim); }
+
+.s4-card p {
+  font-size: 3.5mm;
+  color: var(--muted);
+  line-height: 1.5;
+  font-family: 'Courier New', monospace;
+}
+
+/* ═══ SLIDE 5: SEGURANÇA ═══ */
+.s5 {
+  background: linear-gradient(135deg, #050000 0%, #0A0F19 100%);
+  padding: 12mm;
+  gap: 8mm;
+}
+
+.s5-left, .s5-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5mm;
+}
+
+/* ═══ SLIDE 6: UI/UX ═══ */
+.s6 {
+  background: linear-gradient(135deg, #000000 0%, #000A14 100%);
+  padding: 12mm;
+  flex-direction: column;
+}
+
+.s6-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 5mm;
+  flex: 1;
+}
+
+/* ═══ SLIDE 7: CÓDIGOS ═══ */
+.s7 {
+  background: linear-gradient(135deg, #000000 0%, #001420 100%);
+  padding: 10mm 12mm;
+  flex-direction: column;
+}
+
+.s7-sub {
+  font-size: 4mm;
+  color: var(--muted);
+  margin-bottom: 5mm;
+}
+
+.s7-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3mm;
+  flex: 1;
+}
+
+.s7-row {
+  background: var(--surface2);
+  border: 1px solid var(--glass-border);
+  border-radius: 2.5mm;
+  padding: 3mm 4mm;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.s7-row::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 1.2mm;
+}
+
+.s7-row:nth-child(1)::before { background: var(--white); }
+.s7-row:nth-child(2)::before { background: var(--dim); }
+.s7-row:nth-child(3)::before { background: var(--dim); }
+.s7-row:nth-child(4)::before { background: var(--dim); }
+.s7-row:nth-child(5)::before { background: var(--white); }
+.s7-row:nth-child(6)::before { background: var(--cyan-dark); }
+.s7-row:nth-child(7)::before { background: var(--dim); }
+.s7-row:nth-child(8)::before { background: var(--white); }
+.s7-row:nth-child(9)::before { background: var(--cyan); }
+.s7-row:nth-child(10)::before { background: var(--green); }
+.s7-row:nth-child(11)::before { background: var(--green); }
+.s7-row:nth-child(12)::before { background: var(--cyan-dark); }
+.s7-row:nth-child(13)::before { background: var(--cyan); }
+.s7-row:nth-child(14)::before { background: var(--dim); }
+
+.s7-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.s7-name {
+  font-size: 4mm;
+  font-weight: 700;
+  color: var(--cyan);
+}
+
+.s7-role {
+  font-size: 3mm;
+  color: var(--muted);
+  margin-top: 0.5mm;
+}
+
+.s7-code {
+  background: rgba(0,30,40,0.8);
+  border: 1px solid var(--cyan);
+  border-radius: 2mm;
+  padding: 2mm 4mm;
+  font-size: 4mm;
+  font-weight: 700;
+  color: var(--cyan);
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.5px;
+}
+
+.s7-row:nth-child(1) .s7-name { color: var(--white); }
+.s7-row:nth-child(5) .s7-name { color: var(--white); }
+.s7-row:nth-child(6) .s7-name { color: var(--cyan-dark); }
+.s7-row:nth-child(7) .s7-name { color: var(--dim); }
+.s7-row:nth-child(8) .s7-name { color: var(--white); }
+.s7-row:nth-child(10) .s7-name { color: var(--green); }
+.s7-row:nth-child(11) .s7-name { color: var(--green); }
+.s7-row:nth-child(12) .s7-name { color: var(--cyan-dark); }
+.s7-row:nth-child(14) .s7-name { color: var(--dim); }
+
+.s7-note {
+  font-size: 3.5mm;
+  color: var(--yellow);
+  font-weight: 700;
+  text-align: center;
+  margin-top: 4mm;
+  padding: 3mm;
+  background: rgba(255,215,0,0.06);
+  border: 1px solid rgba(255,215,0,0.2);
+  border-radius: 2mm;
+}
+</style>
+</head>
+<body>
+
+<!-- ═══ SLIDE 1: CAPA ═══ -->
+<div class="slide s1">
+  <div class="s1-circle">🖐️</div>
+  <h1>Grêmio Estudantil</h1>
+  <h2>CONECTA JOVEM — SISTEMA DE GESTÃO</h2>
+  <div class="s1-line"></div>
+  <p>Plataforma Digital · Acesso por Código · 14 Diretorias</p>
+  <p style="margin-top:3mm;"><a href="https://gremios-neon.vercel.app">gremios-neon.vercel.app</a></p>
+</div>
+
+<!-- ═══ SLIDE 2: O SISTEMA ═══ -->
+<div class="slide s2">
+  <div class="s2-left">
+    <div class="slide-title">O SISTEMA</div>
+    <div class="glass-card" style="flex:1;">
+      <div class="card-title">Funcionalidades</div>
+      <ul class="feature-list">
+        <li>Login seguro por código de acesso + data de nascimento</li>
+        <li>Dashboard com estatísticas em tempo real</li>
+        <li>Gestão de tarefas com prioridades e prazos</li>
+        <li>Calendário de eventos com orçamento</li>
+        <li>Diário oficial do grêmio</li>
+        <li>Controle financeiro — receitas e despesas</li>
+        <li>Perfis dos membros com cores e cargos</li>
+        <li>Sistema de logs para auditoria</li>
+        <li>Tema claro/escuro (glassmorphism)</li>
+      </ul>
+    </div>
+  </div>
+  <div class="s2-right">
+    <div class="slide-title" style="opacity:0;pointer-events:none;">.</div>
+    <div class="glass-card accent-green" style="flex:1;">
+      <div class="card-title" style="color:var(--green);">Stack Técnica</div>
+      <div class="tech-item"><h4>Frontend</h4><p>HTML + CSS + JS puro<br>Glassmorphism UI</p></div>
+      <div class="tech-item"><h4>Backend</h4><p>Supabase (PostgreSQL)<br>RLS + Functions</p></div>
+      <div class="tech-item"><h4>Auth</h4><p>Código de acesso<br>+ Data de nascimento</p></div>
+      <div class="tech-item"><h4>Deploy</h4><p>Vercel — CI/CD automático</p></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 3: ESTRUTURA ═══ -->
+<div class="slide s3">
+  <div class="slide-title">ESTRUTURA DO GRÊMIO</div>
+  <div class="s3-grid">
+    <div class="s3-card"><h4>Presidência</h4><p>Lidera o grêmio estudantil, representa a gestão e coordena diretorias.</p></div>
+    <div class="s3-card"><h4>Vice-Presidência</h4><p>Auxilia a presidência e assume em caso de ausência.</p></div>
+    <div class="s3-card"><h4>Secretaria Geral</h4><p>Gestão de documentos, atas e registros oficiais.</p></div>
+    <div class="s3-card"><h4>Secretaria</h4><p>Apoio administrativo e organização interna.</p></div>
+    <div class="s3-card"><h4>Tesouraria</h4><p>Gestão financeira — receitas, despesas e relatórios.</p></div>
+    <div class="s3-card"><h4>Cultura</h4><p>Promove atividades culturais, artísticas e de expressão.</p></div>
+    <div class="s3-card"><h4>Esportes</h4><p>Organiza torneios e atividades esportivas.</p></div>
+    <div class="s3-card"><h4>Eventos</h4><p>Planejamento e execução de eventos escolares.</p></div>
+    <div class="s3-card"><h4>Comunicação</h4><p>Divulgação, redes sociais e informação.</p></div>
+    <div class="s3-card"><h4>Resp. Social</h4><p>Ações solidárias e de apoio à comunidade.</p></div>
+    <div class="s3-card"><h4>Meio Ambiente</h4><p>Projetos ecológicos e sustentabilidade.</p></div>
+    <div class="s3-card"><h4>Protagonismo</h4><p>Formação de líderes e empoderamento juvenil.</p></div>
+    <div class="s3-card"><h4>Tecnologia</h4><p>Sistemas digitais, infraestrutura tech e inovação.</p></div>
+    <div class="s3-card"><h4>Ouvidoria</h4><p>Recebe sugestões, críticas e denúncias de forma anônima.</p></div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 4: BANCO DE DADOS ═══ -->
+<div class="slide s4">
+  <div class="slide-title">BANCO DE DADOS</div>
+  <p class="s4-sub">PostgreSQL via Supabase — 7 tabelas com RLS e FKs otimizadas</p>
+  <div class="s4-grid">
+    <div class="s4-card t-cyan"><h4>profiles</h4><p>id, full_name, cpf<br>access_code, role<br>department_id, color_hex</p></div>
+    <div class="s4-card t-white"><h4>departments</h4><p>id, name<br>description<br>created_at</p></div>
+    <div class="s4-card t-cyan-dark"><h4>tasks</h4><p>id, title, status<br>priority, assigned_to<br>due_date, dept_id</p></div>
+    <div class="s4-card t-green"><h4>events</h4><p>id, name, date<br>location, budget<br>status, created_by</p></div>
+    <div class="s4-card t-yellow"><h4>diary_entries</h4><p>id, title, content<br>tags, created_by<br>created_at</p></div>
+    <div class="s4-card t-red"><h4>finances</h4><p>id, description<br>amount, type<br>date, category</p></div>
+    <div class="s4-card t-dim"><h4>system_logs</h4><p>id, user_id<br>action, details<br>created_at</p></div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 5: SEGURANÇA ═══ -->
+<div class="slide s5">
+  <div class="s5-left">
+    <div class="slide-title">🔐 AUTENTICAÇÃO</div>
+    <div class="glass-card" style="flex:1;">
+      <div class="card-desc">
+        O sistema <strong style="color:var(--cyan)">NÃO usa Supabase Auth</strong>.<br><br>
+        <strong style="color:var(--white)">Fluxo de login:</strong><br><br>
+        1. Usuário insere Código de Acesso<br>
+        2. Informa Data de Nascimento<br>
+        3. Função validate_access_code() consulta o banco<br>
+        4. Se válido → sessão no localStorage<br>
+        5. Redirect ao Dashboard com perfil carregado<br><br>
+        <strong style="color:var(--white)">Blindagem:</strong><br>
+        • CPF e access_code com REVOKE no banco<br>
+        • Front nunca envia dados sensíveis de volta<br>
+        • RLS aberto (login customizado, sem auth.uid())
+      </div>
+    </div>
+  </div>
+  <div class="s5-right">
+    <div class="slide-title" style="border-left-color:var(--green);color:var(--green);">🛡️ SEGURANÇA</div>
+    <div class="glass-card accent-green" style="flex:1;">
+      <div class="card-desc">
+        <strong style="color:var(--green)">Row Level Security (RLS):</strong><br><br>
+        • Todas as 7 tabelas com RLS habilitado<br>
+        • Policies: SELECT/INSERT/UPDATE/DELETE<br>
+        • Acesso universal (login customizado)<br><br>
+        <strong style="color:var(--green)">Foreign Keys:</strong><br><br>
+        • Todas com ON DELETE SET NULL<br>
+        • Nunca CASCADE — evita perda em cascata<br><br>
+        <strong style="color:var(--green)">Frontend:</strong><br><br>
+        • requireAuth() em cada página<br>
+        • requireAdmin() para painel admin<br>
+        • Sessão no localStorage<br>
+        • Logout limpa toda sessão
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 6: UI/UX ═══ -->
+<div class="slide s6">
+  <div class="slide-title">INTERFACE & DESIGN</div>
+  <div class="s6-grid">
+    <div class="glass-card"><div class="card-title">🎨 Glassmorphism</div><div class="card-desc">Cards com backdrop-filter blur, bordas semi-transparentes e sombras profundas</div></div>
+    <div class="glass-card accent-yellow"><div class="card-title" style="color:var(--yellow)">🌓 Dark/Light Mode</div><div class="card-desc">Toggle automático com variáveis CSS e transição suave</div></div>
+    <div class="glass-card accent-green"><div class="card-title" style="color:var(--green)">📱 Mobile-First</div><div class="card-desc">Side-nav responsiva, grid adaptável, touch-friendly (44px min)</div></div>
+    <div class="glass-card accent-dim"><div class="card-title" style="color:var(--dim)">🗂️ Side Navigation</div><div class="card-desc">Menu lateral com scroll, avatar do usuário, indicador de página ativa</div></div>
+    <div class="glass-card accent-white"><div class="card-title" style="color:var(--white)">🧊 Glass Cards</div><div class="card-desc">Superfícies translúcidas com accent color e border-radius 20px</div></div>
+    <div class="glass-card"><div class="card-title">⚡ Transições</div><div class="card-desc">cubic-bezier(0.4,0,0.2,1) em todos os interativos. Micro-animações</div></div>
+  </div>
+</div>
+
+<!-- ═══ SLIDE 7: CÓDIGOS ═══ -->
+<div class="slide s7">
+  <div class="slide-title">CÓDIGOS DE ACESSO — MEMBROS</div>
+  <p class="s7-sub">Use o código + data de nascimento para entrar no sistema</p>
+  <div class="s7-grid">
+    <div class="s7-row"><div class="s7-info"><span class="s7-name">Lohanna</span><span class="s7-role">Presidente</span></div><span class="s7-code">PRES-LOHANNA</span></div>
+    <div class="s7-row"><div class="s7-info"><span class="s7-name">Raphaella</span><span class="s7-role">Vice-Presidente</span></div><span class="s7-code">VICE-RAPH</span></div>
+    <div class="s7-row"><div class="s7-info"><span class="s7-name">Davi de Jesus</span><span class="s7-role">Secretário Geral</span></div><span class="s7-code">SECGERAL-DAVDJ</span></div>
+    <div class="s7-row"><div class="s7-info"><span class="s7-name">Bianca</span><span class="s7-role">Secretária</span></div><span class="s7-code">SEC-BIANCA</span></div>
+    <div class="s7-row"><div class="s7-info"><span class="s7-name">Luzia</span><span class="s7-role">Tesoureira</span></div><span class="s7-code">TES-LUZIA</span></div>
+    <div class="s7-row"><div class="s7-info"><span class="s7-name">Agatha</span><span class="s7-role">Dir. Cultura</span></div><span class="s7-code">CULT-AGATHA</span></div>
+    <div class="s7-row"><div class="s7-info"><span class="s7-name">Junior</span><span class="s7-role">Dir. Esportes</span></div><span class="s7-code">ESP-JUNIOR</span></div>
+    <div class="s7-row"><div class="s7-info"><span class="s7-name">Maria Eduarda</span><span class="s7-role">Dir. Eventos</span></div><span class="s7-code">EVEN-MADU</span></div>
+    <div class="s7-row"><div class="s7-info"><span class="s7-name">Atyla</span><span class="s7-role">Dir. Comunicação</span></div><span class="s7-code">COM-ATYLA</span></div>
+    <div class="s7-row"><div class="s7-info"><span class="s7-name">Maria Fernanda</span><span class="s7-role">Dir. Resp. Social</span></div><span class="s7-code">SOC-MAFER</span></div>
+    <div class="s7-row"><div class="s7-info"><span class="s7-name">Kaylane</span><span class="s7-role">Dir. Meio Ambiente</span></div><span class="s7-code">AMB-KAY</span></div>
+    <div class="s7-row"><div class="s7-info"><span class="s7-name">Paulo Henrique</span><span class="s7-role">Dir. Protagonismo</span></div><span class="s7-code">PROT-PAULO</span></div>
+    <div class="s7-row"><div class="s7-info"><span class="s7-name">Elvey</span><span class="s7-role">Dir. Tecnologia</span></div><span class="s7-code">TECH-ELVEY</span></div>
+    <div class="s7-row"><div class="s7-info"><span class="s7-name">Verônica</span><span class="s7-role">Ouvidoria</span></div><span class="s7-code">OUVI-VERO</span></div>
+  </div>
+  <div class="s7-note">⚠️ Verônica assumiu a Ouvidoria no lugar de João Guilherme — Código: OUVI-VERO</div>
+</div>
+
+</body>
+</html>

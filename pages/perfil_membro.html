@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+ <meta charset="UTF-8">
+ <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+ <title>Perfil do Membro | Grêmio Estudantil</title>
+ <link rel="stylesheet" href="../assets/css/variables.css">
+ <link rel="stylesheet" href="../assets/css/style.css">
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+ <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+ <style>
+  .back-btn {
+   display: inline-flex; align-items: center; gap: 8px;
+   padding: 8px 16px; border-radius: 20px; font-size: 0.85rem;
+   background: rgba(0,229,255,0.1); color: var(--primary);
+   border: 1px solid var(--glass-border); cursor: pointer;
+   transition: var(--transition); margin-bottom: 20px;
+  }
+  .back-btn:hover { background: rgba(0,229,255,0.2); }
+
+  .profile-header {
+   text-align: center; padding: 32px 20px;
+   background: var(--bg-surface); border: 1px solid var(--glass-border);
+   border-radius: var(--radius-lg); margin-bottom: 20px;
+  }
+  .profile-avatar-lg {
+   width: 90px; height: 90px; border-radius: 50%; display: flex;
+   align-items: center; justify-content: center; font-size: 2.8rem;
+   font-weight: 700; margin: 0 auto 14px; color: #000;
+   border: 3px solid currentColor;
+  }
+  .profile-name-lg {
+   font-size: 1.3rem; font-weight: 700; color: var(--text-main);
+   margin-bottom: 6px;
+  }
+  .profile-role-badge {
+   display: inline-block; padding: 4px 14px; border-radius: 20px;
+   font-size: 0.8rem; font-weight: 600; margin-bottom: 6px;
+  }
+  .profile-dept-name {
+   font-size: 0.85rem; color: var(--text-muted);
+  }
+
+  .profile-info-card {
+   background: var(--bg-surface); border: 1px solid var(--glass-border);
+   border-radius: var(--radius-lg); padding: 20px; margin-bottom: 20px;
+  }
+  .profile-info-card h3 {
+   font-size: 0.95rem; color: var(--primary); margin-bottom: 14px;
+   display: flex; align-items: center; gap: 8px;
+  }
+  .info-row {
+   display: flex; justify-content: space-between; align-items: center;
+   padding: 10px 0; border-bottom: 1px solid var(--glass-border);
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-label { font-size: 0.85rem; color: var(--text-muted); }
+  .info-value { font-size: 0.85rem; color: var(--text-main); font-weight: 500; }
+
+  .task-card {
+   background: var(--bg-surface); border: 1px solid var(--glass-border);
+   border-radius: var(--radius-lg); padding: 16px; margin-bottom: 12px;
+  }
+  .task-card .task-header {
+   display: flex; justify-content: space-between; align-items: center;
+   margin-bottom: 6px;
+  }
+  .task-card .task-title {
+   font-size: 0.95rem; font-weight: 600; color: var(--text-main);
+  }
+  .task-status {
+   font-size: 0.7rem; padding: 3px 10px; border-radius: 20px; font-weight: 600;
+  }
+  .task-status.status-pending { background: rgba(255,193,7,0.15); color: #ffc107; }
+  .task-status.status-in_progress { background: rgba(0,229,255,0.15); color: var(--primary); }
+  .task-status.status-completed { background: rgba(16,185,129,0.15); color: #10b981; }
+  .task-desc { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; }
+  .task-meta { display: flex; gap: 12px; font-size: 0.75rem; color: var(--text-muted); }
+
+  .section-title {
+   font-size: 1rem; color: var(--text-main); font-weight: 600;
+   margin-bottom: 14px; display: flex; align-items: center; gap: 8px;
+  }
+  .section-title i { color: var(--primary); }
+
+  .empty-tasks {
+   text-align: center; padding: 32px; color: var(--text-muted);
+   font-size: 0.9rem;
+  }
+  .empty-tasks i { font-size: 2rem; margin-bottom: 10px; display: block; color: var(--glass-border); }
+
+  .loading-state {
+   text-align: center; padding: 40px; color: var(--text-muted);
+  }
+  .loading-state i { animation: spin 1s linear infinite; font-size: 1.5rem; display: block; margin-bottom: 10px; }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+ </style>
+</head>
+<body>
+
+ <main class="main-content">
+  <button class="back-btn" onclick="history.back()">
+   <i class="fa-solid fa-arrow-left"></i> Voltar
+  </button>
+
+  <div id="profile-content">
+   <div class="loading-state">
+    <i class="fa-solid fa-spinner"></i>
+    <p>Carregando perfil...</p>
+   </div>
+  </div>
+ </main>
+
+ <script src="../assets/js/config.js"></script>
+ <script src="../assets/js/utils.js"></script>
+ <script src="../assets/js/nav-component.js"></script>
+ <script src="../assets/js/theme-manager.js"></script>
+ <script src="../assets/js/core-guard.js"></script>
+ <script src="../assets/js/perfil_membro.js"></script>
+</body>
+</html>

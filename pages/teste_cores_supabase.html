@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+ <meta charset="UTF-8">
+ <title>Teste Cores Supabase</title>
+ <style>
+  body { font-family: sans-serif; background: #111; color: #fff; padding: 20px; }
+  h1 { color: #00E5FF; }
+  table { border-collapse: collapse; width: 100%; margin-top: 16px; }
+  th, td { padding: 8px 12px; border: 1px solid #333; text-align: left; font-size: 0.85rem; }
+  th { background: #1a1a1a; color: #00E5FF; }
+  .swatch { width: 28px; height: 28px; border-radius: 50%; display: inline-block; vertical-align: middle; }
+  .ok { color: #10b981; }
+  .err { color: #FF4B4B; font-weight: bold; }
+  #status { margin-bottom: 12px; font-size: 0.95rem; }
+ </style>
+</head>
+<body>
+<h1>🧪 Teste Cores — Supabase + Dept Resolve</h1>
+<div id="status">⏳ Conectando ao Supabase...</div>
+<table>
+ <tr><th>Membro</th><th>role</th><th>department_id</th><th>color_hex (banco)</th><th>Swatch</th><th>Dept Resolvido</th><th>Cor Dept</th><th>Swatch Dept</th><th>Resultado</th></tr>
+ <tbody id="tbody"></tbody>
+</table>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/utils.js"></script>
+<script>
+const ROLE_DEPT_MAP = {
+ 'Presidente': 'Presidência',
+ 'Vice-Presidente': 'Vice-Presidência',
+ 'Secretário Geral': 'Secretaria Geral',
+ 'Secretária': 'Secretaria',
+ 'Tesoureira': 'Tesouraria',
+ 'Ouvidoria': 'Ouvidoria'
+};
+const MEMBER_DEPT_MAP = {
+ 'Agatha': 'Cultura', 'Junior': 'Esportes', 'Maria Eduarda': 'Eventos',
+ 'Atyla': 'Comunicação', 'Maria Fernanda': 'Responsabilidade Social',
+ 'Kaylane': 'Meio Ambiente', 'Paulo Henrique': 'Protagonismo',
+ 'Elvey': 'Tecnologia e Inovação', 'João Guilherme': 'Ouvidoria',
+ 'Lohanna': 'Presidência', 'Raphaella': 'Vice-Presidência',
+ 'David': 'Secretaria Geral', 'Bianca': 'Secretaria', 'Luzia': 'Tesouraria'
+};
+
+function resolveDeptName(member, deptMap, allDepts) {
+ if (member.department_id && deptMap[member.department_id]) return deptMap[member.department_id];
+ if (ROLE_DEPT_MAP[member.role]) return ROLE_DEPT_MAP[member.role];
+ if (member.full_name && MEMBER_DEPT_MAP[member.full_name]) return MEMBER_DEPT_MAP[member.full_name];
+ if (allDepts) {
+  const m = allDepts.find(d => d.name.toLowerCase().includes(member.role.toLowerCase()));
+  if (m) return m.name;
+ }
+ return 'Sem departamento';
+}
+
+async function runTest() {
+ CONFIG.initSupabase();
+ const [members, depts] = await Promise.all([
+  UTILS.supabaseQuery('profiles', { order: { column: 'full_name', ascending: true } }),
+  UTILS.supabaseQuery('departments', {})
+ ]);
+
+ if (!members) { document.getElementById('status').innerHTML = '<span class="err">❌ Falha ao conectar Supabase</span>'; return; }
+
+ const deptMap = {};
+ if (depts) depts.forEach(d => { deptMap[d.id] = d.name; });
+
+ const tbody = document.getElementById('tbody');
+ let errors = 0;
+
+ members.forEach(m => {
+  const deptName = resolveDeptName(m, deptMap, depts);
+  const deptColor = UTILS.getDeptColorByName(deptName);
+  const isFallback = deptName === 'Sem departamento' || deptColor === '#6366f1';
+  if (isFallback) errors++;
+
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+   <td>${m.full_name}</td>
+   <td>${m.role || '—'}</td>
+   <td style="font-size:0.7rem">${m.department_id ? m.department_id.substring(0,8) + '...' : 'NULL'}</td>
+   <td>${m.color_hex || 'NULL'}</td>
+   <td><span class="swatch" style="background:${m.color_hex || '#6366f1'}"></span></td>
+   <td>${deptName}</td>
+   <td>${deptColor}</td>
+   <td><span class="swatch" style="background:${deptColor}"></span></td>
+   <td class="${isFallback ? 'err' : 'ok'}">${isFallback ? '❌ Fallback' : '✅ OK'}</td>
+  `;
+  tbody.appendChild(tr);
+ });
+
+ document.getElementById('status').innerHTML = errors === 0
+  ? `<span class="ok">✅ ${members.length} membros — todas as cores resolvidas!</span>`
+  : `<span class="err">❌ ${errors} membro(s) sem cor/depto resolvido</span>`;
+}
+
+runTest();
+</script>
+</body>
+</html>

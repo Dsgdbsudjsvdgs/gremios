@@ -80,18 +80,15 @@ async function handleLogin(codeInput, dateInput, loginBtn, errorMsg) {
             }
 
             // Store user data
-            const userData = {
-                id: profile.id,
-                nome: profile.full_name,
-                role: profile.role,
-                token: profile.access_code, // PERSISTÊNCIA DO TOKEN
-                department_id: profile.department_id,
-                department_name: profile.department_name,
-                color_hex: profile.color_hex,
-                email: profile.email,
-                avatar: profile.avatar,
-                timestamp: new Date().getTime()
-            };
+  const userData = {
+    id: profile.id,
+    nome: profile.full_name,
+    role: profile.role,
+    token: profile.access_code,
+    department_id: profile.department_id,
+    color_hex: profile.color_hex,
+    timestamp: new Date().getTime()
+  };
 
             if (!UTILS.setStorageUser(userData)) {
                 throw new Error('Erro ao salvar dados. Tente novamente.');

@@ -40,19 +40,29 @@ const APP_CONFIG = {
 
 // Departamentos Mapping (Sincronizado com nomes de arquivos em /pages)
 const DEPARTMENTS = {
-    'Presidente': { slug: 'dept_presidente', color: '#FF6B6B' },
-    'Vice-Presidente': { slug: 'dept_vice-presidente', color: '#4ECDC4' },
-    'Secretária': { slug: 'dept_secretaria', color: '#FFA07A' },
-    'Secretário Geral': { slug: 'dept_secretario_geral', color: '#45B7D1' },
-    'Responsabilidade Social': { slug: 'dept_resp_social', color: '#52C9A0' },
-    'Tecnologia e Inovação': { slug: 'dept_tecnologia_e_inovacao', color: '#F7DC6F' },
-    'Eventos': { slug: 'dept_eventos', color: '#BB8FCE' },
-    'Esportes': { slug: 'dept_esportes', color: '#85C1E2' },
-    'Cultura': { slug: 'dept_cultura', color: '#52C9A0' },
-    'Ouvidoria': { slug: 'dept_ouvidoria', color: '#F8B739' },
-    'Protagonismo': { slug: 'dept_protagonismo', color: '#A8D8EA' },
-    'Meio Ambiente': { slug: 'dept_meio_ambiente', color: '#7FD8BE' },
-    'Diretoria': { slug: 'diretoria', color: '#E8A0BF' }
+ // Nomes do banco (departments.name) — usados por getDeptColorByName()
+ 'Presidência': { slug: 'dept_presidente', color: '#FF6B6B' },
+ 'Vice-Presidência': { slug: 'dept_vice-presidente', color: '#4ECDC4' },
+ 'Secretaria': { slug: 'dept_secretaria', color: '#FFA07A' },
+ 'Secretaria Geral': { slug: 'dept_secretario_geral', color: '#45B7D1' },
+ 'Tesouraria': { slug: 'dept_tesoureira', color: '#FFA07A' },
+ 'Responsabilidade Social': { slug: 'dept_resp_social', color: '#52C9A0' },
+ 'Tecnologia e Inovação': { slug: 'dept_tecnologia_e_inovacao', color: '#F7DC6F' },
+ 'Eventos': { slug: 'dept_eventos', color: '#BB8FCE' },
+ 'Esportes': { slug: 'dept_esportes', color: '#85C1E2' },
+ 'Cultura': { slug: 'dept_cultura', color: '#52C9A0' },
+ 'Ouvidoria': { slug: 'dept_ouvidoria', color: '#F8B739' },
+ 'Protagonismo': { slug: 'dept_protagonismo', color: '#A8D8EA' },
+ 'Meio Ambiente': { slug: 'dept_meio_ambiente', color: '#7FD8BE' },
+ 'Comunicação': { slug: 'dept_comunicacao', color: '#E8A0BF' },
+ // Aliases (role names → department names) para compatibilidade
+ 'Presidente': { slug: 'dept_presidente', color: '#FF6B6B' },
+ 'Vice-Presidente': { slug: 'dept_vice-presidente', color: '#4ECDC4' },
+ 'Secretária': { slug: 'dept_secretaria', color: '#FFA07A' },
+ 'Secretário Geral': { slug: 'dept_secretario_geral', color: '#45B7D1' },
+ 'Tesoureira': { slug: 'dept_tesoureira', color: '#FFA07A' },
+ 'Diretoria': { slug: 'diretoria', color: '#E8A0BF' },
+ 'Diretor': { slug: 'diretoria', color: '#E8A0BF' }
 };
 
 // API Endpoints

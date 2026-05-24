@@ -93,16 +93,27 @@ function setupEventListeners() {
 }
 
 async function handleAddTask(form) {
-    try {
-        const user = UTILS.getStorageUser();
- const taskData = {
- title: form.querySelector('[name="task-title"]')?.value,
- description: form.querySelector('[name="task-desc"]')?.value,
- priority: form.querySelector('[name="task-priority"]')?.value || 'media',
- due_date: form.querySelector('[name="task-date"]')?.value,
- status: CONFIG.STATUS.PENDING,
- assigned_to: user.id
- };
+  try {
+    const user = UTILS.getStorageUser();
+    if (!user?.id) throw new Error('Sessão expirada. Faça login novamente.');
+
+    // Valida se o perfil existe no banco antes de inserir (evita FK error)
+    const { data: profile, error: profileError } = await CONFIG.getSupabase()
+      .from('profiles')
+      .select('id')
+      .eq('id', user.id)
+      .limit(1);
+
+    const assignedTo = (profileError || !profile?.length) ? null : user.id;
+
+    const taskData = {
+      title: form.querySelector('[name="task-title"]')?.value,
+      description: form.querySelector('[name="task-desc"]')?.value,
+      priority: form.querySelector('[name="task-priority"]')?.value || 'media',
+      due_date: form.querySelector('[name="task-date"]')?.value,
+      status: CONFIG.STATUS.PENDING,
+      assigned_to: assignedTo
+    };
 
         const validation = UTILS.validateTaskTitle(taskData.title);
         if (!validation.valid) {

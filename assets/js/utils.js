@@ -347,8 +347,14 @@ function getDepartmentSlug(role) {
 }
 
 function getDepartmentColor(role) {
-    const dept = Object.values(CONFIG.DEPARTMENTS).find(d => d.slug === getDepartmentSlug(role));
-    return dept ? dept.color : '#6366f1';
+ const dept = Object.values(CONFIG.DEPARTMENTS).find(d => d.slug === getDepartmentSlug(role));
+ return dept ? dept.color : '#6366f1';
+}
+
+function getDeptColorByName(deptName) {
+ if (!deptName || deptName === 'Sem departamento') return '#6366f1';
+ const dept = CONFIG.DEPARTMENTS[deptName];
+ return dept ? dept.color : '#6366f1';
 }
 
 // ============================================================================
@@ -389,9 +395,10 @@ window.UTILS = {
     supabaseUpdate,
     supabaseDelete,
     
-    // Department
-    getDepartmentSlug,
-    getDepartmentColor
+ // Department
+ getDepartmentSlug,
+ getDepartmentColor,
+ getDeptColorByName
 };
 
 console.log('✅ Utils loaded');
