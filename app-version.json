@@ -1,12 +1,13 @@
 {
-  "version": "2.0.0",
-  "build": 3,
-  "apk_url": "https://github.com/Dsgdbsudjsvdgs/gremios/releases/download/v2.0.0/gremio-estudantil.apk",
+  "version": "2.1.0",
+  "build": 4,
+  "apk_url": "https://github.com/Dsgdbsudjsvdgs/gremios/releases/latest/download/app-debug.apk",
   "changelog": [
-    "App nativo com WebView",
+    "App nativo Android com WebView",
     "Cores pessoais no mapa de membros",
     "Tabela departments populada",
-    "Auth limpo e validação de perfil",
-    "Sistema de atualização automática"
+    "Sistema de atualização automática",
+    "Banner de download no site (Android)",
+    "Página Sobre integrada na navegação"
   ]
 }

@@ -18,11 +18,23 @@
 </head>
 <body class="login-page">
 
-  <div class="watermark" style="position:fixed;top:10px;right:10px;font-size:0.7rem;color:var(--text-muted);opacity:0.5;pointer-events:none;">
-    Grêmio Estudantil — uso interno
-  </div>
+ <div class="watermark" style="position:fixed;top:10px;right:10px;font-size:0.7rem;color:var(--text-muted);opacity:0.5;pointer-events:none;">
+ Grêmio Estudantil — uso interno
+ </div>
 
-  <div class="login-wrapper">
+ <!-- Banner: Baixar app no Android -->
+ <div id="app-banner" style="display:none;position:fixed;bottom:0;left:0;right:0;background:linear-gradient(135deg,#000 0%,#111 100%);border-top:2px solid var(--primary);padding:12px 16px;z-index:9999;backdrop-filter:blur(10px);">
+ <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+ <div style="flex:1;">
+ <div style="font-size:0.85rem;font-weight:700;color:#00E5FF;">📱 App Grêmio disponível!</div>
+ <div style="font-size:0.75rem;color:#aaa;margin-top:2px;">Mais rápido, funciona offline</div>
+ </div>
+ <a id="app-download-btn" href="#" style="padding:8px 16px;background:#00E5FF;color:#000;border-radius:20px;font-size:0.8rem;font-weight:700;text-decoration:none;white-space:nowrap;">Baixar</a>
+ <button onclick="document.getElementById('app-banner').style.display='none';localStorage.setItem('app_banner_dismissed','1')" style="background:none;border:none;color:#666;font-size:1.2rem;cursor:pointer;padding:4px;">✕</button>
+ </div>
+ </div>
+
+ <div class="login-wrapper">
     <div class="login-card fade-in">
       <div class="login-logo">
         <img src="assets/img/logo-da-escola/mais_gremios_sem_fundo.svg" alt="Grêmio">
@@ -59,6 +71,21 @@
  if ('serviceWorker' in navigator) {
  navigator.serviceWorker.register('sw.js').then(() => console.log('✅ SW registered'));
  }
+
+ // Detecção Android/iOS — banner de download
+ (function() {
+ const ua = navigator.userAgent.toLowerCase();
+ const isAndroid = ua.includes('android');
+ const isIOS = /iphone|ipad|ipod/.test(ua);
+ const isStandalone = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+ const dismissed = localStorage.getItem('app_banner_dismissed');
+
+ if (isAndroid && !isStandalone && !dismissed) {
+ document.getElementById('app-banner').style.display = 'block';
+ document.getElementById('app-download-btn').href = 'https://github.com/Dsgdbsudjsvdgs/gremios/releases/latest/download/app-debug.apk';
+ }
+ // iOS: sem banner, usa o navegador mesmo
+ })();
  </script>
 </body>
 </html>
