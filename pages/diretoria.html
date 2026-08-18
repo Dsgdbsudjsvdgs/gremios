@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Diretoria | Grêmio Estudantil</title>
+  <link rel="stylesheet" href="../assets/css/variables.css">
+  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    .director-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .director-card {
+      text-align: center;
+      padding: 16px;
+    }
+    .director-avatar {
+      width: 72px; height: 72px; border-radius: 50%; display: flex;
+      align-items: center; justify-content: center; font-size: 1.6rem;
+      font-weight: 700; margin: 0 auto 12px; color: #000;
+      background: var(--primary);
+      border: 3px solid var(--primary);
+      box-shadow: 0 4px 16px rgba(0,229,255,0.25);
+      transition: var(--transition);
+    }
+    .director-card:hover .director-avatar {
+      transform: scale(1.05);
+      box-shadow: 0 8px 24px rgba(0,229,255,0.4);
+    }
+    .director-name { font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 2px; }
+    .director-role { font-size: 0.8rem; color: var(--primary); font-weight: 600; margin-bottom: 4px; }
+    .director-dept { font-size: 0.75rem; color: var(--text-muted); }
+    .director-badge {
+      display: inline-block;
+      padding: 4px 10px;
+      border-radius: 12px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      background: rgba(0,229,255,0.15);
+      color: var(--primary);
+      border: 1px solid rgba(0,229,255,0.3);
+      margin-top: 8px;
+    }
+    .director-section {
+      margin-bottom: 28px;
+    }
+    .director-section-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--primary);
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid rgba(0,229,255,0.2);
+    }
+    .director-section-title i {
+      font-size: 1.1rem;
+    }
+    .empty-director {
+      text-align: center;
+      padding: 24px;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      background: rgba(0,229,255,0.05);
+      border-radius: var(--radius-md);
+      border: 1px dashed rgba(0,229,255,0.2);
+    }
+  </style>
+</head>
+<body>
+
+  <main class="main-content">
+    <div class="page-header">
+      <h1>Diretoria</h1>
+      <div class="page-header-actions">
+        <div id="user-avatar" class="role-badge" style="width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(0,229,255,0.15);border:1px solid var(--primary);color:var(--primary);font-weight:700;">U</div>
+      </div>
+    </div>
+
+    <!-- Welcome -->
+    <div class="glass-card glass-card-accent mb-2">
+      <h2 style="margin:0;font-size:1.1rem;color:var(--primary);"><i class="fa-solid fa-crown"></i> Diretoria do Grêmio Conecta Jovem</h2>
+      <p style="margin:4px 0 0;color:var(--text-muted);font-size:0.85rem;">Membros que compõem a gestão atual — organização por hierarquia e departamentos</p>
+    </div>
+
+    <!-- Presidência -->
+    <div class="director-section">
+      <div class="director-section-title"><i class="fa-solid fa-user-tie"></i> Presidência</div>
+      <div id="dir-presidencia" class="director-grid">
+        <div class="empty-director">Carregando...</div>
+      </div>
+    </div>
+
+    <!-- Vice-Presidência -->
+    <div class="director-section">
+      <div class="director-section-title"><i class="fa-solid fa-user-check"></i> Vice-Presidência</div>
+      <div id="dir-vice" class="director-grid">
+        <div class="empty-director">Carregando...</div>
+      </div>
+    </div>
+
+    <!-- Secretaria & Tesouraria -->
+    <div class="director-section">
+      <div class="director-section-title"><i class="fa-solid fa-pen-to-square"></i> Secretaria & Tesouraria</div>
+      <div id="dir-secretaria" class="director-grid">
+        <div class="empty-director">Carregando...</div>
+      </div>
+    </div>
+
+    <!-- Diretores por Departamento -->
+    <div class="director-section">
+      <div class="director-section-title"><i class="fa-solid fa-sitemap"></i> Diretores de Departamento</div>
+      <div id="dir-departamentos" class="director-grid">
+        <div class="empty-director">Carregando...</div>
+      </div>
+    </div>
+
+    <!-- Ouvidoria -->
+    <div class="director-section">
+      <div class="director-section-title"><i class="fa-solid fa-ear-listen"></i> Ouvidoria</div>
+      <div id="dir-ouvidoria" class="director-grid">
+        <div class="empty-director">Carregando...</div>
+      </div>
+    </div>
+
+  </main>
+
+  <script src="../assets/js/config.js"></script>
+  <script src="../assets/js/utils.js"></script>
+  <script src="../assets/js/logout.js"></script>
+  <script src="../assets/js/nav-component.js"></script>
+  <script src="../assets/js/theme-manager.js"></script>
+  <script src="../assets/js/core-guard.js"></script>
+  <script src="../assets/js/diretoria.js"></script>
+</body>
+</html>

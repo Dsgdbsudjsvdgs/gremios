@@ -5,15 +5,16 @@
 
 const NavComponent = {
  links: [
- { href: 'dashboard.html', icon: 'fa-solid fa-house', label: 'Dashboard' },
- { href: 'mapa_membros.html', icon: 'fa-solid fa-users', label: 'Membros' },
- { href: 'calendario.html', icon: 'fa-solid fa-calendar-days', label: 'Calendário' },
- { href: 'diario.html', icon: 'fa-solid fa-book', label: 'Diário' },
- { href: 'tasks.html', icon: 'fa-solid fa-list-check', label: 'Tarefas' },
- { href: 'perfil.html', icon: 'fa-solid fa-user', label: 'Perfil' },
- { href: 'sobre.html', icon: 'fa-solid fa-circle-info', label: 'Sobre' },
- { href: 'instalar.html', icon: 'fa-solid fa-mobile-screen-button', label: 'Instalar App', browserOnly: true },
- ],
+     { href: 'dashboard.html', icon: 'fa-solid fa-house', label: 'Dashboard' },
+     { href: 'diretoria.html', icon: 'fa-solid fa-crown', label: 'Diretoria' },
+     { href: 'calendario.html', icon: 'fa-solid fa-calendar-days', label: 'Calendário' },
+     { href: 'diario.html', icon: 'fa-solid fa-book', label: 'Diário' },
+     { href: 'tasks.html', icon: 'fa-solid fa-list-check', label: 'Tarefas' },
+     { href: 'suporte.html', icon: 'fa-solid fa-headset', label: 'Suporte' },
+     { href: 'perfil.html', icon: 'fa-solid fa-user', label: 'Perfil' },
+     { href: 'sobre.html', icon: 'fa-solid fa-circle-info', label: 'Sobre' },
+     { href: 'instalar.html', icon: 'fa-solid fa-mobile-screen-button', label: 'Instalar App', browserOnly: true },
+   ],
 
   // Detecta a página atual pelo filename
   getCurrentPage() {

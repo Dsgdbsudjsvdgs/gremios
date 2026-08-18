@@ -193,10 +193,10 @@ function navigateToPage(page) {
         'tasks': 'tasks.html',
         'calendar': 'calendario.html',
         'diary': 'diario.html',
-        'members': 'mapa_membros.html',
+        'members': 'diretoria.html',
         'profile': 'perfil.html',
         'admin': 'admin.html',
-        'diretoria': 'mapa_membros.html'
+        'diretoria': 'diretoria.html'
     };
 
     const url = pages[page];

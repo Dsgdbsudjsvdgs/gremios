@@ -5,7 +5,7 @@
 // Supabase Configuration (Modo Público - Chaves Anon)
 const SUPABASE_CONFIG = {
     URL: 'https://wearihgeytywbhhtvwlg.supabase.co',
-    KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndlYXJpaGdleXR5d2JoaHR2d2xnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY4MTQ2NDgsImV4cCI6MjA5MjM5MDY0OH0.5pz5JCKUEC5y7GuKt4OnSNW-VF_hrYUB4teoucHBNqY'
+    KEY: 'sb_publishable_RRZHT83pEDzTUrWaJU0pqQ_6BOize63'
 };
 
 // Initialize Supabase Client

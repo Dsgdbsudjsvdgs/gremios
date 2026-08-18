@@ -27,7 +27,7 @@
       border-radius: var(--radius-lg);
       padding: 24px;
       width: 100%;
-      max-width: 480px;
+      max-width: 520px;
       max-height: 90vh;
       overflow-y: auto;
     }
@@ -45,71 +45,92 @@
       cursor: pointer;
       transition: var(--transition);
       color: var(--text-main);
+      min-height: 60px;
+      position: relative;
     }
     .calendar-day:hover { background: rgba(0,229,255,0.1); }
     .calendar-day.other-month { color: var(--text-muted); opacity: 0.4; }
     .calendar-day.today { background: var(--primary); color: #000; font-weight: 700; border-radius: 50%; }
     .calendar-day.has-events { border: 2px solid var(--primary); }
+    .calendar-day .event-dot {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      margin-top: 2px;
+      margin-right: 2px;
+    }
     .calendar-weekday { font-size: 0.7rem; color: var(--text-muted); font-weight: 600; text-transform: uppercase; padding: 4px; }
-    .member-card, .director-card {
-      text-align: center;
+    .event-item {
+      padding: 12px;
+      border-radius: var(--radius-md);
+      margin-bottom: 8px;
+      background: rgba(0,0,0,0.2);
+      border: 1px solid var(--glass-border);
+      position: relative;
     }
-    .member-avatar, .director-avatar {
-      width: 56px; height: 56px; border-radius: 50%; display: flex;
-      align-items: center; justify-content: center; font-size: 1.4rem;
-      font-weight: 700; margin: 0 auto 10px; color: #000;
-      background: var(--primary);
+    .event-item:hover { background: rgba(0,0,0,0.3); }
+    .event-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 6px; }
+    .event-title { font-size: 0.9rem; font-weight: 700; color: var(--text-main); flex: 1; }
+    .event-time { font-size: 0.75rem; color: var(--primary); font-weight: 600; white-space: nowrap; margin-left: 8px; }
+    .event-category {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-bottom: 6px;
     }
-    .member-name, .director-name { font-size: 0.95rem; font-weight: 600; color: var(--text-main); }
-    .member-position, .director-position { font-size: 0.8rem; color: var(--primary); font-weight: 500; }
-    .member-department, .director-department { font-size: 0.75rem; color: var(--text-muted); margin-top: 4px; }
-    .btn-view {
-      margin-top: 10px; display: inline-block; padding: 6px 14px;
-      border-radius: 20px; font-size: 0.75rem; font-weight: 600;
-      background: rgba(0,229,255,0.1); color: var(--primary);
-      border: 1px solid var(--glass-border); cursor: pointer; transition: var(--transition);
+    .event-location { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 4px; }
+    .event-description { font-size: 0.85rem; color: var(--text-muted); line-height: 1.4; }
+    .event-actions { display: flex; gap: 6px; margin-top: 10px; padding-top: 8px; border-top: 1px solid var(--glass-border); }
+    .btn-edit, .btn-delete {
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid var(--glass-border);
+      transition: var(--transition);
     }
-    .btn-view:hover { background: rgba(0,229,255,0.2); }
-    .profile-avatar {
-      width: 80px; height: 80px; border-radius: 50%; display: flex;
-      align-items: center; justify-content: center; font-size: 2.5rem;
-      font-weight: 700; margin: 0 auto 12px; color: #000;
-      background: var(--primary); border: 3px solid var(--primary);
-    }
-    .task-item .task-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-    .task-title { font-size: 0.95rem; font-weight: 600; color: var(--text-main); }
-    .task-status { font-size: 0.7rem; padding: 3px 10px; border-radius: 20px; font-weight: 600; }
-    .task-status.status-pending { background: rgba(255,193,7,0.15); color: #ffc107; }
-    .task-status.status-in_progress { background: rgba(0,229,255,0.15); color: var(--primary); }
-    .task-status.status-completed { background: rgba(16,185,129,0.15); color: #10b981; }
-    .task-description { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 8px; }
-    .task-meta { display: flex; gap: 12px; font-size: 0.75rem; color: var(--text-muted); }
-    .task-actions { display: flex; gap: 8px; margin-top: 10px; align-items: center; }
-    .task-actions select { padding: 6px 10px; border-radius: 8px; background: rgba(0,0,0,0.3); color: var(--text-main); border: 1px solid var(--glass-border); font-size: 0.8rem; }
-    .btn-delete { padding: 6px 12px; border-radius: 8px; background: rgba(255,75,75,0.1); color: var(--danger); border: 1px solid rgba(255,75,75,0.3); font-size: 0.8rem; cursor: pointer; }
-    .btn-delete:hover { background: rgba(255,75,75,0.2); }
-    .diary-item { padding: 16px; }
-    .diary-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-    .diary-content { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
-    .diary-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
-    .diary-actions { display: flex; gap: 8px; margin-top: 10px; }
-    .btn-edit { padding: 6px 12px; border-radius: 8px; background: rgba(0,229,255,0.1); color: var(--primary); border: 1px solid var(--glass-border); font-size: 0.8rem; cursor: pointer; }
+    .btn-edit { background: rgba(0,229,255,0.1); color: var(--primary); }
     .btn-edit:hover { background: rgba(0,229,255,0.2); }
-    .admin-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--glass-border); }
-    .admin-item-info h4 { font-size: 0.95rem; color: var(--text-main); margin-bottom: 2px; }
-    .admin-item-info p { font-size: 0.8rem; color: var(--text-muted); }
-    .admin-item-info small { font-size: 0.75rem; color: var(--text-muted); }
-    .admin-item-actions { display: flex; gap: 6px; }
-    .event-item { padding: 12px 0; border-bottom: 1px solid var(--glass-border); }
-    .event-item h4 { font-size: 0.95rem; color: var(--text-main); margin-bottom: 4px; }
-    .event-item p { font-size: 0.85rem; color: var(--text-muted); }
-    .event-item small { font-size: 0.75rem; color: var(--text-muted); }
+    .btn-delete { background: rgba(255,75,75,0.1); color: var(--danger); }
+    .btn-delete:hover { background: rgba(255,75,75,0.2); }
     .search-bar { position: relative; margin-bottom: 16px; }
     .search-bar input { width: 100%; padding: 12px 14px 12px 40px; border-radius: var(--radius-md); border: 1px solid var(--glass-border); background: rgba(0,0,0,0.3); color: var(--text-main); font-size: 0.95rem; }
     .search-bar i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
-    .members-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
     .filter-row { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
     .filter-row select { padding: 8px 12px; border-radius: 8px; background: rgba(0,0,0,0.3); color: var(--text-main); border: 1px solid var(--glass-border); font-size: 0.85rem; flex: 1; min-width: 140px; }
+    .form-group { margin-bottom: 16px; }
+    .form-group label { display: block; margin-bottom: 6px; font-size: 0.85rem; color: var(--text-main); font-weight: 500; }
+    .form-input { width: 100%; padding: 12px 14px; border-radius: var(--radius-md); border: 1px solid var(--glass-border); background: rgba(0,0,0,0.3); color: var(--text-main); font-size: 0.95rem; }
+    .form-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,229,255,0.1); }
+    .form-row { display: flex; gap: 12px; }
+    .form-row .form-group { flex: 1; }
+    .time-inputs { display: flex; gap: 8px; align-items: center; }
+    .time-inputs .form-input { flex: 1; max-width: 100px; }
+    .recurring-options { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
+    .recurring-option {
+      display: flex; align-items: center; gap: 6px;
+      padding: 8px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--glass-border);
+      background: rgba(0,0,0,0.2);
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: var(--transition);
+    }
+    .recurring-option:hover { background: rgba(0,229,255,0.1); border-color: var(--primary); }
+    .recurring-option input { accent-color: var(--primary); }
+    .recurring-option.selected { background: rgba(0,229,255,0.2); border-color: var(--primary); }
+    .event-dots { display: flex; flex-wrap: wrap; gap: 2px; margin-top: 4px; }
+    .view-toggle { display: flex; gap: 4px; background: rgba(0,0,0,0.2); padding: 4px; border-radius: var(--radius-md); }
+    .view-toggle button { padding: 8px 12px; border-radius: var(--radius-sm); border: none; background: transparent; color: var(--text-muted); font-size: 0.85rem; cursor: pointer; transition: var(--transition); }
+    .view-toggle button.active { background: var(--primary); color: #000; }
+    .stats-bar { display: flex; gap: 16px; margin-bottom: 16px; padding: 12px; background: rgba(0,229,255,0.05); border-radius: var(--radius-md); border: 1px solid rgba(0,229,255,0.1); }
+    .stat-item { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--text-main); }
+    .stat-item i { color: var(--primary); }
   </style>
 </head>
 <body>
@@ -117,9 +138,21 @@
   <main class="main-content">
     <div class="page-header">
       <h1>Calendário</h1>
-      <div class="page-header-actions"></div>
+      <div class="page-header-actions">
+        <div class="view-toggle">
+          <button id="view-month" class="active" title="Visualização mensal"><i class="fa-solid fa-calendar-days"></i></button>
+          <button id="view-week" title="Visualização semanal"><i class="fa-solid fa-calendar-week"></i></button>
+          <button id="view-list" title="Lista de eventos"><i class="fa-solid fa-list"></i></button>
+        </div>
+      </div>
     </div>
 
+    <!-- Stats -->
+    <div class="stats-bar">
+      <div class="stat-item"><i class="fa-solid fa-calendar-check"></i> <span id="stat-total">0</span> eventos totais</div>
+      <div class="stat-item"><i class="fa-solid fa-clock"></i> <span id="stat-this-month">0</span> este mês</div>
+      <div class="stat-item"><i class="fa-solid fa-star"></i> <span id="stat-recurring">0</span> recorrentes</div>
+    </div>
 
     <!-- Navegação do mês -->
     <div class="glass-card flex-between mb-2" style="align-items:center;">
@@ -128,8 +161,8 @@
       <button id="btn-next-month" class="btn btn-ghost btn-sm"><i class="fa-solid fa-chevron-right"></i></button>
     </div>
 
-    <!-- Calendário -->
-    <div class="glass-card mb-2">
+    <!-- Calendário (mês) -->
+    <div id="calendar-month-view" class="glass-card mb-2">
       <div class="calendar-grid">
         <div class="calendar-weekday">Dom</div>
         <div class="calendar-weekday">Seg</div>
@@ -142,10 +175,31 @@
       <div id="calendar-days" class="calendar-grid"></div>
     </div>
 
-    <!-- Eventos do dia -->
+    <!-- Calendário (semana) -->
+    <div id="calendar-week-view" class="glass-card mb-2" style="display:none;">
+      <div id="week-header" class="calendar-grid" style="margin-bottom:8px;"></div>
+      <div id="week-days" class="calendar-grid" style="min-height:300px;"></div>
+    </div>
+
+    <!-- Lista de eventos -->
+    <div id="calendar-list-view" class="glass-card mb-2" style="display:none;">
+      <div class="filter-row">
+        <input type="text" id="search-events" class="form-input" placeholder="Buscar eventos..." style="flex:1;">
+        <select id="filter-category" class="form-input" style="min-width:160px;">
+          <option value="">Todas categorias</option>
+          <option value="reuniao">Reunião</option>
+          <option value="evento">Evento</option>
+          <option value="prazo">Prazo</option>
+          <option value="outro">Outro</option>
+        </select>
+      </div>
+      <div id="events-list"></div>
+    </div>
+
+    <!-- Eventos do dia selecionado -->
     <div class="glass-card">
       <div class="flex-between mb-1">
-        <h3 style="margin:0;color:var(--primary);font-size:1rem;"><i class="fa-solid fa-calendar-day"></i> Eventos do Dia</h3>
+        <h3 style="margin:0;color:var(--primary);font-size:1rem;"><i class="fa-solid fa-calendar-day"></i> Eventos do Dia <span id="selected-date-label" style="font-weight:400;color:var(--text-muted);font-size:0.85rem;"></span></h3>
         <button id="btn-add-event" class="btn btn-primary btn-sm"><i class="fa-solid fa-plus"></i> Novo Evento</button>
       </div>
       <div id="day-events">
@@ -153,42 +207,73 @@
       </div>
     </div>
 
-    <!-- Modal Novo Evento -->
+    <!-- Modal Novo/Editar Evento -->
     <div id="event-modal" class="modal-overlay">
       <div class="modal-box">
-        <h2><i class="fa-solid fa-calendar-plus"></i> Novo Evento</h2>
+        <h2 id="modal-title"><i class="fa-solid fa-calendar-plus"></i> Novo Evento</h2>
         <form id="event-form">
+          <input type="hidden" name="event-id" id="event-id">
           <div class="form-group">
             <label>Nome do Evento *</label>
             <input type="text" name="event-title" class="form-input" placeholder="Ex: Reunião de planejamento" required>
           </div>
-          <div class="form-group">
-            <label>Data *</label>
-            <input type="date" name="event-date" class="form-input" required>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Data *</label>
+              <input type="date" name="event-date" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label>Categoria</label>
+              <select name="event-category" class="form-input">
+                <option value="reuniao">Reunião</option>
+                <option value="evento">Evento</option>
+                <option value="prazo">Prazo</option>
+                <option value="outro">Outro</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Hora Início</label>
+              <input type="time" name="event-time-start" class="form-input">
+            </div>
+            <div class="form-group">
+              <label>Hora Fim</label>
+              <input type="time" name="event-time-end" class="form-input">
+            </div>
           </div>
           <div class="form-group">
             <label>Local</label>
-            <input type="text" name="event-location" class="form-input" placeholder="Ex: Sala 200">
+            <input type="text" name="event-location" class="form-input" placeholder="Ex: Sala 200, Auditório, Online">
           </div>
           <div class="form-group">
             <label>Descrição</label>
             <textarea name="event-desc" class="form-input" rows="3" placeholder="Detalhes do evento..."></textarea>
           </div>
+          <div class="form-group">
+            <label>Repetir</label>
+            <div class="recurring-options">
+              <label class="recurring-option" data-value="none"><input type="radio" name="recurring" value="none" checked> Não repetir</label>
+              <label class="recurring-option" data-value="daily"><input type="radio" name="recurring" value="daily"> Diariamente</label>
+              <label class="recurring-option" data-value="weekly"><input type="radio" name="recurring" value="weekly"> Semanalmente</label>
+              <label class="recurring-option" data-value="monthly"><input type="radio" name="recurring" value="monthly"> Mensalmente</label>
+            </div>
+          </div>
           <div style="display:flex;gap:10px;">
-            <button type="submit" class="btn btn-primary" style="flex:1;">Criar Evento</button>
+            <button type="submit" class="btn btn-primary" style="flex:1;" id="btn-submit-event">Criar Evento</button>
             <button type="button" id="btn-close-modal" class="btn btn-ghost">Cancelar</button>
+            <button type="button" id="btn-delete-event" class="btn btn-delete" style="display:none;">Excluir</button>
           </div>
         </form>
       </div>
     </div>
-
 
   </main>
 
   <script src="../assets/js/config.js"></script>
   <script src="../assets/js/utils.js"></script>
   <script src="../assets/js/logout.js"></script>
- <script src="../assets/js/nav-component.js"></script>
+  <script src="../assets/js/nav-component.js"></script>
   <script src="../assets/js/theme-manager.js"></script>
   <script src="../assets/js/core-guard.js"></script>
   <script src="../assets/js/calendar.js"></script>
