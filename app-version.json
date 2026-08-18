@@ -1,12 +1,10 @@
 {
-  "version": "2.4.0",
-  "build": 7,
+  "version": "2.4.1",
+  "build": 8,
   "apk_url": "https://github.com/Dsgdbsudjsvdgs/gremios/releases/latest/download/app-debug.apk",
   "changelog": [
-    "Versão detectada automaticamente (sem hardcode)",
-    "Nome: Grêmio Conecta Jovem",
-    "Página Instalar App dedicada",
-    "Página Sobre dinâmica (app vs navegador)",
-    "Logout corrigido em todas as páginas"
+    "Bugfix: suporte.js agora usa HTTPS chat.dsgdbsudbvgs.online",
+    "Bugfix: SW cache invalidado (v2 → v3)",
+    "Bugfix: CORS configurado no nginx reverse proxy"
   ]
 }
