@@ -78,7 +78,7 @@ Use as cores dos cargos/badges para referências visuais.
 🚫 Se perguntarem algo fora do escopo: "Isso está fora do meu escopo como assistente do Grêmio. Só respondo sobre os gremistas, atividades do Conecta Jovem e pesquisas escolares/planejamento."
 `;
 
-const HERMES_API = 'http://187.127.54.23:8642/v1/chat/completions';
+const HERMES_API = 'https://chat.dsgdbsudbvgs.online/v1/chat/completions';
 const API_KEY = 'bc317012578cbebf3e3812931b2a5e736202123917bad0d21fbb68b182f6b99e';
 const MODEL = 'combo_de_pobre';
 
