@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gremio-v4';
+const CACHE_NAME = 'gremio-v5';
 const URLS_TO_CACHE = [
   '/gremios/',
   '/gremios/index.html',
@@ -25,7 +25,18 @@ self.addEventListener('activate', e => {
 });
 
 self.addEventListener('fetch', e => {
-  if (e.request.url.includes('supabase.co')) return;
+  // FIX v2.5.1: bypass TOTAL para requests fora da origem do app.
+  // Antes o SW interceptava o fetch do suporte.js pro Hermes Gateway
+  // (chat.dsgdbsudbvgs.online) e, ao falhar, respondia com index.html —
+  // o chat recebia HTML no lugar do JSON e quebrava ("Erro ao conectar").
+  // Também cacheava respostas POST da API. Regra: só intervm em GET
+  // same-origin (assets locais do PWA). APIs externas nunca passam por aqui.
+  const url = new URL(e.request.url);
+  if (url.origin !== self.location.origin) return; // cross-origin: deixa o browser cuidar
+  if (e.request.method !== 'GET') return;           // POST/PUT/DELETE: nunca cachear
+  if (url.pathname.startsWith('/v1/')) return;      // rotas de API local: bypass
+  if (e.request.url.includes('supabase.co')) return; // legado: mantém bypass do Supabase
+  if (url.pathname.includes('/assets/js/suporte')) return; // nunca cachear o próprio suporte.js (endpoint pode mudar)
   e.respondWith(caches.match(e.request).then(r => r || fetch(e.request).then(res => {
     if (res.status === 200) {
       const clone = res.clone();

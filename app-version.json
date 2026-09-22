@@ -1,15 +1,11 @@
 {
-  "version": "2.5.0",
-  "build": 9,
+  "version": "2.5.1",
+  "build": 10,
   "apk_url": "https://github.com/Dsgdbsudjsvdgs/gremios/releases/latest/download/app-debug.apk",
   "changelog": [
-    "Security: XSS corrigido - UTILS.escapeHtml() em dashboard, tasks e diary (10 pontos)",
-    "Security: 14 paginas de departamento agora exigem login (core-guard.js)",
-    "Fix: STORAGE_KEY unificada (fim do redirect infinito)",
-    "Fix: calendario comeca na Segunda-feira",
-    "Fix: eventos proximos usam gte hoje",
-    "Fix: CSS --danger + typos upercase/wraper",
-    "Perf: Promise.all nos contadores + gte/lte/like no supabaseQuery",
-    "SW cache v3 -> v4"
+    "FIX CRITICO: Service Worker interceptava o request do chat de Suporte pro Hermes Gateway",
+    "SW agora so intercepta GET same-origin (assets do PWA) - APIs externas fazem bypass total",
+    "Antes: fetch do chat falhava e o SW respondia com index.html - o app recebia HTML no lugar do JSON",
+    "SW cache v4 -> v5"
   ]
 }
