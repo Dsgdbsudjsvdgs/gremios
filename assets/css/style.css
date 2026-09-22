@@ -514,6 +514,10 @@ body.light .btn-primary {
     z-index: 99;
   }
 
+  .nav-overlay.visible {
+    display: block;
+  }
+
   .side-nav.open ~ .nav-overlay {
     display: block;
   }
