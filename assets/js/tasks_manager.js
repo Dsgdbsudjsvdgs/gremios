@@ -46,10 +46,10 @@ function renderTasks() {
     container.innerHTML = tasks.map(task => `
         <div class="task-item">
             <div class="task-header">
-                <h3 class="task-title">${task.title || 'Sem título'}</h3>
+                <h3 class="task-title">${UTILS.escapeHtml(task.title || 'Sem título')}</h3>
                 <span class="task-status status-${task.status || 'pendente'}">${task.status || 'Pendente'}</span>
             </div>
-            <p class="task-description">${task.description || ''}</p>
+            <p class="task-description">${UTILS.escapeHtml(task.description || '')}</p>
             <div class="task-meta">
                 <span>Prioridade: ${task.priority || 'Média'}</span>
                 <span>Vencimento: ${UTILS.formatDate(task.due_date) || 'Sem data'}</span>

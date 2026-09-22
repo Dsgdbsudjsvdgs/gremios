@@ -117,8 +117,9 @@ function renderMonthView() {
     const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
     const daysInPrevMonth = new Date(currentYear, currentMonth, 0).getDate();
 
-    // Previous month days
-    for (let i = firstDay - 1; i >= 0; i--) {
+    // Previous month days (calendar starts Monday: getDay()=0 for Sunday -> offset 6)
+    const mondayOffset = (firstDay === 0) ? 6 : firstDay - 1;
+    for (let i = mondayOffset - 1; i >= 0; i--) {
         const day = daysInPrevMonth - i;
         const dayElement = createDayElement(day, true);
         daysContainer.appendChild(dayElement);

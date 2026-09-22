@@ -66,10 +66,10 @@ function renderDiaryEntries() {
     return `
     <div class="glass-card diary-item">
       <div class="diary-header">
-        <h3 class="diary-title">${entry.title || 'Sem título'}</h3>
-        <small style="color:var(--text-muted);font-size:0.75rem;">✍️ ${entry.author_name} · ${UTILS.formatDateTime(entry.created_at)}</small>
+        <h3 class="diary-title">${UTILS.escapeHtml(entry.title || 'Sem título')}</h3>
+        <small style="color:var(--text-muted);font-size:0.75rem;">✍️ ${UTILS.escapeHtml(entry.author_name)} · ${UTILS.formatDateTime(entry.created_at)}</small>
       </div>
-      <p class="diary-content">${entry.content || ''}</p>
+      <p class="diary-content">${UTILS.escapeHtml(entry.content || '')}</p>
       ${entry.tags ? `<div class="diary-tags">${entry.tags.split(',').map(tag => `<span class="tag">${tag.trim()}</span>`).join('')}</div>` : ''}
       ${isOwner ? `
       <div class="diary-actions">

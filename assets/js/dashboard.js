@@ -56,8 +56,10 @@ async function loadDashboardData() {
         tasksData = tasks || [];
         renderRecentTasks();
 
-        // Load events
+        // Load events (FIX: gte hoje — antes só mostrava eventos do dia exato)
+        const todayISO = new Date().toISOString().split('T')[0];
         const events = await UTILS.supabaseQuery('events', {
+            gte: { date: todayISO },
             order: { column: 'date', ascending: true },
             limit: 5
         });
@@ -75,25 +77,24 @@ async function loadDashboardData() {
 
 async function updateCounters() {
     try {
-  // Count pending tasks
-  const pendingTasks = await UTILS.supabaseQuery('tasks', {
-    where: { status: CONFIG.STATUS.PENDING }
-  });
+        const today = new Date().toISOString().split('T')[0];
+
+        // FIX: 3 queries em paralelo (era sequencial = 3x mais lento)
+        // + eventos com gte hoje (antes só contava eventos do dia exato)
+        const [pendingTasks, upcomingEvents, members] = await Promise.all([
+            UTILS.supabaseQuery('tasks', { where: { status: CONFIG.STATUS.PENDING } }),
+            UTILS.supabaseQuery('events', { gte: { date: today }, order: { column: 'date', ascending: true }, limit: 10 }),
+            UTILS.supabaseQuery('profiles')
+        ]);
+
         const pendingCount = pendingTasks ? pendingTasks.length : 0;
         const pendingElement = document.getElementById('pending-tasks-count');
         if (pendingElement) pendingElement.textContent = pendingCount;
 
-        // Count upcoming events
-        const today = new Date().toISOString().split('T')[0];
-        const upcomingEvents = await UTILS.supabaseQuery('events', {
-            where: { date: today }
-        });
         const upcomingCount = upcomingEvents ? upcomingEvents.length : 0;
         const upcomingElement = document.getElementById('upcoming-events-count');
         if (upcomingElement) upcomingElement.textContent = upcomingCount;
 
-        // Count members
-        const members = await UTILS.supabaseQuery('profiles');
         const memberCount = members ? members.length : 0;
         const memberElement = document.getElementById('members-count');
         if (memberElement) memberElement.textContent = memberCount;
@@ -115,10 +116,10 @@ function renderRecentTasks() {
     container.innerHTML = tasksData.map(task => `
         <div class="task-item">
             <div class="task-header">
-                <h3 class="task-title">${task.title || 'Sem título'}</h3>
+                <h3 class="task-title">${UTILS.escapeHtml(task.title || 'Sem título')}</h3>
                 <span class="task-status status-${task.status || 'pendente'}">${task.status || 'Pendente'}</span>
             </div>
-            <p class="task-description">${task.description || ''}</p>
+            <p class="task-description">${UTILS.escapeHtml(task.description || '')}</p>
             <div class="task-meta">
                 <span>Prioridade: ${task.priority || 'Média'}</span>
                 <span>Data: ${UTILS.formatDate(task.due_date) || 'Sem data'}</span>
@@ -139,12 +140,12 @@ function renderUpcomingEvents() {
     container.innerHTML = eventsData.map(event => `
         <div class="event-item">
             <div class="event-header">
-                <h3 class="event-title">${event.name || 'Sem título'}</h3>
+                <h3 class="event-title">${UTILS.escapeHtml(event.name || 'Sem título')}</h3>
             </div>
-            <p class="event-description">${event.description || ''}</p>
+            <p class="event-description">${UTILS.escapeHtml(event.description || '')}</p>
             <div class="event-meta">
                 <span>📅 ${UTILS.formatDate(event.date)}</span>
-                <span>📍 ${event.location || 'Local não informado'}</span>
+                <span>📍 ${UTILS.escapeHtml(event.location || 'Local não informado')}</span>
             </div>
         </div>
     `).join('');

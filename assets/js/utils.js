@@ -37,6 +37,20 @@ function clearStorageUser() {
 }
 
 // ============================================================================
+// SECURITY: HTML escaping (fix XSS em innerHTML)
+// ============================================================================
+
+function escapeHtml(str) {
+    if (str === null || str === undefined) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
+// ============================================================================
 // AUTHENTICATION FUNCTIONS
 // ============================================================================
 
@@ -239,6 +253,25 @@ async function supabaseQuery(table, options = {}) {
             });
         }
         
+        // FIX v4: operadores extras (gte, lte, like, neq) — antes só eq
+        if (options.gte) {
+            Object.entries(options.gte).forEach(([key, value]) => {
+                query = query.gte(key, value);
+            });
+        }
+        
+        if (options.lte) {
+            Object.entries(options.lte).forEach(([key, value]) => {
+                query = query.lte(key, value);
+            });
+        }
+        
+        if (options.like) {
+            Object.entries(options.like).forEach(([key, value]) => {
+                query = query.like(key, value);
+            });
+        }
+        
         if (options.order) {
             query = query.order(options.order.column, { ascending: options.order.ascending !== false });
         }
@@ -372,6 +405,9 @@ window.UTILS = {
     isUserAuthenticated,
     requireAuth,
     requireAdmin,
+    
+    // Security
+    escapeHtml,
     
     // Date
     formatDate,

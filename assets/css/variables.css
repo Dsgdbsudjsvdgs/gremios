@@ -33,6 +33,11 @@
     --error-color: #FF4C4C;
     --warning-color: #FFD700;
 
+    /* ── Status semânticos (fix: --danger ausente — usado em tasks/deletar) ── */
+    --danger: #FF4C4C;
+    --danger-bg: rgba(255, 76, 76, 0.12);
+    --danger-border: rgba(255, 76, 76, 0.35);
+
     /* ── Paleta ATUALIZADA de Diretorias (Black & Cyan Theme) ── */
     --color-executivo: var(--primary);
     --color-cultura: var(--primary-dark);
