@@ -1,13 +1,11 @@
 {
-  "version": "2.6.1",
-  "build": 12,
+  "version": "2.6.2",
+  "build": 13,
   "apk_url": "https://github.com/Dsgdbsudjsvdgs/gremios/releases/latest/download/app-debug.apk",
   "changelog": [
-    "Suporte: retry com backoff + timeout 60s (fix Failed to fetch em rede movel)",
-    "Suporte: status de conexao REAL (ping no servidor ao abrir a pagina) - Online/Offline",
-    "Suporte: roster 16 gremistas atualizado (Guilherme entrou, Carla assumiu Ouvidoria, Veronica saiu)",
-    "Suporte: hero compacto com indicador visual de status",
-    "Admin: icone de escudo + badge Acesso restrito",
-    "SW v6 -> v7"
+    "FIX REAL (nginx): header CORS duplicado (Chrome bloqueava: multiple values *, *) - proxy_hide_header no backend, nginx responde 1x",
+    "FIX: FontAwesome 6.0.0 -> 6.5.2 em 27 paginas (fa-shield-halved e fa-user-gear nao existiam no 6.0 - icone Admin nao renderizava)",
+    "Suporte verificado E2E no browser: mensagem enviada no Vercel recebeu resposta do Hermes",
+    "SW v7 -> v8"
   ]
 }
