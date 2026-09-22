@@ -110,14 +110,29 @@
     .members-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
     .filter-row { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
     .filter-row select { padding: 8px 12px; border-radius: 8px; background: rgba(0,0,0,0.3); color: var(--text-main); border: 1px solid var(--glass-border); font-size: 0.85rem; flex: 1; min-width: 140px; }
+  .admin-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-radius: 50px;
+    background: rgba(0,229,255,0.1);
+    border: 1px solid rgba(0,229,255,0.3);
+    color: var(--primary);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+  }
   </style>
 </head>
 <body>
 
   <main class="main-content">
     <div class="page-header">
-      <h1>Painel Admin</h1>
-      <div class="page-header-actions"></div>
+      <h1><i class="fa-solid fa-shield-halved" style="color:var(--primary);margin-right:10px;"></i>Painel Admin</h1>
+      <div class="page-header-actions">
+        <span class="admin-badge"><i class="fa-solid fa-user-gear"></i> Acesso restrito: Presidente/Vice</span>
+      </div>
     </div>
 
 

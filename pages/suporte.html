@@ -215,6 +215,51 @@
       display: flex; align-items: center; justify-content: center;
       padding: 0 5px;
     }
+    /* v4.1: Status pill — mostra se o Hermes tá online de verdade */
+    .chat-status { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--text-muted); }
+    .chat-status i { font-size: 0.5rem; animation: pulse 2s infinite; }
+    .chat-status.online i { color: #00FF88; }
+    .chat-status.offline i { color: var(--danger); }
+    .chat-status.checking i { color: var(--warning-color); }
+    @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+    /* v4.1: Retry hint */
+    .retry-hint .message-bubble { opacity: 0.7; font-style: italic; }
+
+    /* v4.1: Hero do suporte — compacto, com ícone grande */
+    .suporte-hero {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 20px 24px;
+      margin-bottom: 18px;
+    }
+    .suporte-hero-icon {
+      width: 56px; height: 56px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(0,229,255,0.05));
+      border: 1px solid rgba(0,229,255,0.3);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; color: var(--primary);
+      flex-shrink: 0;
+    }
+    .suporte-hero-text { flex: 1; }
+    .suporte-hero-text h2 { margin: 0 0 4px; font-size: 1.2rem; color: var(--text-main); }
+    .suporte-hero-text p { margin: 0; font-size: 0.85rem; color: var(--text-muted); }
+    .suporte-hero-status {
+      flex-shrink: 0;
+      display: flex; align-items: center; gap: 6px;
+      padding: 6px 12px;
+      border-radius: 50px;
+      background: rgba(0,229,255,0.06);
+      border: 1px solid var(--glass-border);
+      font-size: 0.75rem; color: var(--text-dim);
+    }
+    .suporte-hero-status i { font-size: 0.5rem; animation: pulse 2s infinite; }
+    .suporte-hero-status.online { border-color: rgba(0,255,136,0.35); color: #00FF88; }
+    .suporte-hero-status.online i { color: #00FF88; }
+    .suporte-hero-status.offline { border-color: rgba(255,76,76,0.35); color: var(--danger); }
+    .suporte-hero-status.offline i { color: var(--danger); }
   </style>
 </head>
 <body>
@@ -225,16 +270,19 @@
       <div class="page-header-actions"></div>
     </div>
 
+    <div class="glass-card suporte-hero">
+      <div class="suporte-hero-icon"><i class="fa-solid fa-headset"></i></div>
+      <div class="suporte-hero-text">
+        <h2>Assistente do Grêmio</h2>
+        <p>Sou o Hermes — conheço os 16 gremistas, departamentos, agenda e tarefas. Pergunta aí 👇</p>
+      </div>
+      <div class="suporte-hero-status" id="suporte-conn-status">
+        <i class="fa-solid fa-circle"></i> <span id="suporte-conn-label">Verificando…</span>
+      </div>
+    </div>
+
     <div class="glass-card welcome-card">
-      <h4><i class="fa-solid fa-headset"></i> Assistente do Grêmio</h4>
-      <p style="margin:0 0 12px;color:var(--text-main);">Olá! Sou o Hermes, assistente de IA do Grêmio Conecta Jovem. Conheço todos os membros, departamentos, eventos e tarefas. Como posso ajudar?</p>
-      <ul>
-        <li><strong>Informações dos gremistas:</strong> cargos, departamentos, cores, códigos de acesso</li>
-        <li><strong>Agenda & Calendário:</strong> eventos, reuniões, prazos</li>
-        <li><strong>Tarefas & Projetos:</strong> status, responsáveis, andamento</li>
-        <li><strong>Estatísticas:</strong> membros por departamento, finanças, participação</li>
-        <li><strong>Ajuda técnica:</strong> como usar o app, PWA, login, Supabase</li>
-      </ul>
+      <h4><i class="fa-solid fa-wand-magic-sparkles"></i> Perguntas rápidas</h4>
       <div class="quick-actions">
         <button class="quick-btn" data-prompt="Quem são os membros da Presidência e Vice-Presidência?"><i class="fa-solid fa-crown"></i> Diretoria</button>
         <button class="quick-btn" data-prompt="Liste todos os departamentos e seus diretores"><i class="fa-solid fa-building"></i> Departamentos</button>

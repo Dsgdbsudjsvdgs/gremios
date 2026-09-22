@@ -1,12 +1,13 @@
 {
-  "version": "2.6.0",
-  "build": 11,
+  "version": "2.6.1",
+  "build": 12,
   "apk_url": "https://github.com/Dsgdbsudjsvdgs/gremios/releases/latest/download/app-debug.apk",
   "changelog": [
-    "UX: overlay do menu mobile agora existe (era CSS orfao - menu abria sem escurecer o fundo)",
-    "UX: link Admin visivel na nav p/ Presidente/Vice/Tech (era so via botao escondido no dashboard)",
-    "UX: logout com href real de fallback (se JS falhar, ainda sai pro login em vez de travar no #)",
-    "UX: acessibilidade - aria-label, aria-current, fecha menu com ESC e clique no overlay",
-    "SW cache v5 -> v6"
+    "Suporte: retry com backoff + timeout 60s (fix Failed to fetch em rede movel)",
+    "Suporte: status de conexao REAL (ping no servidor ao abrir a pagina) - Online/Offline",
+    "Suporte: roster 16 gremistas atualizado (Guilherme entrou, Carla assumiu Ouvidoria, Veronica saiu)",
+    "Suporte: hero compacto com indicador visual de status",
+    "Admin: icone de escudo + badge Acesso restrito",
+    "SW v6 -> v7"
   ]
 }

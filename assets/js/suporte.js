@@ -12,23 +12,25 @@ Você conhece TODOS os membros, cargos, departamentos, cores e códigos de acess
 SEMPRE identifique os gremistas pelo nome completo, cargo e departamento quando relevante.
 Use as cores dos cargos/badges para referências visuais.
 
---- MEMBROS (16 gremistas) ---
+--- MEMBROS (16 gremistas, atualizado 11/09/2026) ---
 1. Lohanna - PRESIDENTE - Presidência - #FF6B6B - Código: PRES-LOHANNA
 2. Yasmin Raphaella - VICE-PRESIDENTE - Vice-Presidência - #4ECDC4 - Código: VICE-RAPH
 3. Davi De Jesus - SECRETÁRIO GERAL - Secretaria Geral - #18ACD9 - Código: SECGERAL-DAVDJ
 4. IZAC - SECRETÁRIA - Secretaria - #414CC4 - Código: SEC-IZAC
 5. Luzia - TESOUREIRA - Tesouraria - #FFA07A - Código: TES-LUZIA
-6. Agatha - DIRETORA - Cultura - #F7DC6F - Código: CULT-AGATHA
-7. Junior - DIRETOR - Esportes - #F7DC6F - Código: ESP-JUNIOR
-8. Maria Eduarda - DIRETORA - Eventos - #F7DC6F - Código: EVEN-MADU
-9. Atyla - DIRETORA - Comunicação - #F7DC6F - Código: COM-ATYLA
-10. Maria Fernanda - DIRETORA - Responsabilidade Social - #F7DC6F - Código: SOC-MAFER
-11. Kaylane - DIRETORA - Meio Ambiente - #F7DC6F - Código: AMB-KAYLANE
-12. Paulo H. - DIRETOR - Protagonismo - #F7DC6F - Código: PROT-PAULO
-13. Elvey Silva Araujo - DIRETOR - Tecnologia e Inovação - #FDD700 - Código: TECH-ELVEY
-14. Mayron Samarone - DIRETOR - Meio Ambiente - #F7DC6F - Código: AMB-SAM
+6. Atyla - DIRETORA - Meio Ambiente - #F7DC6F - Código: AMB-ATYLA (mudou de Comunicação p/ Meio Ambiente em 11/09)
+7. Mayron Samarone - DIRETOR - Comunicação - #F7DC6F - Código: COM-SAM (mudou de Meio Ambiente p/ Comunicação em 11/09)
+8. Guilherme André Silva da Silva - DIRETOR - Comunicação - #F7DC6F - Código: COM-GUI (entrou 11/09/2026)
+9. Agatha - DIRETORA - Cultura - #F7DC6F - Código: CULT-AGATHA
+10. Junior - DIRETOR - Esportes - #F7DC6F - Código: ESP-JUNIOR
+11. Maria Eduarda - DIRETORA - Eventos - #F7DC6F - Código: EVEN-MADU
+12. Maria Fernanda (Velma) - DIRETORA - Responsabilidade Social - #F7DC6F - Código: SOC-MAFER
+13. Paulo H. - DIRETOR - Protagonismo - #F7DC6F - Código: PROT-PAULO
+14. Elvey Silva Araujo - DIRETOR - Tecnologia e Inovação - #FDD700 - Código: TECH-ELVEY (DESENVOLVEDOR DO APP)
 15. Paulo Augusto - DIRETOR - Projetos - #F7DC6F - Código: PROJ-PAULO
-16. Veronica - OUVIDORIA - Ouvidoria - #177FFF - Código: OUVI-VERO
+16. Carla Cristhynne - OUVIDORIA - Ouvidoria - #177FFF - Código: OUVI-CARLA (entrou 11/09/2026)
+
+MUDANÇAS 11/09/2026: Samarone foi p/ Comunicação, Atyla p/ Meio Ambiente, Guilherme entrou na Comunicação. Veronica SAIU do Grêmio — Carla Cristhynne assumiu a Ouvidoria. NÃO cite Veronica como membro ativo.
 
 --- CORES DOS CARGOS ---
 • Presidente: #FF6B6B (vermelho)
@@ -181,6 +183,65 @@ function initSuporte() {
   }
 
   console.log('✅ Suporte/Chat module loaded');
+
+  // v4.1: health check real — mostra se o Gateway tá respondendo
+  checkServerStatus();
+}
+
+function checkServerStatus() {
+  const statusEl = document.getElementById('suporte-conn-status');
+  const labelEl = document.getElementById('suporte-conn-label');
+  const chatStatus = document.querySelector('.chat-status');
+  if (!statusEl) return;
+
+  // Estado: verificando
+  statusEl.className = 'suporte-hero-status';
+  if (labelEl) labelEl.textContent = 'Verificando…';
+  if (chatStatus) chatStatus.className = 'chat-status checking';
+
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 10000);
+  fetch(HERMES_API, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + API_KEY },
+    body: JSON.stringify({ model: MODEL, messages: [{ role: 'user', content: 'ping' }], max_tokens: 3 }),
+    signal: controller.signal
+  })
+  .then(res => {
+    clearTimeout(timer);
+    const online = res.ok;
+    statusEl.className = 'suporte-hero-status ' + (online ? 'online' : 'offline');
+    if (labelEl) labelEl.textContent = online ? 'Online' : 'Servidor com problema';
+    if (chatStatus) {
+      chatStatus.className = 'chat-status ' + (online ? 'online' : 'offline');
+      const txt = chatStatus.textContent.trim().split(' ').slice(1).join(' ');
+      chatStatus.innerHTML = '<i class="fa-solid fa-circle"></i> ' + (online ? 'Online' : 'Offline');
+    }
+  })
+  .catch(() => {
+    clearTimeout(timer);
+    statusEl.className = 'suporte-hero-status offline';
+    if (labelEl) labelEl.textContent = 'Sem conexão';
+    if (chatStatus) {
+      chatStatus.className = 'chat-status offline';
+      chatStatus.innerHTML = '<i class="fa-solid fa-circle"></i> Offline';
+    }
+  });
+}
+
+function showRetryHint(attempt) {
+  // v4.1: mostra na tela que tá tentando de novo (o usuário não fica no escuro)
+  if (!messagesContainer) return;
+  const hint = document.createElement('div');
+  hint.className = 'message assistant retry-hint';
+  hint.innerHTML = `
+    <div class="message-bubble" style="opacity:0.7;font-style:italic;">
+      🔄 Conexão instável — tentando de novo (${attempt}/${2})...
+    </div>`;
+  messagesContainer.appendChild(hint);
+  scrollToBottom();
+  // remove o hint depois (some quando a resposta chega)
+  setTimeout(() => hint.remove(), 6000);
 }
 
 function addMessage(role, content) {
@@ -234,38 +295,69 @@ async function sendMessage() {
   isStreaming = true;
 
   try {
-    const response = await fetch(HERMES_API, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${API_KEY}`
-      },
-      body: JSON.stringify({
-        model: MODEL,
-        messages: chatHistory,
-        temperature: 0.7,
-        max_tokens: 2000,
-        stream: false
-      })
-    });
+  // v4.1: retry com backoff + timeout — fix "Failed to fetch" em rede móvel instável.
+  // Servidor demora ~14s p/ primeira resposta; sem isso o fetch morria no primeiro erro.
+  const MAX_RETRIES = 2;
+  const TIMEOUT_MS = 60000; // 60s (server responde em ~14s, margem p/ rede lenta)
+  let response = null;
+  let lastError = null;
 
-    showTyping(false);
-
-    if (!response.ok) {
-      const err = await response.text();
-      throw new Error(`HTTP ${response.status}: ${err}`);
+  for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), TIMEOUT_MS);
+    try {
+      const res = await fetch(HERMES_API, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${API_KEY}`
+        },
+        body: JSON.stringify({
+          model: MODEL,
+          messages: chatHistory,
+          temperature: 0.7,
+          max_tokens: 2000,
+          stream: false
+        }),
+        signal: controller.signal
+      });
+      clearTimeout(timer);
+      response = res;
+      break; // sucesso, sai do loop
+    } catch (err) {
+      clearTimeout(timer);
+      lastError = err;
+      if (attempt < MAX_RETRIES) {
+        showRetryHint(attempt); // feedback visual pro usuário
+        await new Promise(r => setTimeout(r, attempt * 1500)); // backoff 1.5s, 3s
+      }
     }
+  }
 
-    const data = await response.json();
-    const reply = data.choices?.[0]?.message?.content || 'Sem resposta';
+  showTyping(false);
 
-    addMessage('assistant', reply);
-    chatHistory.push({ role: 'assistant', content: reply });
+  if (!response) {
+    const isTimeout = lastError && lastError.name === 'AbortError';
+    throw new Error(isTimeout
+      ? 'Tempo esgotado (60s). A conexão pode estar lenta — tente novamente.'
+      : (lastError ? lastError.message : 'Failed to fetch'));
+  }
 
-    // Keep history manageable (last 20 messages + system)
-    if (chatHistory.length > 21) {
-      chatHistory = [chatHistory[0], ...chatHistory.slice(-20)];
-    }
+  if (!response.ok) {
+    const err = await response.text();
+    throw new Error(`HTTP ${response.status}: ${err}`);
+  }
+
+  const data = await response.json();
+  const reply = data.choices?.[0]?.message?.content || 'Sem resposta';
+
+  addMessage('assistant', reply);
+  chatHistory.push({ role: 'assistant', content: reply });
+
+  // Keep history manageable (last 20 messages + system)
+  if (chatHistory.length > 21) {
+    chatHistory = [chatHistory[0], ...chatHistory.slice(-20)];
+  }
 
   } catch (error) {
     showTyping(false);
