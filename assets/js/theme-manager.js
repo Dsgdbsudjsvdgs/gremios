@@ -7,16 +7,27 @@ const ThemeManager = {
     if (saved === 'light') {
       document.body.classList.add('light');
     }
+    this.syncBrandImgs();
     // Login page nunca tem toggle
     if (!document.body.classList.contains('login-page')) {
       this.createToggleButton();
     }
   },
 
+  // Troca o brasão conforme o tema (dark = crest-dark, light = crest-light)
+  syncBrandImgs() {
+    const isLight = document.body.classList.contains('light');
+    document.querySelectorAll('[data-theme-img]').forEach(img => {
+      const prefix = img.src.includes('/pages/') ? '../' : '';
+      img.src = `${prefix}assets/img/brand/${isLight ? 'crest-light.png' : 'crest-dark.png'}`;
+    });
+  },
+
   toggle() {
     document.body.classList.toggle('light');
     const isLight = document.body.classList.contains('light');
     localStorage.setItem('theme', isLight ? 'light' : 'dark');
+    this.syncBrandImgs();
   },
 
   createToggleButton() {

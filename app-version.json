@@ -1,11 +1,12 @@
 {
-  "version": "2.6.2",
-  "build": 13,
+  "version": "2.7.0",
+  "build": 14,
   "apk_url": "https://github.com/Dsgdbsudjsvdgs/gremios/releases/latest/download/app-debug.apk",
   "changelog": [
-    "FIX REAL (nginx): header CORS duplicado (Chrome bloqueava: multiple values *, *) - proxy_hide_header no backend, nginx responde 1x",
-    "FIX: FontAwesome 6.0.0 -> 6.5.2 em 27 paginas (fa-shield-halved e fa-user-gear nao existiam no 6.0 - icone Admin nao renderizava)",
-    "Suporte verificado E2E no browser: mensagem enviada no Vercel recebeu resposta do Hermes",
-    "SW v7 -> v8"
+    "NOVA IDENTIDADE VISUAL: brasao do gremio (crest) gerado com IA, adaptado a paleta do app (preto + ciano #00E5FF)",
+    "Login: nova logo + slogan \"Educacao com Participacao e Transformacao!\"",
+    "Nav lateral: brasao novo em todas as paginas (troca automatica dark/light)",
+    "Modo claro: versao light do brasao (ciano #0099CC sobre fundo claro, seguindo variables.css light)",
+    "Icones PWA (192/512) atualizados com o novo brasao"
   ]
 }
