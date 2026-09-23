@@ -438,6 +438,11 @@ body.login-page .btn-theme-toggle { display: none; }
 
 .btn-theme-toggle:active { transform: scale(0.9); }
 
+/* Em páginas com botão flutuante de chat (ex: suporte), o tema sobe pra não sobrepor */
+body:has(.floating-chat-btn) .btn-theme-toggle {
+  bottom: 88px; /* acima do floating-chat-btn (56px + 24px bottom + 8px de respiro) */
+}
+
 /* ── LIGHT THEME ── */
 body.light {
   --bg-dark: #f0f2f5;
