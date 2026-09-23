@@ -178,6 +178,13 @@ body.login-page .btn-theme-toggle { display: none; }
   transform: scale(0.92);
 }
 
+/* Quando a barra lateral abre, o trigger some suavemente (não fica sobre o brasão) */
+.mobile-nav-trigger.active {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-10px) scale(0.9);
+}
+
 /* ── MAIN CONTENT ── */
 .main-content {
   margin-left: 260px;
