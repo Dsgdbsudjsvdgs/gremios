@@ -15,11 +15,12 @@ const ThemeManager = {
   },
 
   // Troca o brasão conforme o tema (dark = crest-dark, light = crest-light)
+  // Preserva o path base que o nav-component já montou (relativo correto pra cada página)
   syncBrandImgs() {
     const isLight = document.body.classList.contains('light');
+    const file = isLight ? 'crest-light.png' : 'crest-dark.png';
     document.querySelectorAll('[data-theme-img]').forEach(img => {
-      const prefix = img.src.includes('/pages/') ? '../' : '';
-      img.src = `${prefix}assets/img/brand/${isLight ? 'crest-light.png' : 'crest-dark.png'}`;
+      img.src = img.src.replace(/crest-[a-z0-9-]+\.png/, file);
     });
   },
 

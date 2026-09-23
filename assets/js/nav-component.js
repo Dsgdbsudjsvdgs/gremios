@@ -70,7 +70,7 @@ const NavComponent = {
     nav.innerHTML = `
       <div class="nav-header">
         <div class="nav-logo">
-          <img src="${inPages ? '../' : ''}assets/img/brand/crest-icon-512.png" alt="Grêmio Conecta Jovem" class="brand-crest" data-theme-img="true">
+          <img src="${inPages ? '../' : ''}assets/img/brand/crest-dark.png" alt="Grêmio Conecta Jovem" class="brand-crest" data-theme-img="true">
         </div>
         <span class="nav-brand">Conecta Jovem</span>
       </div>
