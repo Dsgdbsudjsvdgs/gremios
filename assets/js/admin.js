@@ -115,6 +115,8 @@ async function handleAddMember(form) {
   try {
     const memberData = {
       full_name: form.querySelector('[name="member-name"]')?.value,
+      cpf: form.querySelector('[name="member-cpf"]')?.value?.trim() || null,
+      birth_date: form.querySelector('[name="member-birth"]')?.value || null,
       role: form.querySelector('[name="member-role"]')?.value,
       department_id: form.querySelector('[name="member-dept"]')?.value || null,
       access_code: form.querySelector('[name="member-code"]')?.value?.toUpperCase()
@@ -122,6 +124,9 @@ async function handleAddMember(form) {
 
     if (!memberData.full_name || !memberData.access_code) {
       throw new Error('Nome e código de acesso são obrigatórios');
+    }
+    if (!memberData.birth_date) {
+      throw new Error('Data de nascimento é obrigatória (usada no login)');
     }
 
     await UTILS.supabaseInsert('profiles', memberData);
