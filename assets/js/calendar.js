@@ -313,7 +313,7 @@ function renderListView() {
                 ${event.location ? `<div class="event-location"><i class="fa-solid fa-location-dot"></i> ${event.location}</div>` : ''}
                 ${event.description ? `<div class="event-description">${event.description}</div>` : ''}
                 <div class="event-actions">
-                    <button class="btn-edit" onclick="openEditEventModal(${JSON.stringify(event).replace(/"/g, '"')})"><i class="fa-solid fa-pen"></i> Editar</button>
+                    <button class="btn-edit" onclick="openEditEventModalById('${event.id}')"><i class="fa-solid fa-pen"></i> Editar</button>
                     <button class="btn-delete" onclick="deleteEvent('${event.id}')"><i class="fa-solid fa-trash"></i> Excluir</button>
                 </div>
             </div>
@@ -351,12 +351,21 @@ function showDayEvents(dateStr) {
                 ${event.description ? `<div class="event-description">${event.description}</div>` : ''}
                 ${event.recurring && event.recurring !== 'none' ? `<div class="event-category" style="background:#F7DC6F20;color:#F7DC6F;border:1px solid #F7DC6F40;font-size:0.65rem;"><i class="fa-solid fa-rotate"></i> ${event.recurring.charAt(0).toUpperCase() + event.recurring.slice(1)}</div>` : ''}
                 <div class="event-actions">
-                    <button class="btn-edit" onclick="openEditEventModal(${JSON.stringify(event).replace(/"/g, '"')})"><i class="fa-solid fa-pen"></i> Editar</button>
+                    <button class="btn-edit" onclick="openEditEventModalById('${event.id}')"><i class="fa-solid fa-pen"></i> Editar</button>
                     <button class="btn-delete" onclick="deleteEvent('${event.id}')"><i class="fa-solid fa-trash"></i> Excluir</button>
                 </div>
             </div>
         `;
     }).join('');
+}
+
+function openEditEventModalById(id) {
+    const event = allEvents.find(e => e.id === id);
+    if (!event) {
+        UTILS.showError('Evento não encontrado. Recarregue a página.');
+        return;
+    }
+    openEditEventModal(event);
 }
 
 function openEditEventModal(event) {
