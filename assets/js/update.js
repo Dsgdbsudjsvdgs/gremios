@@ -15,6 +15,14 @@ const UPDATE_CONFIG = {
 async function getLocalVersion() {
   if (UPDATE_CONFIG._localVersion) return { version: UPDATE_CONFIG._localVersion, build: UPDATE_CONFIG._localBuild };
 
+  // Opcao A (estilo Capacitor): versao injetada via <script src="app-version.js">
+  // — funciona em file:// (WebView do APK), sem fetch. Gerada junto do app-version.json.
+  if (window.APP_VERSION && window.APP_VERSION.version) {
+    UPDATE_CONFIG._localVersion = window.APP_VERSION.version;
+    UPDATE_CONFIG._localBuild = window.APP_VERSION.build;
+    return window.APP_VERSION;
+  }
+
   try {
     // Tenta carregar o app-version.json local (mesmo diretório do site)
     const basePath = window.location.pathname.includes('/pages/') ? '../' : '';

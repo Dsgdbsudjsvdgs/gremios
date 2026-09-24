@@ -1,0 +1,13 @@
+// Auto-gerado do app-version.json — nao editar na mao; regenerar no build
+window.APP_VERSION = {
+  "version": "2.7.1",
+  "build": 15,
+  "apk_url": "https://github.com/Dsgdbsudjsvdgs/gremios/releases/latest/download/app-debug.apk",
+  "changelog": [
+    "Nova identidade visual: brasao do gremio no login, nav lateral e icones (dark + light)",
+    "Calendario: correcao na criacao e edicao de eventos (horarios, categorias, recorrencia)",
+    "Painel ADM: cadastro de membros por CPF + data de nascimento",
+    "Suporte: assistente mais inteligente com pesquisa na web para trabalhos do gremio",
+    "Chat do suporte: respostas mais rapidas com retry automatico"
+  ]
+};
