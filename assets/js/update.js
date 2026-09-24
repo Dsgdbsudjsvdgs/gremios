@@ -27,8 +27,9 @@ async function getLocalVersion() {
     }
   } catch (e) {}
 
-  // Fallback — usa valores do app-version.json que já tá carregado no cache
-  return { version: '2.3.0', build: 6 };
+  // Fallback — espelha app-version.json; atualizar JUNTO em cada release
+  // (fetch local falha no WebView do APK porque o site carrega via file://)
+  return { version: '2.7.1', build: 15 };
 }
 
 async function checkForUpdates() {
