@@ -1,12 +1,12 @@
 {
-  "version": "2.7.0",
-  "build": 14,
+  "version": "2.7.1",
+  "build": 15,
   "apk_url": "https://github.com/Dsgdbsudjsvdgs/gremios/releases/latest/download/app-debug.apk",
   "changelog": [
-    "NOVA IDENTIDADE VISUAL: brasao do gremio (crest) gerado com IA, adaptado a paleta do app (preto + ciano #00E5FF)",
-    "Login: nova logo + slogan \"Educacao com Participacao e Transformacao!\"",
-    "Nav lateral: brasao novo em todas as paginas (troca automatica dark/light)",
-    "Modo claro: versao light do brasao (ciano #0099CC sobre fundo claro, seguindo variables.css light)",
-    "Icones PWA (192/512) atualizados com o novo brasao"
+    "Nova identidade visual: brasao do gremio no login, nav lateral e icones (dark + light)",
+    "Calendario: correcao na criacao e edicao de eventos (horarios, categorias, recorrencia)",
+    "Painel ADM: cadastro de membros por CPF + data de nascimento",
+    "Suporte: assistente mais inteligente com pesquisa na web para trabalhos do gremio",
+    "Chat do suporte: respostas mais rapidas com retry automatico"
   ]
 }
