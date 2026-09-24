@@ -58,20 +58,41 @@ async function checkForUpdates() {
   }
 
   try {
-    const response = await fetch(UPDATE_CONFIG.VERSION_URL + '?t=' + Date.now());
-    if (!response.ok) throw new Error('Erro ao verificar');
+    // 1a fonte: atualização pendente no Supabase (controlável pelo painel ADM)
+    let remote = null;
+    try {
+      let client = (typeof supabaseClient !== 'undefined' && supabaseClient) ? supabaseClient : null;
+      if (!client && window.CONFIG && window.CONFIG.initSupabase) client = window.CONFIG.initSupabase();
+      if (client) {
+        const { data } = await client
+          .from('app_updates')
+          .select('version, build, changelog, apk_url, is_pending, is_mandatory')
+          .eq('is_pending', true)
+          .order('build', { ascending: false })
+          .limit(1)
+          .maybeSingle();
+        if (data && data.build > local.build) remote = data;
+      }
+    } catch (e) { /* Supabase indisponível — cai pro repo */ }
 
-    const remote = await response.json();
+    // 2a fonte: app-version.json no GitHub (fallback)
+    if (!remote) {
+      const response = await fetch(UPDATE_CONFIG.VERSION_URL + '?t=' + Date.now());
+      if (!response.ok) throw new Error('Erro ao verificar');
+      const repoData = await response.json();
+      if (repoData.build > local.build) remote = repoData;
+    }
 
-    if (remote.build > local.build) {
+    if (remote) {
       if (statusEl) {
         statusEl.textContent = `🆕 Nova versão: v${remote.version} (${remote.build})`;
         statusEl.style.color = '#4CAF50';
       }
       if (btnEl) {
         btnEl.style.display = 'inline-block';
+        const dlUrl = remote.apk_url || UPDATE_CONFIG.APK_DOWNLOAD_URL;
         btnEl.onclick = () => {
-          window.open(UPDATE_CONFIG.APK_DOWNLOAD_URL, '_blank');
+          window.open(dlUrl, '_blank');
         };
       }
       const logEl = document.getElementById('changelog');
