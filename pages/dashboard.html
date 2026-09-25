@@ -8,62 +8,167 @@
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    /* Dashboard v2 — minimalista, herda o resto do style.css */
+    .dash-welcome {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 16px; margin-bottom: 14px;
+      background: rgba(0,229,255,0.06);
+      border: 1px solid rgba(0,229,255,0.25);
+      border-radius: 14px;
+    }
+    .dash-welcome .dash-hello { flex: 1; min-width: 0; }
+    .dash-welcome h2 {
+      margin: 0; font-size: 1.05rem; font-weight: 700;
+      color: var(--text-primary, #eee); white-space: nowrap;
+      overflow: hidden; text-overflow: ellipsis;
+    }
+    .dash-welcome p { margin: 2px 0 0; font-size: 0.8rem; color: var(--text-muted); }
+
+    .dash-stats {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 10px; margin-bottom: 14px;
+    }
+    .dash-stat {
+      text-align: center; padding: 14px 6px 12px;
+      border-radius: 14px; cursor: pointer;
+      text-decoration: none; display: block;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .dash-stat:active { transform: scale(0.97); }
+    .dash-stat .stat-value {
+      font-size: 1.6rem; font-weight: 800; color: var(--primary);
+      line-height: 1.1;
+    }
+    .dash-stat .stat-label {
+      font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.4px;
+      color: var(--text-muted); margin-top: 2px;
+    }
+    .dash-stat .stat-sub { font-size: 0.68rem; color: var(--primary); opacity: 0.75; margin-top: 3px; }
+
+    .dash-actions {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 10px; margin-bottom: 16px;
+    }
+    .dash-action {
+      display: flex; flex-direction: column; align-items: center; gap: 6px;
+      padding: 12px 4px; border-radius: 14px;
+      font-size: 0.7rem; color: var(--text-primary, #eee);
+      text-decoration: none; text-align: center;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+    .dash-action:active { transform: scale(0.96); }
+    .dash-action i { font-size: 1.15rem; color: var(--primary); }
+
+    .dash-section { margin-bottom: 14px; }
+    .dash-section-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin: 0 2px 8px;
+    }
+    .dash-section-head h3 {
+      margin: 0; font-size: 0.85rem; font-weight: 600;
+      color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;
+    }
+    .dash-section-head a { font-size: 0.75rem; text-decoration: none; color: var(--primary); }
+    .dash-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 12px; border-radius: 12px; margin-bottom: 8px;
+    }
+    .dash-item .dash-item-icon {
+      width: 34px; height: 34px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 10px; background: rgba(0,229,255,0.10);
+      color: var(--primary); font-size: 0.85rem;
+    }
+    .dash-item .dash-item-body { flex: 1; min-width: 0; }
+    .dash-item .dash-item-title {
+      margin: 0; font-size: 0.88rem; font-weight: 600;
+      color: var(--text-primary, #eee);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .dash-item .dash-item-sub {
+      margin: 1px 0 0; font-size: 0.73rem; color: var(--text-muted);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .dash-item .dash-item-date {
+      font-size: 0.7rem; color: var(--primary);
+      flex-shrink: 0; text-align: right; line-height: 1.3;
+    }
+    .dash-item .dash-item-date small { display: block; color: var(--text-muted); font-size: 0.65rem; }
+    .dash-empty {
+      text-align: center; font-size: 0.8rem; color: var(--text-muted);
+      padding: 18px 10px;
+    }
+    @media (max-width: 380px) {
+      .dash-stats, .dash-actions { grid-template-columns: repeat(3, 1fr); }
+      .dash-actions a:nth-child(4) { display: none; }
+    }
+  </style>
 </head>
 <body>
   <!-- Nav injetada via nav-component.js -->
 
   <main class="main-content">
-    <div class="page-header">
-      <h1>Dashboard</h1>
-      <div class="page-header-actions">
-        <div id="user-avatar" class="role-badge" style="width:38px;height:38px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(0,229,255,0.15);border:1px solid var(--primary);color:var(--primary);font-weight:700;">U</div>
+    <!-- Welcome compacto -->
+    <div class="dash-welcome">
+      <div id="user-avatar" class="role-badge" style="width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(0,229,255,0.15);border:1px solid var(--primary);color:var(--primary);font-weight:700;font-size:1rem;flex-shrink:0;">U</div>
+      <div class="dash-hello">
+        <h2 id="user-name">Usuário</h2>
+        <p id="user-role">Membro</p>
       </div>
     </div>
 
-    <!-- Welcome -->
-    <div class="glass-card glass-card-accent mb-2">
-      <h2 style="margin:0;font-size:1.1rem;color:var(--primary);">Bem-vindo, <span id="user-name">Usuário</span>!</h2>
-      <p style="margin:4px 0 0;color:var(--text-muted);font-size:0.85rem;">Cargo: <span id="user-role">Membro</span></p>
-    </div>
-
-    <!-- Stats -->
-    <div class="stats-grid">
-      <div class="glass-card stat-card">
-        <i class="fa-solid fa-list-check stat-icon"></i>
+    <!-- Stats: clicáveis -->
+    <div class="dash-stats">
+      <a href="tasks.html" class="glass-card dash-stat">
         <div id="pending-tasks-count" class="stat-value">0</div>
-        <div class="stat-label">Tarefas Pendentes</div>
-      </div>
-      <div class="glass-card stat-card">
-        <i class="fa-solid fa-calendar-day stat-icon"></i>
+        <div class="stat-label">Pendentes</div>
+      </a>
+      <a href="calendario.html" class="glass-card dash-stat">
         <div id="upcoming-events-count" class="stat-value">0</div>
-        <div class="stat-label">Eventos Hoje</div>
-      </div>
-      <div class="glass-card stat-card">
-        <i class="fa-solid fa-users stat-icon"></i>
+        <div class="stat-label">Próximos</div>
+      </a>
+      <a href="diretoria.html" class="glass-card dash-stat">
         <div id="members-count" class="stat-value">0</div>
-        <div class="stat-label">Membros Totais</div>
+        <div class="stat-label">Membros</div>
+      </a>
+    </div>
+
+    <!-- Ações rápidas -->
+    <div class="dash-actions">
+      <a href="tasks.html" class="glass-card dash-action">
+        <i class="fa-solid fa-circle-plus"></i> Tarefa
+      </a>
+      <a href="calendario.html" class="glass-card dash-action">
+        <i class="fa-solid fa-calendar-plus"></i> Evento
+      </a>
+      <a href="diario.html" class="glass-card dash-action">
+        <i class="fa-solid fa-book-open"></i> Diário
+      </a>
+      <a href="suporte.html" class="glass-card dash-action">
+        <i class="fa-solid fa-robot"></i> Suporte
+      </a>
+    </div>
+
+    <!-- Agenda -->
+    <div class="dash-section">
+      <div class="dash-section-head">
+        <h3><i class="fa-regular fa-calendar"></i> Agenda</h3>
+        <a href="calendario.html">Ver tudo</a>
+      </div>
+      <div id="upcoming-events">
+        <p class="dash-empty">Carregando…</p>
       </div>
     </div>
 
-    <!-- Content Grid -->
-    <div class="content-grid">
-      <div class="glass-card">
-        <div class="flex-between mb-1">
-          <h3 style="margin:0;color:var(--primary);font-size:1rem;"><i class="fa-solid fa-clock-rotate-left"></i> Recentes</h3>
-          <a href="tasks.html" class="btn btn-outline btn-sm">Ver Todas</a>
-        </div>
-        <div id="recent-tasks">
-          <p class="empty-state">Carregando tarefas...</p>
-        </div>
+    <!-- Tarefas -->
+    <div class="dash-section">
+      <div class="dash-section-head">
+        <h3><i class="fa-solid fa-list-check"></i> Tarefas</h3>
+        <a href="tasks.html">Ver tudo</a>
       </div>
-      <div class="glass-card">
-        <div class="flex-between mb-1">
-          <h3 style="margin:0;color:var(--primary);font-size:1rem;"><i class="fa-solid fa-star"></i> Agenda</h3>
-          <a href="calendario.html" class="btn btn-outline btn-sm">Ver Tudo</a>
-        </div>
-        <div id="upcoming-events">
-          <p class="empty-state">Carregando eventos...</p>
-        </div>
+      <div id="recent-tasks">
+        <p class="dash-empty">Carregando…</p>
       </div>
     </div>
   </main>
@@ -71,7 +176,7 @@
   <script src="../assets/js/config.js"></script>
   <script src="../assets/js/utils.js"></script>
   <script src="../assets/js/logout.js"></script>
- <script src="../assets/js/nav-component.js"></script>
+  <script src="../assets/js/nav-component.js"></script>
   <script src="../assets/js/theme-manager.js"></script>
   <script src="../assets/js/core-guard.js"></script>
   <script src="../assets/js/dashboard.js"></script>

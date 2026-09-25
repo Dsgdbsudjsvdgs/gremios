@@ -109,23 +109,25 @@ function renderRecentTasks() {
     if (!container) return;
 
     if (tasksData.length === 0) {
-        container.innerHTML = '<p class="empty-state">Nenhuma tarefa recente</p>';
+        container.innerHTML = '<p class="dash-empty">Nenhuma tarefa por aqui</p>';
         return;
     }
 
-    container.innerHTML = tasksData.map(task => `
-        <div class="task-item">
-            <div class="task-header">
-                <h3 class="task-title">${UTILS.escapeHtml(task.title || 'Sem título')}</h3>
-                <span class="task-status status-${task.status || 'pendente'}">${task.status || 'Pendente'}</span>
+    const statusIcon = { 'pendente': 'fa-clock', 'em andamento': 'fa-spinner', 'concluida': 'fa-circle-check', 'concluída': 'fa-circle-check' };
+    container.innerHTML = tasksData.map(task => {
+        const st = (task.status || 'pendente').toLowerCase();
+        const icon = statusIcon[st] || 'fa-clock';
+        const prio = task.priority ? ` · ${task.priority}` : '';
+        return `
+        <div class="glass-card dash-item">
+            <div class="dash-item-icon"><i class="fa-solid ${icon}"></i></div>
+            <div class="dash-item-body">
+                <h4 class="dash-item-title">${UTILS.escapeHtml(task.title || 'Sem título')}</h4>
+                <p class="dash-item-sub">${UTILS.escapeHtml(task.description || '')}${prio}</p>
             </div>
-            <p class="task-description">${UTILS.escapeHtml(task.description || '')}</p>
-            <div class="task-meta">
-                <span>Prioridade: ${task.priority || 'Média'}</span>
-                <span>Data: ${UTILS.formatDate(task.due_date) || 'Sem data'}</span>
-            </div>
-        </div>
-    `).join('');
+            <div class="dash-item-date">${UTILS.formatDate(task.due_date) || '—'}<small>${st}</small></div>
+        </div>`;
+    }).join('');
 }
 
 function renderUpcomingEvents() {
@@ -133,22 +135,27 @@ function renderUpcomingEvents() {
     if (!container) return;
 
     if (eventsData.length === 0) {
-        container.innerHTML = '<p class="empty-state">Nenhum evento próximo</p>';
+        container.innerHTML = '<p class="dash-empty">Nenhum evento próximo</p>';
         return;
     }
 
-    container.innerHTML = eventsData.map(event => `
-        <div class="event-item">
-            <div class="event-header">
-                <h3 class="event-title">${UTILS.escapeHtml(event.name || 'Sem título')}</h3>
+    const catIcon = { 'reuniao': 'fa-users', 'evento': 'fa-star', 'prazo': 'fa-flag', 'feriado': 'fa-flag-checkered' };
+    container.innerHTML = eventsData.map(event => {
+        const icon = catIcon[(event.category || 'evento').toLowerCase()] || 'fa-calendar-day';
+        const d = event.date ? new Date(event.date + 'T12:00:00') : null;
+        const day = d ? d.getDate() : '—';
+        const mon = d ? d.toLocaleDateString('pt-br', { month: 'short' }).replace('.', '') : '';
+        const loc = event.location ? ` · ${event.location}` : '';
+        return `
+        <div class="glass-card dash-item">
+            <div class="dash-item-icon"><i class="fa-solid ${icon}"></i></div>
+            <div class="dash-item-body">
+                <h4 class="dash-item-title">${UTILS.escapeHtml(event.name || 'Sem título')}</h4>
+                <p class="dash-item-sub">${UTILS.escapeHtml((event.time_start ? event.time_start + 'h' : '') + loc)}</p>
             </div>
-            <p class="event-description">${UTILS.escapeHtml(event.description || '')}</p>
-            <div class="event-meta">
-                <span>📅 ${UTILS.formatDate(event.date)}</span>
-                <span>📍 ${UTILS.escapeHtml(event.location || 'Local não informado')}</span>
-            </div>
-        </div>
-    `).join('');
+            <div class="dash-item-date">${day} ${mon}<small>${event.status === 'planned' ? 'planejado' : ''}</small></div>
+        </div>`;
+    }).join('');
 }
 
 function setupEventListeners() {
