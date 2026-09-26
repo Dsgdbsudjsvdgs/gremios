@@ -11,20 +11,24 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link rel="stylesheet" href="../assets/css/dash.css">
   <style>
-    .profile-wrap { max-width: 480px; margin: 0 auto; }
+    .profile-wrap { max-width: 560px; margin: 0 auto; }
 
-    /* ---- Capa + avatar ---- */
+    /* ---- Composição de identidade: capa → avatar → dados ---- */
     .profile-hero {
       position: relative;
-      border-radius: 18px;
-      overflow: hidden;
-      margin-bottom: 54px;
+      overflow: visible;
+      margin: 0;
+      padding: 0;
       border: 1px solid var(--glass-border);
+      border-radius: 22px;
+      background: var(--bg-surface);
     }
     .profile-cover {
-      height: 110px;
+      height: clamp(128px, 24vw, 168px);
+      border-radius: 21px 21px 0 0;
       background: linear-gradient(135deg, var(--accent-color, #8f1212) 0%, rgba(0,0,0,0.55) 100%);
       position: relative;
+      overflow: hidden;
     }
     .profile-cover::after {
       content: '';
@@ -34,7 +38,7 @@
         repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0 2px, transparent 2px 12px);
     }
     .profile-avatar-lg {
-      position: absolute; left: 50%; bottom: -42px; transform: translateX(-50%);
+      position: absolute; left: 50%; top: calc(clamp(128px, 24vw, 168px) - 46px); bottom: auto; transform: translateX(-50%);
       width: 92px; height: 92px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       font-size: 2.4rem; font-weight: 800;
@@ -60,8 +64,12 @@
     }
 
     /* ---- Identidade ---- */
-    .profile-id { text-align: center; }
-    .profile-id h2 { margin: 0 0 6px; font-size: 1.3rem; color: var(--text-main); }
+    .profile-id {
+      text-align: center;
+      padding: 56px 22px 22px;
+      min-height: 132px;
+    }
+    .profile-id h2 { margin: 0 0 7px; font-size: clamp(1.28rem, 4vw, 1.55rem); color: var(--text-main); }
     .profile-role-row { display: flex; justify-content: center; margin-bottom: 10px; }
     #profile-role {
       display: inline-block; padding: 5px 16px; border-radius: 20px;
@@ -171,6 +179,18 @@
     .theme-btns .btn { flex: 1; padding: 11px; border-radius: 999px; border: none; font-size: 0.78rem; font-weight: 800; cursor: pointer; }
     .theme-btns .btn-save-t { background: var(--primary); color: var(--text-main); }
     .theme-btns .btn-reset-t { background: var(--bg-surface-hover); color: var(--text-main); border: 1px solid var(--glass-border); }
+
+    @media (max-width: 480px) {
+      .profile-wrap { max-width: 100%; }
+      .profile-hero { border-radius: 18px; }
+      .profile-cover { height: 126px; border-radius: 17px 17px 0 0; }
+      .profile-avatar-lg { width: 84px; height: 84px; top: 84px; bottom: auto; font-size: 2.1rem; }
+      .profile-id { padding: 51px 16px 18px; min-height: 124px; }
+      .profile-form-card { margin-top: 14px; padding: 17px 14px; }
+      .palette-grid { gap: 7px; }
+      .theme-presets { gap: 7px; }
+      .theme-preset { padding: 9px 4px; }
+    }
   </style>
 </head>
 <body>
@@ -178,22 +198,20 @@
   <main class="main-content">
     <div class="profile-wrap">
 
-      <!-- Hero: capa + avatar -->
-      <div class="profile-hero glass-card" style="padding:0;">
+      <!-- Hero: capa → avatar → identidade (uma composição única) -->
+      <section class="profile-hero glass-card" aria-label="Identidade do perfil">
         <div class="profile-cover" id="profile-cover"></div>
-        <div class="profile-avatar-lg" id="profile-pic" title="Trocar foto">
+        <button class="profile-avatar-lg" id="profile-pic" type="button" title="Trocar foto de perfil" aria-label="Trocar foto de perfil">
           <span id="avatar-letter">U</span>
-          <div class="avatar-edit-hint"><i class="fa-solid fa-camera"></i></div>
-        </div>
+          <span class="avatar-edit-hint" aria-hidden="true"><i class="fa-solid fa-camera"></i></span>
+        </button>
         <input type="file" id="avatar-file" accept="image/*">
-      </div>
-
-      <!-- Identidade -->
-      <div class="profile-id">
-        <h2 id="profile-name">Usuário</h2>
-        <div class="profile-role-row"><span id="profile-role">Membro</span></div>
-        <p id="profile-bio"></p>
-      </div>
+        <div class="profile-id">
+          <h2 id="profile-name">Usuário</h2>
+          <div class="profile-role-row"><span id="profile-role">Membro</span></div>
+          <p id="profile-bio"></p>
+        </div>
+      </section>
 
       <!-- Edição -->
       <div class="glass-card profile-form-card">
