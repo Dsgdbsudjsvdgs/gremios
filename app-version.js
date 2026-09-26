@@ -2,7 +2,7 @@
 window.APP_VERSION = {
   "version": "2.8.0",
   "build": 16,
-  "apk_url": "https://github.com/Dsgdbsudjsvdgs/gremios/releases/latest/download/gremio-v2.8.1.apk",
+  "apk_url": "https://github.com/Dsgdbsudjsvdgs/gremios/releases/latest/download/gremio-2.8.1-native.apk",
   "changelog": [
     "Nova identidade visual 2026: tema preto + vermelho-sangue em todo o app",
     "Personalização de temas no Perfil (Aparência) aplicada em todas as páginas",

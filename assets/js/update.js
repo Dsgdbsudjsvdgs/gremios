@@ -5,7 +5,7 @@
 
 const UPDATE_CONFIG = {
   VERSION_URL: 'https://raw.githubusercontent.com/Dsgdbsudjsvdgs/gremios/main/app-version.json',
-  APK_DOWNLOAD_URL: 'https://github.com/Dsgdbsudjsvdgs/gremios/releases/latest/download/gremio-v2.8.1.apk',
+  APK_DOWNLOAD_URL: 'https://github.com/Dsgdbsudjsvdgs/gremios/releases/latest/download/gremio-2.8.1-native.apk',
   // Fallback caso não consiga ler o arquivo local
   _localVersion: null,
   _localBuild: null
