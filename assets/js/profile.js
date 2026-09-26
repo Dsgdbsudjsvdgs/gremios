@@ -77,7 +77,7 @@ async function initProfile() {
     }
     renderAvatar();
 
-    // ---- Upload de avatar: redimensiona pra 256px e vira data-URL ----
+    // ---- Upload de avatar: 256px JPEG -> Supabase Storage (bucket público) ----
     if (profilePic && avatarFile) {
         profilePic.addEventListener('click', () => avatarFile.click());
         avatarFile.addEventListener('change', () => {
@@ -95,9 +95,26 @@ async function initProfile() {
                     // crop central quadrado + resize
                     const min = Math.min(img.width, img.height);
                     ctx.drawImage(img, (img.width - min) / 2, (img.height - min) / 2, min, min, 0, 0, SIZE, SIZE);
-                    u.avatar_url = canvas.toDataURL('image/jpeg', 0.82);
-                    renderAvatar();
-                    UTILS.showSuccess('Foto pronta! Salve para confirmar.');
+                    const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+                    // dataURL -> blob -> upload pro Supabase Storage
+                    (async () => {
+                        try {
+                            const blob = await (await fetch(dataUrl)).blob();
+                            const { error: upErr } = await CONFIG.getSupabase()
+                                .storage.from('avatars')
+                                .upload(`${u.id}.jpg`, blob, { contentType: 'image/jpeg', upsert: true });
+                            if (upErr) throw upErr;
+                            const { data: pub } = CONFIG.getSupabase()
+                                .storage.from('avatars')
+                                .getPublicUrl(`${u.id}.jpg`);
+                            u.avatar_url = pub.publicUrl + '?v=' + Date.now(); // cache-buster: força reload da nova foto
+                            renderAvatar();
+                            UTILS.showSuccess('Foto enviada! Salve para confirmar.');
+                        } catch (err) {
+                            console.error('Erro no upload do avatar:', err);
+                            UTILS.showError('Erro ao enviar foto: ' + (err.message || err.error || err));
+                        }
+                    })();
                 };
                 img.src = ev.target.result;
             };
