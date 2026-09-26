@@ -8,7 +8,7 @@ const PROFILE_PALETTE = [
   '#FF4081', // rosa
   '#FF6B35', // laranja
   '#00E676', // verde
-  '#FFD600', // amarelo
+  '#FFD700', // amarelo
   '#448AFF', // azul
   '#F50057', // magenta
   '#00BFA5', // teal
@@ -34,7 +34,7 @@ async function initProfile() {
     } catch (e) { console.warn('Perfil: usando dados do storage', e); }
 
     const u = UTILS.getStorageUser();
-    const accent = u.color_hex || '#00E5FF';
+    const accent = u.color_hex || '#8f1212';
 
     // ---- Aplicar cor no app inteiro (já é o comportamento) ----
     document.documentElement.style.setProperty('--accent-color', accent);
@@ -124,8 +124,12 @@ async function initProfile() {
 
     // ---- Paleta ----
     function markSelected(hex) {
+        const toRgb = (h) => [1, 3, 5].map(i => parseInt(h.slice(i, i + 2), 16));
+        const [r, g, b] = toRgb((hex || '').toUpperCase());
         paletteGrid.querySelectorAll('.palette-swatch').forEach(s => {
-            s.classList.toggle('selected', s.dataset.hex.toUpperCase() === hex.toUpperCase());
+            const [r2, g2, b2] = toRgb(s.dataset.hex.toUpperCase());
+            const near = Math.abs(r - r2) + Math.abs(g - g2) + Math.abs(b - b2) < 24;
+            s.classList.toggle('selected', near);
         });
     }
     function applyAccent(hex, save) {
