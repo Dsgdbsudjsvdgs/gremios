@@ -112,6 +112,28 @@
     .members-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
     .filter-row { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
     .filter-row select { padding: 8px 12px; border-radius: 8px; background: rgba(0,0,0,0.3); color: var(--text-main); border: 1px solid var(--glass-border); font-size: 0.85rem; flex: 1; min-width: 140px; }
+
+    /* ── Correções locais (visual apenas) ── */
+    /* 1. Contém o glow radial global (130vw) — mata o overflow-x do documento */
+    .main-content { overflow-x: clip; min-width: 0; }
+    /* 2. Botões: mesma pílula do design system */
+    .btn, .btn-ghost { border-radius: 999px; }
+    /* 3. Modal por cima do toggle de tema (z-index 9999) e do menu mobile */
+    .modal-overlay { z-index: 11000; }
+    /* 4. Grid do diário: mínimo menor p/ 2 colunas caberem em telas ~700px */
+    .diary-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+    /* 5. Foco visível p/ acessibilidade */
+    .btn:focus-visible, .btn-delete:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    @media (max-width: 768px) {
+      .page-header { flex-wrap: wrap; gap: 10px; }
+      .flex-between { flex-wrap: wrap; gap: 10px; }
+      .flex-between p { flex: 1 1 100%; margin: 0; }
+    }
+    @media (max-width: 400px) {
+      .flex-between .btn { flex: 1 1 100%; }
+      .diary-grid { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>

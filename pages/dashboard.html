@@ -24,14 +24,14 @@
       background: var(--gradient-main);
       display: flex; align-items: center; justify-content: center;
       color: #fff; font-weight: 800; font-size: 1.1rem;
-      box-shadow: 0 4px 16px rgba(224,78,45,0.35);
+      box-shadow: 0 4px 16px color-mix(in srgb, var(--primary) 35%, transparent);
     }
     .ss-brand-name { font-weight: 700; font-size: 0.95rem; color: var(--text-main); }
     .ss-invite {
       flex-shrink: 0; border-radius: 999px; padding: 7px 14px;
-      border: 1px solid rgba(224,78,45,0.4);
-      font-size: 0.72rem; font-weight: 600; color: #ff8a73;
-      background: rgba(224,78,45,0.14); text-decoration: none;
+      border: 1px solid color-mix(in srgb, var(--primary) 40%, transparent);
+      font-size: 0.72rem; font-weight: 600; color: var(--accent);
+      background: color-mix(in srgb, var(--primary) 14%, transparent); text-decoration: none;
     }
 
     /* Chips de navegação */
@@ -49,8 +49,8 @@
       transition: all 0.2s;
     }
     .ss-chip:hover {
-      background: rgba(224,78,45,0.16); color: #ff8a73;
-      border-color: rgba(224,78,45,0.4);
+      background: color-mix(in srgb, var(--primary) 16%, transparent); color: var(--accent);
+      border-color: color-mix(in srgb, var(--primary) 40%, transparent);
     }
 
     /* Hero do perfil */
@@ -75,7 +75,7 @@
       font-size: 0.62rem; font-weight: 700; letter-spacing: 0.5px;
       text-transform: uppercase; padding: 3px 10px; border-radius: 999px;
     }
-    .ss-tag.hot { background: rgba(224,78,45,0.16); color: #ff8a73; border: 1px solid rgba(224,78,45,0.35); }
+    .ss-tag.hot { background: color-mix(in srgb, var(--primary) 16%, transparent); color: var(--accent); border: 1px solid color-mix(in srgb, var(--primary) 35%, transparent); }
     .ss-tag.soft { background: rgba(255,255,255,0.07); color: var(--text-dim); border: 1px solid var(--glass-border); }
 
     /* Seções (cards translúcidos grandes) */
@@ -102,8 +102,8 @@
     }
     .ss-date {
       width: 44px; height: 48px; flex-shrink: 0;
-      background: rgba(224,78,45,0.12); border: 1px solid rgba(224,78,45,0.3);
-      border-radius: 12px; color: #ff8a73;
+      background: color-mix(in srgb, var(--primary) 12%, transparent); border: 1px solid color-mix(in srgb, var(--primary) 30%, transparent);
+      border-radius: 12px; color: var(--accent);
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       font-weight: 800; line-height: 1;
     }
@@ -116,10 +116,10 @@
       flex-shrink: 0; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.5px;
       padding: 4px 10px; border-radius: 999px; text-transform: uppercase;
     }
-    .ss-ev-tag.destaque { background: rgba(224,78,45,0.16); color: #ff8a73; border: 1px solid rgba(224,78,45,0.35); }
+    .ss-ev-tag.destaque { background: color-mix(in srgb, var(--primary) 16%, transparent); color: var(--accent); border: 1px solid color-mix(in srgb, var(--primary) 35%, transparent); }
     .ss-ev-tag.equipe { background: rgba(255,255,255,0.07); color: var(--text-dim); border: 1px solid var(--glass-border); }
-    .ss-ev-tag.aberto { background: rgba(126,212,146,0.12); color: #7ed492; border: 1px solid rgba(126,212,146,0.3); }
-    .ss-ev-tag.urgente { background: rgba(255,76,76,0.14); color: #ff8a73; border: 1px solid rgba(255,76,76,0.3); }
+    .ss-ev-tag.aberto { background: color-mix(in srgb, var(--success-color) 12%, transparent); color: var(--success-color); border: 1px solid color-mix(in srgb, var(--success-color) 30%, transparent); }
+    .ss-ev-tag.urgente { background: color-mix(in srgb, var(--danger) 14%, transparent); color: var(--danger); border: 1px solid color-mix(in srgb, var(--danger) 30%, transparent); }
 
     /* Tarefas estilo "Organização coletiva" */
     .ss-task {
@@ -130,11 +130,11 @@
     }
     .ss-task .ss-check {
       width: 22px; height: 22px; flex-shrink: 0;
-      border-radius: 50%; border: 2px solid rgba(224,78,45,0.5);
+      border-radius: 50%; border: 2px solid color-mix(in srgb, var(--primary) 50%, transparent);
       display: flex; align-items: center; justify-content: center;
-      color: #ff8a73; font-size: 0.6rem;
+      color: var(--accent); font-size: 0.6rem;
     }
-    .ss-task .ss-check.done { background: rgba(224,78,45,0.25); }
+    .ss-task .ss-check.done { background: color-mix(in srgb, var(--primary) 25%, transparent); }
     .ss-task .ss-tk-body { flex: 1; min-width: 0; }
     .ss-task .ss-tk-title { margin: 0; font-size: 0.85rem; color: var(--text-main); }
     .ss-task .ss-tk-meta { margin: 2px 0 0; font-size: 0.66rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.4px; }
@@ -152,6 +152,28 @@
     .ss-progress-label { font-size: 0.66rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; }
 
     .ss-empty { text-align: center; color: var(--text-muted); font-size: 0.8rem; padding: 16px; }
+
+    /* ── Correções locais: overflow e responsividade ── */
+    /* O glow radial global (variables.css .main-content::before, 130vw) estoura
+       o viewport; contém o scroll horizontal dentro do main desta página. */
+    .main-content { overflow-x: clip; min-width: 0; }
+    .ss-header, .ss-chips, .ss-hero, .ss-section { max-width: 720px; }
+    .ss-header { margin-left: auto; margin-right: auto; }
+    .ss-chips, .ss-hero, .ss-section { margin-left: auto; margin-right: auto; }
+    .ss-section-head a { font-size: 0.72rem; color: var(--accent); text-decoration: none; flex-shrink: 0; }
+    .ss-ev-tag { white-space: nowrap; }
+
+    @media (max-width: 768px) {
+      .main-content { padding-top: 68px; }
+      /* Header + chips abaixo do gatilho fixo do menu (44px + 12px) */
+      .ss-header { padding: 12px 14px 6px; }
+      .ss-chips { padding: 6px 14px 12px; }
+      .ss-hero { margin: 4px 14px 14px; }
+      .ss-section { margin: 0 0 14px; padding: 14px; }
+      .ss-section-head h3 { font-size: 0.92rem; min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+      .ss-event, .ss-task { gap: 10px; }
+      .ss-ev-tag { display: none; } /* tag sacrificada em telas estreitas — título prevalece */
+    }
 
     @media (max-width: 380px) {
       .ss-chip { padding: 6px 12px; font-size: 0.7rem; }
@@ -208,7 +230,7 @@
     <div class="ss-section">
       <div class="ss-section-head">
         <h3>Organização coletiva</h3>
-        <a href="tasks.html" style="font-size:0.72rem;color:#ff8a73;text-decoration:none;">Ver tudo</a>
+        <a href="tasks.html" class="ss-section-head-a">Ver tudo</a>
       </div>
       <div id="recent-tasks">
         <p class="ss-empty">Carregando…</p>
@@ -219,7 +241,7 @@
     <div class="ss-section">
       <div class="ss-section-head">
         <h3>Grêmio</h3>
-        <a href="diretoria.html" style="font-size:0.72rem;color:#ff8a73;text-decoration:none;">Equipe</a>
+        <a href="diretoria.html" class="ss-section-head-a">Equipe</a>
       </div>
       <div class="ss-progress"><div class="fill" id="members-fill" style="width:0%"></div></div>
       <span class="ss-progress-label"><span id="members-count">0</span> membros · Meta: 60</span>

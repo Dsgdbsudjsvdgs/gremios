@@ -112,6 +112,31 @@
     .members-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
     .filter-row { display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; }
     .filter-row select { padding: 8px 12px; border-radius: 8px; background: rgba(0,0,0,0.3); color: var(--text-main); border: 1px solid var(--glass-border); font-size: 0.85rem; flex: 1; min-width: 140px; }
+
+    /* ── Correções locais (visual apenas) ── */
+    /* 1. Contém o glow radial global (130vw) — mata o overflow-x do documento */
+    .main-content { overflow-x: clip; min-width: 0; }
+    /* 2. Botões: mesma pílula do design system (dash.css arredonda só btn-primary) */
+    .btn, .btn-ghost { border-radius: 999px; }
+    /* 3. Modal por cima do toggle de tema (z-index 9999) e do menu mobile */
+    .modal-overlay { z-index: 11000; }
+    /* 4. Contraste do CTA destrutivo dentro do modal */
+    #confirm-yes { background: color-mix(in srgb, var(--danger) 85%, transparent); color: #0a0505; }
+    /* 5. Foco visível p/ acessibilidade nos controles de tarefa */
+    .dash-item-controls select:focus-visible,
+    .btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    @media (max-width: 768px) {
+      /* Header ocupa a linha toda: título + botão alinhados, sem quebrar */
+      .page-header { flex-wrap: wrap; gap: 10px; }
+      .flex-between { flex-wrap: wrap; gap: 10px; }
+      .flex-between p { flex: 1 1 100%; margin: 0; }
+      /* Select de status das tarefas não esmaga o título em 360px */
+      .dash-item-controls select { max-width: 84px; }
+    }
+    @media (max-width: 400px) {
+      .flex-between .btn { flex: 1 1 100%; }
+    }
   </style>
 </head>
 <body>
