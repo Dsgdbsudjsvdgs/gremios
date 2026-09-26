@@ -50,11 +50,11 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      background: rgba(0,229,255,0.05);
+      background: rgba(143, 18, 18, 0.05);
     }
     .chat-avatar {
       width: 40px; height: 40px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--primary), #00E5FF);
+      background: linear-gradient(135deg, var(--primary), #8f1212);
       display: flex; align-items: center; justify-content: center;
       color: #000; font-weight: 700; font-size: 1.2rem;
     }
@@ -127,7 +127,7 @@
       resize: none;
       font-family: inherit;
     }
-    .chat-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(0,229,255,0.1); }
+    .chat-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(143, 18, 18, 0.1); }
     .btn-send {
       width: 44px; height: 44px;
       border-radius: 50%;
@@ -139,7 +139,7 @@
       transition: var(--transition);
       flex-shrink: 0;
     }
-    .btn-send:hover { background: #00E5FF; transform: scale(1.05); }
+    .btn-send:hover { background: #8f1212; transform: scale(1.05); }
     .btn-send:disabled { opacity: 0.5; cursor: not-allowed; }
 
     .typing-indicator {
@@ -160,8 +160,8 @@
     @keyframes typing { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-6px); } }
 
     .welcome-card {
-      background: linear-gradient(135deg, rgba(0,229,255,0.1), rgba(78,205,196,0.1));
-      border: 1px solid rgba(0,229,255,0.2);
+      background: linear-gradient(135deg, rgba(143, 18, 18, 0.1), rgba(78,205,196,0.1));
+      border: 1px solid rgba(143, 18, 18, 0.2);
       border-radius: var(--radius-lg);
       padding: 20px;
       margin-bottom: 16px;
@@ -186,7 +186,7 @@
       cursor: pointer;
       transition: var(--transition);
     }
-    .quick-btn:hover { background: rgba(0,229,255,0.1); border-color: var(--primary); color: var(--primary); }
+    .quick-btn:hover { background: rgba(143, 18, 18, 0.1); border-color: var(--primary); color: var(--primary); }
 
     .floating-chat-btn {
       position: fixed;
@@ -199,11 +199,11 @@
       border: none;
       cursor: pointer;
       display: flex; align-items: center; justify-content: center;
-      box-shadow: 0 4px 20px rgba(0,229,255,0.3);
+      box-shadow: 0 4px 20px rgba(143, 18, 18, 0.3);
       z-index: 1000;
       transition: var(--transition);
     }
-    .floating-chat-btn:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(0,229,255,0.4); }
+    .floating-chat-btn:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(143, 18, 18, 0.4); }
     .floating-chat-btn .notification-badge {
       position: absolute;
       top: -4px; right: -4px;
@@ -219,7 +219,7 @@
     /* v4.1: Status pill — mostra se o Hermes tá online de verdade */
     .chat-status { display: flex; align-items: center; gap: 6px; font-size: 0.75rem; color: var(--text-muted); }
     .chat-status i { font-size: 0.5rem; animation: pulse 2s infinite; }
-    .chat-status.online i { color: #00FF88; }
+    .chat-status.online i { color: #7ed492; }
     .chat-status.offline i { color: var(--danger); }
     .chat-status.checking i { color: var(--warning-color); }
     @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
@@ -238,8 +238,8 @@
     .suporte-hero-icon {
       width: 56px; height: 56px;
       border-radius: 16px;
-      background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(0,229,255,0.05));
-      border: 1px solid rgba(0,229,255,0.3);
+      background: linear-gradient(135deg, rgba(143, 18, 18, 0.15), rgba(143, 18, 18, 0.05));
+      border: 1px solid rgba(143, 18, 18, 0.3);
       display: flex; align-items: center; justify-content: center;
       font-size: 1.5rem; color: var(--primary);
       flex-shrink: 0;
@@ -252,13 +252,13 @@
       display: flex; align-items: center; gap: 6px;
       padding: 6px 12px;
       border-radius: 50px;
-      background: rgba(0,229,255,0.06);
+      background: rgba(143, 18, 18, 0.06);
       border: 1px solid var(--glass-border);
       font-size: 0.75rem; color: var(--text-dim);
     }
     .suporte-hero-status i { font-size: 0.5rem; animation: pulse 2s infinite; }
-    .suporte-hero-status.online { border-color: rgba(0,255,136,0.35); color: #00FF88; }
-    .suporte-hero-status.online i { color: #00FF88; }
+    .suporte-hero-status.online { border-color: rgba(0,255,136,0.35); color: #7ed492; }
+    .suporte-hero-status.online i { color: #7ed492; }
     .suporte-hero-status.offline { border-color: rgba(255,76,76,0.35); color: var(--danger); }
     .suporte-hero-status.offline i { color: var(--danger); }
   </style>

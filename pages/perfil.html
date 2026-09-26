@@ -23,7 +23,7 @@
     }
     .profile-cover {
       height: 110px;
-      background: linear-gradient(135deg, var(--accent-color, #00E5FF) 0%, rgba(0,0,0,0.55) 100%);
+      background: linear-gradient(135deg, var(--accent-color, #8f1212) 0%, rgba(0,0,0,0.55) 100%);
       position: relative;
     }
     .profile-cover::after {
@@ -38,13 +38,13 @@
       width: 92px; height: 92px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
       font-size: 2.4rem; font-weight: 800;
-      background: #111; color: var(--accent-color, #00E5FF);
+      background: #111; color: var(--accent-color, #8f1212);
       border: 4px solid var(--bg-surface);
       box-shadow: 0 4px 20px rgba(0,0,0,0.4);
       overflow: hidden; cursor: pointer;
       transition: box-shadow 0.2s;
     }
-    .profile-avatar-lg:hover { box-shadow: 0 0 0 3px var(--accent-color, #00E5FF); }
+    .profile-avatar-lg:hover { box-shadow: 0 0 0 3px var(--accent-color, #8f1212); }
     .profile-avatar-lg img { width: 100%; height: 100%; object-fit: cover; }
     .avatar-edit-hint {
       position: absolute; inset: 0; border-radius: 50%;
@@ -55,7 +55,7 @@
     .profile-avatar-lg:hover .avatar-edit-hint { opacity: 1; }
     .avatar-ring {
       position: absolute; inset: -8px; border-radius: 50%;
-      border: 2px solid var(--accent-color, #00E5FF); opacity: 0.35;
+      border: 2px solid var(--accent-color, #8f1212); opacity: 0.35;
       animation: none;
     }
 
@@ -66,8 +66,8 @@
     #profile-role {
       display: inline-block; padding: 5px 16px; border-radius: 20px;
       font-size: 0.75rem; font-weight: 700; letter-spacing: 0.4px;
-      background: rgba(0,229,255,0.12); color: var(--accent-color, #00E5FF);
-      border: 1px solid var(--accent-color, #00E5FF);
+      background: rgba(143, 18, 18, 0.12); color: var(--accent-color, #8f1212);
+      border: 1px solid var(--accent-color, #8f1212);
     }
     #profile-bio {
       margin: 0 auto 0; max-width: 340px; font-size: 0.85rem;
@@ -88,7 +88,7 @@
       border: 1px solid var(--glass-border); background: rgba(0,0,0,0.25);
       color: var(--text-main); font-size: 0.9rem; outline: none; box-sizing: border-box;
     }
-    .form-input:focus { border-color: var(--accent-color, #00E5FF); }
+    .form-input:focus { border-color: var(--accent-color, #8f1212); }
 
     /* ---- Paleta de cores ---- */
     .palette-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-bottom: 10px; }
@@ -98,7 +98,7 @@
       position: relative;
     }
     .palette-swatch:active { transform: scale(0.9); }
-    .palette-swatch.selected { border-color: #fff; box-shadow: 0 0 0 2px var(--accent-color, #00E5FF); }
+    .palette-swatch.selected { border-color: #fff; box-shadow: 0 0 0 2px var(--accent-color, #8f1212); }
     .palette-swatch.selected::after {
       content: '✓'; position: absolute; inset: 0;
       display: flex; align-items: center; justify-content: center;
@@ -118,7 +118,7 @@
     }
 
     .btn-primary {
-      background: var(--accent-color, #00E5FF); color: #000; border: none;
+      background: var(--accent-color, #8f1212); color: #000; border: none;
       font-weight: 700; cursor: pointer; transition: transform 0.15s, opacity 0.2s;
     }
     .btn-primary:active { transform: scale(0.98); }
@@ -128,7 +128,7 @@
 
     .profile-stats { display: flex; justify-content: center; gap: 24px; margin-top: 16px; }
     .pstat { text-align: center; }
-    .pstat b { display: block; font-size: 1.15rem; color: var(--accent-color, #00E5FF); }
+    .pstat b { display: block; font-size: 1.15rem; color: var(--accent-color, #8f1212); }
     .pstat span { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
   </style>
 </head>
@@ -176,7 +176,7 @@
             <div class="palette-grid" id="palette-grid"></div>
             <div class="custom-color-row">
               <input type="color" id="edit-color" title="Cor personalizada">
-              <input type="text" id="edit-color-hex" class="form-input" placeholder="#00E5FF">
+              <input type="text" id="edit-color-hex" class="form-input" placeholder="#8f1212">
             </div>
           </div>
 

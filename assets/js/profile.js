@@ -3,7 +3,7 @@
 // =============================================================================
 
 const PROFILE_PALETTE = [
-  '#00E5FF', // ciano (padrão)
+  '#8f1212', // vermelho-sangue (padrão)
   '#7C4DFF', // roxo
   '#FF4081', // rosa
   '#FF6B35', // laranja
