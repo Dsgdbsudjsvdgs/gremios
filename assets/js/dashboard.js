@@ -68,7 +68,8 @@ function renderMembers(count) {
     const el = document.getElementById('members-count');
     const fill = document.getElementById('members-fill');
     if (el) el.textContent = count;
-    if (fill) fill.style.width = Math.min(100, Math.round((count / 60) * 100)) + '%';
+    // barra proporcional ao total (sem meta fixa): 30 membros = barra cheia
+    if (fill) fill.style.width = Math.min(100, Math.round((count / 30) * 100)) + '%';
 }
 
 function renderUpcomingEvents() {
