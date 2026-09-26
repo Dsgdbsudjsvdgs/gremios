@@ -1,52 +1,100 @@
 :root {
-    /* Cores Base - Educa Mais Style (Preto & Branco / Cyan Accent) */
-    --bg-dark: #000000;
-    --bg-surface: rgba(255, 255, 255, 0.08);
-    --bg-surface-hover: rgba(255, 255, 255, 0.12);
-    
-    /* Primárias - Educa Mais Cyan */
-    --primary: #00E5FF;
-    --primary-dark: #00B2CC;
-    --accent: #FFFFFF;
-    
+    /* ── Tema "Student Space" (Lovable) — dark quente + vermelho-coral ── */
+    --bg-dark: #1d1815;
+    --bg-surface: rgba(255, 255, 255, 0.05);
+    --bg-surface-hover: rgba(255, 255, 255, 0.09);
+
+    /* Primárias — coral/vermelho quente */
+    --primary: #e04e2d;
+    --primary-dark: #b53a1f;
+    --accent: #e08d4e;
+
     /* Texto */
-    --text-main: #FFFFFF;
-    --text-dim: #B0B0B0;
-    --text-muted: #707070;
-    
+    --text-main: #f5efe9;
+    --text-dim: #b8ada3;
+    --text-muted: #8a7f74;
+
     /* Detalhes Glass */
-    --glass-border: rgba(255, 255, 255, 0.15);
-    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
-    
+    --glass-border: rgba(255, 255, 255, 0.12);
+    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.55);
+
     /* Raio e Transição */
-    --radius-lg: 20px;
-    --radius-md: 12px;
-    --radius-sm: 6px;
+    --radius-lg: 24px;
+    --radius-md: 16px;
+    --radius-sm: 10px;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    
-    /* Gradientes - Black & Cyan */
-    --gradient-main: linear-gradient(135deg, #000000, #00E5FF);
-    --gradient-dark: linear-gradient(135deg, #000000, #1a1a1a);
-    
+
+    /* Gradientes — coral sobre dark quente */
+    --gradient-main: linear-gradient(135deg, #e04e2d, #7a2e18);
+    --gradient-dark: linear-gradient(135deg, #241d19, #15100d);
+
     /* Cores de Status */
-    --success-color: #00FF88;
-    --error-color: #FF4C4C;
-    --warning-color: #FFD700;
+    --success-color: #7ed492;
+    --error-color: #ff6b5e;
+    --warning-color: #f2c94c;
 
-    /* ── Status semânticos (fix: --danger ausente — usado em tasks/deletar) ── */
-    --danger: #FF4C4C;
-    --danger-bg: rgba(255, 76, 76, 0.12);
-    --danger-border: rgba(255, 76, 76, 0.35);
+    /* ── Status semânticos ── */
+    --danger: #ff6b5e;
+    --danger-bg: rgba(255, 107, 94, 0.12);
+    --danger-border: rgba(255, 107, 94, 0.35);
 
-    /* ── Paleta ATUALIZADA de Diretorias (Black & Cyan Theme) ── */
+    /* ── Paleta de Diretorias ── */
     --color-executivo: var(--primary);
-    --color-cultura: var(--primary-dark);
+    --color-cultura: var(--accent);
     --color-esportes: var(--text-dim);
-    --color-eventos: var(--accent);
-    --color-comunicacao: var(--primary);
+    --color-eventos: #e04e2d;
+    --color-comunicacao: var(--accent);
     --color-social: var(--success-color);
     --color-ambiente: var(--success-color);
     --color-protagonismo: var(--primary-dark);
     --color-tecnologia: var(--primary);
     --color-ouvidoria: var(--text-dim);
+}
+
+/* ── Sobreposições do tema Student Space ── */
+/* Painel translúcido dos cards (como bg-panel do Lovable: oklch 19% .02 20 / .82) */
+.glass-card {
+    background: rgba(36, 29, 25, 0.82) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    border-radius: 24px !important;
+    backdrop-filter: blur(8px);
+}
+
+/* Glow radial no topo da página (a marca do layout Lovable) */
+.main-content {
+    position: relative;
+}
+.main-content::before {
+    content: '';
+    position: absolute;
+    top: -40px; left: 50%; transform: translateX(-50%);
+    width: 130vw; height: 240px;
+    background: radial-gradient(ellipse at center top, rgba(224, 78, 45, 0.22) 0%, transparent 65%);
+    pointer-events: none;
+    z-index: 0;
+}
+.main-content > * { position: relative; z-index: 1; }
+
+/* Chips pílula (DESTAQUE / MEMBRO ATIVO / EQUIPE...) */
+.chip, .role-badge {
+    border-radius: 999px !important;
+    background: rgba(255, 107, 94, 0.14);
+    color: #ff8a73;
+    border: 1px solid rgba(224, 78, 45, 0.35);
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    display: inline-block;
+}
+
+/* Botões seguem o tema */
+.btn-primary {
+    background: var(--primary) !important;
+    color: #fff !important;
+    border-radius: 999px !important;
+}
+.btn-outline {
+    border-radius: 999px !important;
 }

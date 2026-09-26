@@ -1,5 +1,5 @@
 // ============================================================================
-// 📊 DASHBOARD - Grêmio Estudantil v3 (Corrigido)
+// 📊 DASHBOARD — layout Student Space (Lovable)
 // ============================================================================
 
 let currentUser = null;
@@ -13,23 +13,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function initDashboard() {
     try {
-        // Check authentication
         if (!UTILS.requireAuth()) return;
-
         currentUser = UTILS.getStorageUser();
-        if (!currentUser) {
-            throw new Error('Usuário não autenticado');
-        }
+        if (!currentUser) throw new Error('Usuário não autenticado');
 
-        // Update UI with user info
         updateUserInfo();
-
-        // Load data
-        await loadDashboardData(); // Carregar dados do dashboard
-
-        // Setup event listeners
-        setupEventListeners();
-
+        await loadDashboardData();
     } catch (error) {
         console.error('❌ Dashboard init error:', error);
         UTILS.showError(error.message);
@@ -40,68 +29,88 @@ function updateUserInfo() {
     const userNameElement = document.getElementById('user-name');
     const userRoleElement = document.getElementById('user-role');
     const userAvatarElement = document.getElementById('user-avatar');
+    const avatarLetter = document.getElementById('avatar-letter');
 
     if (userNameElement) userNameElement.textContent = currentUser.nome || 'Usuário';
     if (userRoleElement) userRoleElement.textContent = currentUser.role || 'Membro';
-    if (userAvatarElement) userAvatarElement.textContent = (currentUser.nome || 'U').charAt(0).toUpperCase();
+    if (avatarLetter) avatarLetter.textContent = (currentUser.nome || 'U').charAt(0).toUpperCase();
+
+    // foto de perfil se existir
+    if (userAvatarElement && currentUser.avatar_url && String(currentUser.avatar_url).startsWith('http')) {
+        userAvatarElement.innerHTML = `<img src="${currentUser.avatar_url}" alt="avatar">`;
+    }
 }
 
 async function loadDashboardData() {
     try {
-        // Load tasks
-        const tasks = await UTILS.supabaseQuery('tasks', {
-            order: { column: 'created_at', ascending: false },
-            limit: 5
-        });
-        tasksData = tasks || [];
-        renderRecentTasks();
-
-        // Load events (FIX: gte hoje — antes só mostrava eventos do dia exato)
         const todayISO = new Date().toISOString().split('T')[0];
-        const events = await UTILS.supabaseQuery('events', {
-            gte: { date: todayISO },
-            order: { column: 'date', ascending: true },
-            limit: 5
-        });
+        const [tasks, events, members] = await Promise.all([
+            UTILS.supabaseQuery('tasks', { order: { column: 'created_at', ascending: false }, limit: 4 }),
+            UTILS.supabaseQuery('events', { gte: { date: todayISO }, order: { column: 'date', ascending: true }, limit: 4 }),
+            UTILS.supabaseQuery('profiles', { select: 'id' })
+        ]);
+        tasksData = tasks || [];
         eventsData = events || [];
+
         renderUpcomingEvents();
-
-        // Update counters
-        updateCounters();
-
+        renderRecentTasks();
+        renderMembers(members ? members.length : 0);
     } catch (error) {
         console.error('❌ Error loading dashboard data:', error);
-        UTILS.showError('Erro ao carregar dados do dashboard');
+        const ev = document.getElementById('upcoming-events');
+        const tk = document.getElementById('recent-tasks');
+        if (ev) ev.innerHTML = '<p class="ss-empty">⚠️ Erro ao carregar — verifique a conexão</p>';
+        if (tk) tk.innerHTML = '<p class="ss-empty">⚠️</p>';
     }
 }
 
-async function updateCounters() {
-    try {
-        const today = new Date().toISOString().split('T')[0];
+function renderMembers(count) {
+    const el = document.getElementById('members-count');
+    const fill = document.getElementById('members-fill');
+    if (el) el.textContent = count;
+    if (fill) fill.style.width = Math.min(100, Math.round((count / 60) * 100)) + '%';
+}
 
-        // FIX: 3 queries em paralelo (era sequencial = 3x mais lento)
-        // + eventos com gte hoje (antes só contava eventos do dia exato)
-        const [pendingTasks, upcomingEvents, members] = await Promise.all([
-            UTILS.supabaseQuery('tasks', { where: { status: CONFIG.STATUS.PENDING } }),
-            UTILS.supabaseQuery('events', { gte: { date: today }, order: { column: 'date', ascending: true }, limit: 10 }),
-            UTILS.supabaseQuery('profiles')
-        ]);
+function renderUpcomingEvents() {
+    const container = document.getElementById('upcoming-events');
+    if (!container) return;
 
-        const pendingCount = pendingTasks ? pendingTasks.length : 0;
-        const pendingElement = document.getElementById('pending-tasks-count');
-        if (pendingElement) pendingElement.textContent = pendingCount;
-
-        const upcomingCount = upcomingEvents ? upcomingEvents.length : 0;
-        const upcomingElement = document.getElementById('upcoming-events-count');
-        if (upcomingElement) upcomingElement.textContent = upcomingCount;
-
-        const memberCount = members ? members.length : 0;
-        const memberElement = document.getElementById('members-count');
-        if (memberElement) memberElement.textContent = memberCount;
-
-    } catch (error) {
-        console.error('❌ Error updating counters:', error);
+    const monthEl = document.getElementById('agenda-month');
+    if (monthEl) {
+        const now = new Date();
+        monthEl.textContent = now.toLocaleDateString('pt-br', { month: 'short' }).replace('.', '').toUpperCase()
+            + ' · ' + now.getFullYear();
     }
+
+    if (eventsData.length === 0) {
+        container.innerHTML = '<p class="ss-empty">Nenhum evento próximo</p>';
+        return;
+    }
+
+    const catTag = {
+        'reuniao': ['equipe', 'Equipe'],
+        'evento': ['destaque', 'Destaque'],
+        'prazo': ['urgente', 'Urgente'],
+        'feriado': ['aberto', 'Aberto']
+    };
+
+    container.innerHTML = eventsData.map(event => {
+        const d = event.date ? new Date(event.date + 'T12:00:00') : null;
+        const day = d ? d.getDate() : '—';
+        const mon = d ? d.toLocaleDateString('pt-br', { month: 'short' }).replace('.', '').toUpperCase() : '';
+        const tag = catTag[(event.category || 'evento').toLowerCase()] || ['destaque', 'Destaque'];
+        const hour = event.time_start ? event.time_start + 'h' : 'Dia inteiro';
+        const loc = event.location ? ' · ' + event.location : '';
+        return `
+        <div class="ss-event">
+            <div class="ss-date"><b>${day}</b><span>${mon}</span></div>
+            <div class="ss-ev-body">
+                <h4 class="ss-ev-title">${UTILS.escapeHtml(event.name || 'Sem título')}</h4>
+                <p class="ss-ev-meta">${UTILS.escapeHtml(hour + loc)}</p>
+            </div>
+            <span class="ss-ev-tag ${tag[0]}">${tag[1]}</span>
+        </div>`;
+    }).join('');
 }
 
 function renderRecentTasks() {
@@ -109,113 +118,22 @@ function renderRecentTasks() {
     if (!container) return;
 
     if (tasksData.length === 0) {
-        container.innerHTML = '<p class="dash-empty">Nenhuma tarefa por aqui</p>';
+        container.innerHTML = '<p class="ss-empty">Nenhuma tarefa por aqui</p>';
         return;
     }
 
-    const statusIcon = { 'pendente': 'fa-clock', 'em andamento': 'fa-spinner', 'concluida': 'fa-circle-check', 'concluída': 'fa-circle-check' };
     container.innerHTML = tasksData.map(task => {
-        const st = (task.status || 'pendente').toLowerCase();
-        const icon = statusIcon[st] || 'fa-clock';
-        const prio = task.priority ? ` · ${task.priority}` : '';
+        const done = (task.status === 'completed' || task.status === 'concluida' || task.status === 'concluída');
+        const prio = task.priority ? ' · ' + task.priority : '';
         return `
-        <div class="glass-card dash-item">
-            <div class="dash-item-icon"><i class="fa-solid ${icon}"></i></div>
-            <div class="dash-item-body">
-                <h4 class="dash-item-title">${UTILS.escapeHtml(task.title || 'Sem título')}</h4>
-                <p class="dash-item-sub">${UTILS.escapeHtml(task.description || '')}${prio}</p>
+        <div class="ss-task">
+            <div class="ss-check ${done ? 'done' : ''}">${done ? '✓' : ''}</div>
+            <div class="ss-tk-body">
+                <h4 class="ss-tk-title" ${done ? 'style="text-decoration:line-through;opacity:0.55;"' : ''}>${UTILS.escapeHtml(task.title || 'Sem título')}</h4>
+                <p class="ss-tk-meta">${done ? 'concluída' : 'pendente'}${UTILS.escapeHtml(prio)}</p>
             </div>
-            <div class="dash-item-date">${UTILS.formatDate(task.due_date) || '—'}<small>${st}</small></div>
         </div>`;
     }).join('');
 }
 
-function renderUpcomingEvents() {
-    const container = document.getElementById('upcoming-events');
-    if (!container) return;
-
-    if (eventsData.length === 0) {
-        container.innerHTML = '<p class="dash-empty">Nenhum evento próximo</p>';
-        return;
-    }
-
-    const catIcon = { 'reuniao': 'fa-users', 'evento': 'fa-star', 'prazo': 'fa-flag', 'feriado': 'fa-flag-checkered' };
-    container.innerHTML = eventsData.map(event => {
-        const icon = catIcon[(event.category || 'evento').toLowerCase()] || 'fa-calendar-day';
-        const d = event.date ? new Date(event.date + 'T12:00:00') : null;
-        const day = d ? d.getDate() : '—';
-        const mon = d ? d.toLocaleDateString('pt-br', { month: 'short' }).replace('.', '') : '';
-        const loc = event.location ? ` · ${event.location}` : '';
-        return `
-        <div class="glass-card dash-item">
-            <div class="dash-item-icon"><i class="fa-solid ${icon}"></i></div>
-            <div class="dash-item-body">
-                <h4 class="dash-item-title">${UTILS.escapeHtml(event.name || 'Sem título')}</h4>
-                <p class="dash-item-sub">${UTILS.escapeHtml((event.time_start ? event.time_start + 'h' : '') + loc)}</p>
-            </div>
-            <div class="dash-item-date">${day} ${mon}<small>${event.status === 'planned' ? 'planejado' : ''}</small></div>
-        </div>`;
-    }).join('');
-}
-
-function setupEventListeners() {
-    // New task button
-    const newTaskBtn = document.getElementById('btn-new-task');
-    if (newTaskBtn) {
-        newTaskBtn.addEventListener('click', () => {
-            window.location.href = 'tasks.html';
-        });
-    }
-
-    // New event button
-    const newEventBtn = document.getElementById('btn-new-event');
-    if (newEventBtn) {
-        newEventBtn.addEventListener('click', () => {
-            window.location.href = 'calendario.html';
-        });
-    }
-
-    // Navigation links
-    const navLinks = document.querySelectorAll('[data-nav]');
-    navLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-            const page = e.target.dataset.nav;
-            navigateToPage(page);
-        });
-    });
-
-    // Logout button
-    const logoutBtn = document.getElementById('btn-logout');
-    if (logoutBtn) {
-        logoutBtn.addEventListener('click', () => {
-            if (confirm('Tem certeza que deseja sair?')) {
-                logout();
-            }
-        });
-    }
-}
-
-function navigateToPage(page) {
-    const pages = {
-        'dashboard': 'dashboard.html',
-        'tasks': 'tasks.html',
-        'calendar': 'calendario.html',
-        'diary': 'diario.html',
-        'members': 'diretoria.html',
-        'profile': 'perfil.html',
-        'admin': 'admin.html',
-        'diretoria': 'diretoria.html'
-    };
-
-    const url = pages[page];
-    if (url) {
-        window.location.href = url;
-    }
-}
-
-function logout() {
-    UTILS.clearStorageUser();
-    window.location.href = '../index.html';
-}
-
-console.log('✅ Dashboard module loaded');
+console.log('✅ Dashboard Student Space loaded');

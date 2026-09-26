@@ -9,72 +9,219 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <link rel="stylesheet" href="../assets/css/dash.css">
+  <style>
+    /* ── Layout Student Space (Lovable) ── */
+
+    /* Header: logo G + nome + botão pílula */
+    .ss-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 20px 10px;
+    }
+    .ss-header .ss-brand { display: flex; align-items: center; gap: 10px; }
+    .ss-logo {
+      width: 38px; height: 38px; border-radius: 12px;
+      background: var(--gradient-main);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-weight: 800; font-size: 1.1rem;
+      box-shadow: 0 4px 16px rgba(224,78,45,0.35);
+    }
+    .ss-brand-name { font-weight: 700; font-size: 0.95rem; color: var(--text-main); }
+    .ss-invite {
+      flex-shrink: 0; border-radius: 999px; padding: 7px 14px;
+      border: 1px solid rgba(224,78,45,0.4);
+      font-size: 0.72rem; font-weight: 600; color: #ff8a73;
+      background: rgba(224,78,45,0.14); text-decoration: none;
+    }
+
+    /* Chips de navegação */
+    .ss-chips {
+      display: flex; gap: 8px; overflow-x: auto; padding: 6px 20px 14px;
+      scrollbar-width: none;
+    }
+    .ss-chips::-webkit-scrollbar { display: none; }
+    .ss-chip {
+      flex-shrink: 0; border-radius: 999px; padding: 7px 16px;
+      border: 1px solid var(--glass-border);
+      font-size: 0.75rem; font-weight: 600; color: var(--text-dim);
+      background: var(--bg-surface);
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .ss-chip:hover {
+      background: rgba(224,78,45,0.16); color: #ff8a73;
+      border-color: rgba(224,78,45,0.4);
+    }
+
+    /* Hero do perfil */
+    .ss-hero { margin: 4px 20px 14px; text-align: center; }
+    .ss-avatar-ring {
+      width: 96px; height: 96px; margin: 0 auto 10px;
+      border-radius: 50%; padding: 3px;
+      background: conic-gradient(from 90deg, var(--primary), var(--accent), var(--primary));
+    }
+    .ss-avatar-ring .ss-avatar {
+      width: 100%; height: 100%; border-radius: 50%;
+      background: var(--bg-dark); overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem; font-weight: 800; color: var(--primary);
+      border: 3px solid var(--bg-dark);
+    }
+    .ss-avatar img { width: 100%; height: 100%; object-fit: cover; }
+    .ss-hero h2 { margin: 0; font-size: 1.2rem; color: var(--text-main); }
+    .ss-hero .ss-sub { margin: 4px 0 8px; font-size: 0.78rem; color: var(--text-muted); }
+    .ss-tags { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+    .ss-tag {
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.5px;
+      text-transform: uppercase; padding: 3px 10px; border-radius: 999px;
+    }
+    .ss-tag.hot { background: rgba(224,78,45,0.16); color: #ff8a73; border: 1px solid rgba(224,78,45,0.35); }
+    .ss-tag.soft { background: rgba(255,255,255,0.07); color: var(--text-dim); border: 1px solid var(--glass-border); }
+
+    /* Seções (cards translúcidos grandes) */
+    .ss-section {
+      margin: 0 20px 14px; padding: 16px;
+      background: rgba(36,29,25,0.82);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      backdrop-filter: blur(8px);
+    }
+    .ss-section-head {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .ss-section-head h3 { margin: 0; font-size: 0.98rem; font-weight: 700; color: var(--text-main); }
+    .ss-section-head .ss-when { font-size: 0.66rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* Evento estilo Lovable */
+    .ss-event {
+      display: flex; align-items: center; gap: 12px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px; padding: 10px 12px; margin-bottom: 8px;
+    }
+    .ss-date {
+      width: 44px; height: 48px; flex-shrink: 0;
+      background: rgba(224,78,45,0.12); border: 1px solid rgba(224,78,45,0.3);
+      border-radius: 12px; color: #ff8a73;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-weight: 800; line-height: 1;
+    }
+    .ss-date b { font-size: 1.05rem; }
+    .ss-date span { font-size: 0.58rem; letter-spacing: 1px; margin-top: 2px; }
+    .ss-event .ss-ev-body { flex: 1; min-width: 0; }
+    .ss-event .ss-ev-title { margin: 0; font-size: 0.88rem; font-weight: 600; color: var(--text-main); }
+    .ss-event .ss-ev-meta { margin: 2px 0 0; font-size: 0.72rem; color: var(--text-muted); }
+    .ss-ev-tag {
+      flex-shrink: 0; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.5px;
+      padding: 4px 10px; border-radius: 999px; text-transform: uppercase;
+    }
+    .ss-ev-tag.destaque { background: rgba(224,78,45,0.16); color: #ff8a73; border: 1px solid rgba(224,78,45,0.35); }
+    .ss-ev-tag.equipe { background: rgba(255,255,255,0.07); color: var(--text-dim); border: 1px solid var(--glass-border); }
+    .ss-ev-tag.aberto { background: rgba(126,212,146,0.12); color: #7ed492; border: 1px solid rgba(126,212,146,0.3); }
+    .ss-ev-tag.urgente { background: rgba(255,76,76,0.14); color: #ff8a73; border: 1px solid rgba(255,76,76,0.3); }
+
+    /* Tarefas estilo "Organização coletiva" */
+    .ss-task {
+      display: flex; align-items: center; gap: 10px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 16px; padding: 10px 12px; margin-bottom: 8px;
+    }
+    .ss-task .ss-check {
+      width: 22px; height: 22px; flex-shrink: 0;
+      border-radius: 50%; border: 2px solid rgba(224,78,45,0.5);
+      display: flex; align-items: center; justify-content: center;
+      color: #ff8a73; font-size: 0.6rem;
+    }
+    .ss-task .ss-check.done { background: rgba(224,78,45,0.25); }
+    .ss-task .ss-tk-body { flex: 1; min-width: 0; }
+    .ss-task .ss-tk-title { margin: 0; font-size: 0.85rem; color: var(--text-main); }
+    .ss-task .ss-tk-meta { margin: 2px 0 0; font-size: 0.66rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.4px; }
+
+    /* Barra de progresso (membros) */
+    .ss-progress {
+      height: 8px; border-radius: 999px; overflow: hidden;
+      background: rgba(255,255,255,0.08); margin: 8px 0 6px;
+    }
+    .ss-progress .fill {
+      height: 100%; border-radius: 999px;
+      background: linear-gradient(90deg, var(--primary), var(--accent));
+      transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+    }
+    .ss-progress-label { font-size: 0.66rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.6px; }
+
+    .ss-empty { text-align: center; color: var(--text-muted); font-size: 0.8rem; padding: 16px; }
+
+    @media (max-width: 380px) {
+      .ss-chip { padding: 6px 12px; font-size: 0.7rem; }
+    }
+  </style>
 </head>
 <body>
   <!-- Nav injetada via nav-component.js -->
 
   <main class="main-content">
-    <!-- Welcome compacto -->
-    <div class="dash-welcome">
-      <div id="user-avatar" class="role-badge" style="width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(0,229,255,0.15);border:1px solid var(--primary);color:var(--primary);font-weight:700;font-size:1rem;flex-shrink:0;">U</div>
-      <div class="dash-hello">
-        <h2 id="user-name">Usuário</h2>
-        <p id="user-role">Membro</p>
+    <!-- Header Student Space -->
+    <div class="ss-header">
+      <div class="ss-brand">
+        <div class="ss-logo">G</div>
+        <span class="ss-brand-name">Grêmio Estudantil</span>
       </div>
+      <a href="diretoria.html" class="ss-invite"><i class="fa-solid fa-user-plus"></i> Convidar</a>
     </div>
 
-    <!-- Stats: clicáveis -->
-    <div class="dash-stats">
-      <a href="tasks.html" class="glass-card dash-stat">
-        <div id="pending-tasks-count" class="stat-value">0</div>
-        <div class="stat-label">Pendentes</div>
-      </a>
-      <a href="calendario.html" class="glass-card dash-stat">
-        <div id="upcoming-events-count" class="stat-value">0</div>
-        <div class="stat-label">Próximos</div>
-      </a>
-      <a href="diretoria.html" class="glass-card dash-stat">
-        <div id="members-count" class="stat-value">0</div>
-        <div class="stat-label">Membros</div>
-      </a>
+    <!-- Chips de navegação -->
+    <div class="ss-chips">
+      <a href="calendario.html" class="ss-chip">Agenda</a>
+      <a href="diretoria.html" class="ss-chip">Equipe</a>
+      <a href="tasks.html" class="ss-chip">Tarefas</a>
+      <a href="diario.html" class="ss-chip">Diário</a>
+      <a href="perfil.html" class="ss-chip">Personalizar</a>
     </div>
 
-    <!-- Ações rápidas -->
-    <div class="dash-actions">
-      <a href="tasks.html" class="glass-card dash-action">
-        <i class="fa-solid fa-circle-plus"></i> Tarefa
-      </a>
-      <a href="calendario.html" class="glass-card dash-action">
-        <i class="fa-solid fa-calendar-plus"></i> Evento
-      </a>
-      <a href="diario.html" class="glass-card dash-action">
-        <i class="fa-solid fa-book-open"></i> Diário
-      </a>
-      <a href="suporte.html" class="glass-card dash-action">
-        <i class="fa-solid fa-robot"></i> Suporte
-      </a>
+    <!-- Hero: perfil -->
+    <div class="ss-hero">
+      <div class="ss-avatar-ring">
+        <div id="user-avatar" class="ss-avatar"><span id="avatar-letter">U</span></div>
+      </div>
+      <h2 id="user-name">Usuário</h2>
+      <p class="ss-sub" id="user-role">Membro</p>
+      <div class="ss-tags">
+        <span class="ss-tag hot">Membro ativo</span>
+        <span class="ss-tag soft">Grêmio Conecta Jovem</span>
+      </div>
     </div>
 
     <!-- Agenda -->
-    <div class="dash-section">
-      <div class="dash-section-head">
-        <h3><i class="fa-regular fa-calendar"></i> Agenda</h3>
-        <a href="calendario.html">Ver tudo</a>
+    <div class="ss-section">
+      <div class="ss-section-head">
+        <h3>Agenda da semana</h3>
+        <span class="ss-when" id="agenda-month">—</span>
       </div>
       <div id="upcoming-events">
-        <p class="dash-empty">Carregando…</p>
+        <p class="ss-empty">Carregando…</p>
       </div>
     </div>
 
     <!-- Tarefas -->
-    <div class="dash-section">
-      <div class="dash-section-head">
-        <h3><i class="fa-solid fa-list-check"></i> Tarefas</h3>
-        <a href="tasks.html">Ver tudo</a>
+    <div class="ss-section">
+      <div class="ss-section-head">
+        <h3>Organização coletiva</h3>
+        <a href="tasks.html" style="font-size:0.72rem;color:#ff8a73;text-decoration:none;">Ver tudo</a>
       </div>
       <div id="recent-tasks">
-        <p class="dash-empty">Carregando…</p>
+        <p class="ss-empty">Carregando…</p>
       </div>
+    </div>
+
+    <!-- Grêmio: progresso de membros -->
+    <div class="ss-section">
+      <div class="ss-section-head">
+        <h3>Grêmio</h3>
+        <a href="diretoria.html" style="font-size:0.72rem;color:#ff8a73;text-decoration:none;">Equipe</a>
+      </div>
+      <div class="ss-progress"><div class="fill" id="members-fill" style="width:0%"></div></div>
+      <span class="ss-progress-label"><span id="members-count">0</span> membros · Meta: 60</span>
     </div>
   </main>
 
