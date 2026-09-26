@@ -444,18 +444,21 @@ body:has(.floating-chat-btn) .btn-theme-toggle {
 }
 
 /* ── LIGHT THEME ── */
+/* !important: vence o inline-style do theme-runtime (tema personalizado da Aparência).
+   No modo claro, a identidade Conecta claro (creme + vermelho-sangue) prevalece, senão
+   tema dark salvo deixa texto creme sobre fundo creme = invisível. */
 body.light {
-  --bg-dark: #f6f1ec;
-  --bg-surface: rgba(255, 255, 255, 0.92);
-  --bg-card: rgba(255, 255, 255, 0.85);
-  --glass-border: rgba(0, 0, 0, 0.1);
-  --glass-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  --text-main: #1a1210;
-  --text-dim: #5a4a45;
-  --text-muted: #8a7a74;
-  --primary: #8f1212;
-  --primary-dark: #6d0e0e;
-  --gradient-main: linear-gradient(135deg, #8f1212, #6d0e0e);
+  --bg-dark: #f6f1ec !important;
+  --bg-surface: rgba(255, 255, 255, 0.92) !important;
+  --bg-card: rgba(255, 255, 255, 0.85) !important;
+  --glass-border: rgba(0, 0, 0, 0.1) !important;
+  --glass-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
+  --text-main: #1a1210 !important;
+  --text-dim: #5a4a45 !important;
+  --text-muted: #8a7a74 !important;
+  --primary: #8f1212 !important;
+  --primary-dark: #6d0e0e !important;
+  --gradient-main: linear-gradient(135deg, #8f1212, #6d0e0e) !important;
 }
 
 body.light .side-nav {
