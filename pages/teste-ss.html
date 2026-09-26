@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>TESTE LAYOUT — Student Space | Grêmio Conecta Jovem</title>
+  <link rel="icon" href="../assets/img/brasao.png" type="image/png">
+  <style>
+    /* ═══════════════════════════════════════════════════
+       PÁGINA DE TESTE ISOLADA — layout Lovable
+       com PALETA ENVIADA PELO ELVEY (extraida da imagem):
+       fundo #0a0505 · accent #8f1212 · creme #f6eade
+       NÃO usa nenhum CSS do app oficial — tudo inline
+       ═══════════════════════════════════════════════════ */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { font-size: 16px; }
+    body {
+      font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background:
+        radial-gradient(130% 85% at 50% 0%, #380808 0%, #120606 46%, #0a0505 100%)
+        #0a0505;
+      background-attachment: fixed;
+      color: #f6eade;
+      min-height: 100vh;
+      padding-bottom: 90px;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Header ── */
+    .header {
+      display: flex; align-items: center; gap: 12px;
+      padding: 18px 20px 6px;
+    }
+    .logo {
+      width: 42px; height: 42px; border-radius: 12px;
+      background: linear-gradient(135deg, #8f1212, #380808);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 1.3rem; color: #f6eade;
+      letter-spacing: -1px;
+      box-shadow: 0 4px 18px rgba(143, 18, 18, 0.5);
+    }
+    .header h1 {
+      font-size: 1.12rem; font-weight: 800; letter-spacing: -0.3px;
+    }
+    .header h1 .accent { color: #c88888; }
+    .header .invite {
+      margin-left: auto;
+      border: 1px solid rgba(246, 234, 222, 0.16);
+      background: rgba(246, 234, 222, 0.06);
+      color: #f6eade; font-size: 0.78rem; font-weight: 700;
+      padding: 8px 14px; border-radius: 999px;
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    /* ── Chips de navegação ── */
+    .chips {
+      display: flex; gap: 8px; overflow-x: auto;
+      padding: 10px 20px 16px;
+      scrollbar-width: none;
+    }
+    .chips::-webkit-scrollbar { display: none; }
+    .chip {
+      white-space: nowrap; padding: 7px 14px;
+      font-size: 0.72rem; font-weight: 700; letter-spacing: 0.8px;
+      color: #c9b8a8; border: 1px solid rgba(246, 234, 222, 0.12);
+      background: rgba(246, 234, 222, 0.05); border-radius: 999px;
+    }
+    .chip.active {
+      background: #f6eade; color: #0a0505; border-color: #f6eade;
+    }
+
+    /* ── Painéis ── */
+    .panel {
+      margin: 0 20px 16px; padding: 20px;
+      background: rgba(26, 10, 10, 0.82);
+      border: 1px solid rgba(246, 234, 222, 0.12);
+      border-radius: 24px;
+      backdrop-filter: blur(8px);
+    }
+    .panel .panel-title {
+      font-size: 0.68rem; font-weight: 800; letter-spacing: 1.2px;
+      color: #c9b8a8; margin-bottom: 14px; text-transform: uppercase;
+    }
+
+    /* ── Hero ── */
+    .hero { display: flex; align-items: center; gap: 16px; }
+    .avatar-wrap { position: relative; width: 64px; height: 64px; }
+    .avatar-ring {
+      position: absolute; inset: 0; border-radius: 50%;
+      background: conic-gradient(from 140deg, #8f1212, #c88888, #380808, #8f1212);
+      padding: 3px;
+    }
+    .avatar {
+      position: absolute; inset: 3px; border-radius: 50%;
+      background: linear-gradient(135deg, #1c0a0a, #0a0505);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; font-weight: 900; color: #f6eade;
+    }
+    .hero-info { flex: 1; }
+    .hero-name { font-size: 1.15rem; font-weight: 800; margin-bottom: 6px; }
+    .hero-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+    .tag {
+      font-size: 0.62rem; font-weight: 800; letter-spacing: 0.6px;
+      padding: 4px 10px; border-radius: 999px;
+      background: rgba(143, 18, 18, 0.25); color: #e8b0a8;
+      border: 1px solid rgba(143, 18, 18, 0.55);
+    }
+    .tag.dim {
+      background: rgba(246, 234, 222, 0.07); color: #c9b8a8;
+      border-color: rgba(246, 234, 222, 0.12);
+    }
+
+    /* ── Agenda ── */
+    .event {
+      display: flex; gap: 14px; align-items: flex-start;
+      padding: 12px 0; border-bottom: 1px solid rgba(246, 234, 222, 0.07);
+    }
+    .event:last-child { border-bottom: none; }
+    .date-box {
+      width: 52px; height: 56px; border-radius: 14px; flex-shrink: 0;
+      background: linear-gradient(160deg, #8f1212, #380808);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      box-shadow: 0 4px 14px rgba(143, 18, 18, 0.5);
+    }
+    .date-box .day { font-size: 1.15rem; font-weight: 900; line-height: 1; }
+    .date-box .mon { font-size: 0.6rem; font-weight: 800; letter-spacing: 1.2px; opacity: 0.9; margin-top: 3px; }
+    .event-info { flex: 1; }
+    .event-title { font-size: 0.92rem; font-weight: 700; margin-bottom: 4px; }
+    .event-meta { font-size: 0.75rem; color: #c9b8a8; display: flex; align-items: center; gap: 8px; }
+    .event-tag {
+      font-size: 0.6rem; font-weight: 800; letter-spacing: 0.5px;
+      padding: 3px 9px; border-radius: 999px;
+    }
+    .tag-destaque { background: rgba(143,18,18,0.25); color: #e8b0a8; border: 1px solid rgba(143,18,18,0.55); }
+    .tag-equipe   { background: rgba(143,18,18,0.4); color: #f6eade; border: 1px solid rgba(246,234,222,0.3); }
+    .tag-urgente  { background: rgba(200,136,136,0.15); color: #c88888; border: 1px solid rgba(200,136,136,0.4); }
+    .tag-aberto   { background: rgba(242,201,76,0.12); color: #f2c94c; border: 1px solid rgba(242,201,76,0.3); }
+
+    /* ── Tarefas ── */
+    .task {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 0; border-bottom: 1px solid rgba(246, 234, 222, 0.07);
+    }
+    .task:last-child { border-bottom: none; }
+    .check {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 2px solid rgba(246, 234, 222, 0.25);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.7rem; color: transparent;
+    }
+    .check.done { background: #8f1212; border-color: #8f1212; color: #f6eade; }
+    .task-text { font-size: 0.88rem; }
+    .task-text.done { text-decoration: line-through; color: #9a887a; }
+    .task-badge {
+      margin-left: auto; font-size: 0.58rem; font-weight: 800; letter-spacing: 0.5px;
+      padding: 3px 8px; border-radius: 999px;
+      background: rgba(246, 234, 222, 0.07); color: #c9b8a8;
+    }
+
+    /* ── Cores do grêmio ── */
+    .colors-section { display: flex; gap: 10px; margin-top: 4px; }
+    .color-item {
+      flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px;
+      padding: 14px 8px; border-radius: 16px;
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(246, 234, 222, 0.09);
+    }
+    .swatch { width: 40px; height: 40px; border-radius: 12px; }
+    .color-name { font-size: 0.66rem; font-weight: 700; color: #c9b8a8; letter-spacing: 0.5px; }
+
+    /* ── Assinaturas ── */
+    .sig-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; }
+    .sig-count { font-size: 0.85rem; font-weight: 800; }
+    .sig-count .accent { color: #e8b0a8; }
+    .progress-track {
+      height: 8px; border-radius: 999px; overflow: hidden;
+      background: rgba(246, 234, 222, 0.08);
+    }
+    .progress-fill {
+      height: 100%; width: 35%; border-radius: 999px;
+      background: linear-gradient(90deg, #8f1212, #c88888);
+    }
+    .sig-hint { font-size: 0.72rem; color: #9a887a; margin-top: 10px; }
+
+    /* ── Bottom bar ── */
+    .bottom-bar {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      display: flex; justify-content: space-around; align-items: center;
+      padding: 12px 10px calc(12px + env(safe-area-inset-bottom));
+      background: rgba(10, 5, 5, 0.92);
+      border-top: 1px solid rgba(246, 234, 222, 0.10);
+      backdrop-filter: blur(12px);
+      z-index: 50;
+    }
+    .bar-item {
+      display: flex; flex-direction: column; align-items: center; gap: 3px;
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.5px; color: #9a887a;
+    }
+    .bar-item.active { color: #e8b0a8; }
+    .bar-icon {
+      width: 38px; height: 38px; border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.05rem;
+    }
+    .bar-item.active .bar-icon { background: rgba(143,18,18,0.35); }
+
+    /* ── Banner de teste ── */
+    .test-banner {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: #f2c94c; color: #1d1815;
+      font-size: 0.62rem; font-weight: 900; letter-spacing: 1px;
+      text-align: center; padding: 5px;
+    }
+    body { padding-top: 20px; }
+
+    .empty-hint { font-size: 0.75rem; color: #9a887a; padding: 8px 0; }
+  </style>
+</head>
+<body>
+  <div class="test-banner">⬤ ESPAÇO DE TESTE — NÃO É O APP OFICIAL ⬤</div>
+
+  <header class="header">
+    <div class="logo">G</div>
+    <h1>Grêmio <span class="accent">Estudantil</span></h1>
+    <button class="invite">＋ Convidar</button>
+  </header>
+
+  <nav class="chips">
+    <div class="chip active">AGENDA</div>
+    <div class="chip">EQUIPE</div>
+    <div class="chip">VOTAÇÃO</div>
+    <div class="chip">EVENTOS</div>
+    <div class="chip">PERSONALIZAR</div>
+  </nav>
+
+  <section class="panel">
+    <div class="hero">
+      <div class="avatar-wrap">
+        <div class="avatar-ring"></div>
+        <div class="avatar">E</div>
+      </div>
+      <div class="hero-info">
+        <div class="hero-name">Elvey</div>
+        <div class="hero-tags">
+          <span class="tag">MEMBRO ATIVO</span>
+          <span class="tag dim">DESDE 2026</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-title">Agenda da semana</div>
+    <div id="agenda-list"><!-- eventos reais do Supabase --></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-title">Organização coletiva</div>
+    <div id="tasks-list"><!-- tarefas reais do Supabase --></div>
+  </section>
+
+  <section class="panel">
+    <div class="panel-title">Cores do Grêmio</div>
+    <div class="colors-section">
+      <div class="color-item">
+        <div class="swatch" style="background:#B3544A"></div>
+        <div class="color-name">TIJOLO</div>
+      </div>
+      <div class="color-item">
+        <div class="swatch" style="background:#F5EFE9"></div>
+        <div class="color-name">AREIA</div>
+      </div>
+      <div class="color-item">
+        <div class="sub swatch" style="background:#1D1815"></div>
+        <div class="color-name">CARVÃO</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel">
+    <div class="sig-head">
+      <div class="panel-title" style="margin:0">Assinaturas da Chapa</div>
+      <div class="sig-count"><span class="accent">42</span>/120</div>
+    </div>
+    <div class="progress-track"><div class="progress-fill"></div></div>
+    <div class="sig-hint">Assinaturas coletadas para registrar a chapa oficialmente</div>
+  </section>
+
+  <footer class="bottom-bar">
+    <div class="bar-item active">
+      <div class="bar-icon">📅</div>
+      AGENDA
+    </div>
+    <div class="bar-item">
+      <div class="bar-icon">🎨</div>
+      CORES
+    </div>
+    <div class="bar-item">
+      <div class="bar-icon">🗳️</div>
+      VOTAÇÃO
+    </div>
+    <div class="bar-item">
+      <div class="bar-icon">⋯</div>
+      MAIS
+    </div>
+  </footer>
+
+  <script>
+    // ═══ Dados REAIS do backend Supabase (mesma config do app) ═══
+    const BASE = 'https://wearihgeytywbhhtvwlg.supabase.co';
+    const KEY = 'sb_publishable_RRZHT83pEDzTUrWaJU0pqQ_6BOize63';
+    const MESES = ['JAN','FEV','MAR','ABR','MAI','JUN','JUL','AGO','SET','OUT','NOV','DEZ'];
+    const TAGS = {
+      reuniao:  { cls: 'tag-equipe',   label: 'REUNIÃO' },
+      evento:   { cls: 'tag-destaque', label: 'EVENTO' },
+      completed:{ cls: 'tag-urgente',  label: 'FEITO' },
+      planned:  { cls: 'tag-aberto',   label: 'PLANEJADO' }
+    };
+
+    async function api(path) {
+      const r = await fetch(BASE + '/rest/v1/' + path, {
+        headers: { apikey: KEY, Authorization: 'Bearer ' + KEY }
+      });
+      return r.json();
+    }
+
+    (async () => {
+      try {
+        const events = await api('events?select=name,date,category,status&order=date.asc&limit=6');
+        const agenda = document.getElementById('agenda-list');
+        if (events && events.length) {
+          agenda.innerHTML = events.map(ev => {
+            const d = new Date(ev.date + 'T12:00:00');
+            const tag = TAGS[ev.category] || TAGS[ev.status] || { cls: 'tag-destaque', label: 'AGENDA' };
+            return `<div class="event">
+              <div class="date-box"><span class="day">${d.getDate()}</span><span class="mon">${MESES[d.getMonth()]}</span></div>
+              <div class="event-info">
+                <div class="event-title">${ev.name}</div>
+                <div class="event-meta">${d.toLocaleDateString('pt-BR', { day: '2-digit', month: 'short' })}</div>
+              </div>
+              <span class="event-tag ${tag.cls}">${tag.label}</span>
+            </div>`;
+          }).join('');
+        } else {
+          agenda.innerHTML = '<div class="empty-hint">Nenhum evento cadastrado ainda.</div>';
+        }
+      } catch (e) {
+        document.getElementById('agenda-list').innerHTML = '<div class="empty-hint">Erro ao carregar agenda: ' + e.message + '</div>';
+      }
+      try {
+        const tasks = await api('tasks?select=title,status&limit=8');
+        const tl = document.getElementById('tasks-list');
+        if (tasks && tasks.length) {
+          tl.innerHTML = tasks.map(t => `<div class="task">
+            <div class="check ${t.status === 'completed' ? 'done' : ''}">${t.status === 'completed' ? '✓' : ''}</div>
+            <div class="task-text ${t.status === 'completed' ? 'done' : ''}">${t.title}</div>
+          </div>`).join('');
+        } else {
+          tl.innerHTML = '<div class="empty-hint">Nenhuma tarefa pendente. Tudo em ordem!</div>';
+        }
+      } catch (e) {
+        document.getElementById('tasks-list').innerHTML = '<div class="empty-hint">Erro ao carregar tarefas: ' + e.message + '</div>';
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,52 +1,58 @@
 :root {
-    /* Cores Base - Educa Mais Style (Preto & Branco / Cyan Accent) */
-    --bg-dark: #000000;
-    --bg-surface: rgba(255, 255, 255, 0.08);
-    --bg-surface-hover: rgba(255, 255, 255, 0.12);
-    
-    /* Primárias - Educa Mais Cyan */
-    --primary: #00E5FF;
-    --primary-dark: #00B2CC;
-    --accent: #FFFFFF;
-    
+    /* ═══════════════════════════════════════════════════════
+       TEMA "CONECTA 2026" — preto & vermelho-sangue
+       Paleta enviada pelo Elvey (extraída da logo):
+       fundo #0a0505 · accent #8f1212 · creme #f6eade
+       ═══════════════════════════════════════════════════════ */
+
+    /* Fundos */
+    --bg-dark: #0a0505;
+    --bg-surface: rgba(246, 234, 222, 0.05);
+    --bg-surface-hover: rgba(246, 234, 222, 0.09);
+
+    /* Primárias — vermelho-sangue */
+    --primary: #8f1212;
+    --primary-dark: #380808;
+    --accent: #c88888;
+
     /* Texto */
-    --text-main: #FFFFFF;
-    --text-dim: #B0B0B0;
-    --text-muted: #707070;
-    
+    --text-main: #f6eade;
+    --text-dim: #c9b8a8;
+    --text-muted: #9a887a;
+
     /* Detalhes Glass */
-    --glass-border: rgba(255, 255, 255, 0.15);
+    --glass-border: rgba(246, 234, 222, 0.12);
     --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.8);
-    
+
     /* Raio e Transição */
-    --radius-lg: 20px;
-    --radius-md: 12px;
-    --radius-sm: 6px;
+    --radius-lg: 24px;
+    --radius-md: 16px;
+    --radius-sm: 10px;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    
-    /* Gradientes - Black & Cyan */
-    --gradient-main: linear-gradient(135deg, #000000, #00E5FF);
-    --gradient-dark: linear-gradient(135deg, #000000, #1a1a1a);
-    
+
+    /* Gradientes */
+    --gradient-main: linear-gradient(135deg, #8f1212, #380808);
+    --gradient-dark: linear-gradient(135deg, #1c0a0a, #0a0505);
+
     /* Cores de Status */
-    --success-color: #00FF88;
-    --error-color: #FF4C4C;
-    --warning-color: #FFD700;
+    --success-color: #7ed492;
+    --error-color: #e8b0a8;
+    --warning-color: #f2c94c;
 
-    /* ── Status semânticos (fix: --danger ausente — usado em tasks/deletar) ── */
-    --danger: #FF4C4C;
-    --danger-bg: rgba(255, 76, 76, 0.12);
-    --danger-border: rgba(255, 76, 76, 0.35);
+    /* ── Status semânticos ── */
+    --danger: #e8b0a8;
+    --danger-bg: rgba(232, 176, 168, 0.12);
+    --danger-border: rgba(232, 176, 168, 0.35);
 
-    /* ── Paleta ATUALIZADA de Diretorias (Black & Cyan Theme) ── */
-    --color-executivo: var(--primary);
-    --color-cultura: var(--primary-dark);
-    --color-esportes: var(--text-dim);
-    --color-eventos: var(--accent);
-    --color-comunicacao: var(--primary);
-    --color-social: var(--success-color);
-    --color-ambiente: var(--success-color);
-    --color-protagonismo: var(--primary-dark);
-    --color-tecnologia: var(--primary);
-    --color-ouvidoria: var(--text-dim);
+    /* ── Paleta de Diretorias (sangue/creme) ── */
+    --color-executivo: #8f1212;
+    --color-cultura: #c88888;
+    --color-esportes: #c9b8a8;
+    --color-eventos: #8f1212;
+    --color-comunicacao: #c88888;
+    --color-social: #7ed492;
+    --color-ambiente: #7ed492;
+    --color-protagonismo: #380808;
+    --color-tecnologia: #8f1212;
+    --color-ouvidoria: #c9b8a8;
 }
