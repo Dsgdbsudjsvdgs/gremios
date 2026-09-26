@@ -26,8 +26,8 @@ async function initProfile() {
 
     // Recarregar dados frescos do banco (bio/avatar podem ter mudado noutro device)
     try {
-        const fresh = await UTILS.supabaseQuery('profiles', { eq: { id: user.id }, limit: 1 });
-        if (fresh && fresh[0]) {
+        const fresh = await UTILS.supabaseQuery('profiles', { where: { id: user.id }, limit: 1 });
+        if (fresh && fresh[0] && fresh[0].id === user.id) {  // guard: confere que é o MESMO usuário
             const merged = { ...user, ...fresh[0], nome: fresh[0].full_name || user.nome, role: fresh[0].role || user.role };
             UTILS.setStorageUser(merged);
         }
