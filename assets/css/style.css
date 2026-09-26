@@ -445,25 +445,39 @@ body:has(.floating-chat-btn) .btn-theme-toggle {
 
 /* ── LIGHT THEME ── */
 body.light {
-  --bg-dark: #f0f2f5;
-  --bg-surface: rgba(255, 255, 255, 0.9);
-  --bg-card: rgba(255, 255, 255, 0.8);
+  --bg-dark: #f6f1ec;
+  --bg-surface: rgba(255, 255, 255, 0.92);
+  --bg-card: rgba(255, 255, 255, 0.85);
   --glass-border: rgba(0, 0, 0, 0.1);
   --glass-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  --text-main: #1a1a2e;
-  --text-dim: #555;
-  --text-muted: #999;
-  --primary: #0099cc;
-  --primary-dark: #007aa3;
+  --text-main: #1a1210;
+  --text-dim: #5a4a45;
+  --text-muted: #8a7a74;
+  --primary: #8f1212;
+  --primary-dark: #6d0e0e;
+  --gradient-main: linear-gradient(135deg, #8f1212, #6d0e0e);
 }
 
 body.light .side-nav {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 253, 251, 0.96);
+  border-right: 1px solid rgba(0, 0, 0, 0.08);
 }
 
+body.light .nav-link:hover {
+  background: rgba(143, 18, 18, 0.08);
+}
+
+body.light .nav-link.active {
+  color: #8f1212;
+}
+
+body.light .nav-brand { color: #1a1210; }
+body.light .nav-brand small { color: #8f1212; }
+
 body.light .mobile-nav-trigger {
-  background: rgba(255, 255, 255, 0.9);
-  color: var(--primary);
+  background: rgba(255, 255, 255, 0.92);
+  color: #8f1212;
+  border: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 body.light .form-input {
@@ -475,6 +489,28 @@ body.light .form-input {
 body.light .btn-primary {
   color: #fff;
 }
+
+body.light input, body.light select, body.light textarea {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  color: var(--text-main);
+}
+body.light input:focus, body.light select:focus, body.light textarea:focus {
+  border-color: #8f1212;
+  box-shadow: 0 0 0 3px rgba(143, 18, 18, 0.12);
+}
+
+/* glow do topo: invisível no claro (evita mancha rosa) */
+body.light .main-content::before {
+  background: radial-gradient(ellipse at center top, rgba(143, 18, 18, 0.05) 0%, transparent 65%);
+}
+
+/* nav-logo no claro: garantir contraste do brasão */
+body.light .nav-logo {
+  background: rgba(143, 18, 18, 0.10);
+  border: 1px solid rgba(143, 18, 18, 0.25);
+}
+body.light .nav-logo img { filter: none; }
 
 /* ── MOBILE RESPONSIVE ── */
 @media (max-width: 768px) {
