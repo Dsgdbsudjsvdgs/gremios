@@ -130,6 +130,27 @@
     .pstat { text-align: center; }
     .pstat b { display: block; font-size: 1.15rem; color: var(--accent-color, #8f1212); }
     .pstat span { font-size: 0.65rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+
+    /* ═══ SEÇÃO APARÊNCIA (tema do app) ═══ */
+    .theme-presets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+    .theme-preset {
+      border: 2px solid var(--glass-border); border-radius: 14px; padding: 10px 6px;
+      cursor: pointer; text-align: center; background: transparent; color: var(--text-main);
+      font-size: 0.62rem; font-weight: 700; letter-spacing: 0.4px; transition: var(--transition);
+    }
+    .theme-preset .sw { display: flex; gap: 4px; justify-content: center; margin-bottom: 7px; }
+    .theme-preset .sw i { width: 16px; height: 16px; border-radius: 5px; display: block; border: 1px solid rgba(255,255,255,0.15); }
+    .theme-preset.sel { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(143,18,18,0.18); }
+    .theme-ctrl { display: flex; align-items: center; gap: 12px; padding: 9px 0; border-bottom: 1px solid var(--glass-border); }
+    .theme-ctrl:last-child { border-bottom: none; }
+    .theme-ctrl label { flex: 1; font-size: 0.82rem; }
+    .theme-ctrl label small { display: block; color: var(--text-muted); font-size: 0.64rem; margin-top: 2px; }
+    .theme-ctrl input[type=color] { width: 44px; height: 34px; border: 1px solid var(--glass-border); border-radius: 10px; background: transparent; padding: 2px; cursor: pointer; }
+    .theme-ctrl .tval { font-size: 0.64rem; color: var(--text-dim); font-family: monospace; width: 60px; text-align: right; }
+    .theme-btns { display: flex; gap: 10px; margin-top: 14px; }
+    .theme-btns .btn { flex: 1; padding: 11px; border-radius: 999px; border: none; font-size: 0.78rem; font-weight: 800; cursor: pointer; }
+    .theme-btns .btn-save-t { background: var(--primary); color: var(--text-main); }
+    .theme-btns .btn-reset-t { background: var(--bg-surface-hover); color: var(--text-main); border: 1px solid var(--glass-border); }
   </style>
 </head>
 <body>
@@ -184,6 +205,18 @@
         </form>
       </div>
 
+      <!-- ═══ Aparência: tema do app ═══ -->
+      <div class="glass-card profile-form-card">
+        <h3><i class="fa-solid fa-palette"></i> Aparência do app</h3>
+        <div class="theme-presets" id="theme-presets"></div>
+        <div id="theme-controls"></div>
+        <div class="theme-btns">
+          <button type="button" class="btn btn-reset-t" id="theme-reset">Restaurar padrão</button>
+          <button type="button" class="btn btn-save-t" id="theme-save">Salvar tema</button>
+        </div>
+        <p style="font-size:0.66rem;color:var(--text-muted);margin-top:10px;" id="theme-hint">O tema escolhido é aplicado no app inteiro e sincroniza com sua conta.</p>
+      </div>
+
     </div>
   </main>
 
@@ -194,5 +227,6 @@
   <script src="../assets/js/theme-manager.js"></script>
   <script src="../assets/js/core-guard.js"></script>
   <script src="../assets/js/profile.js"></script>
+  <script src="../assets/js/appearance.js"></script>
 </body>
 </html>

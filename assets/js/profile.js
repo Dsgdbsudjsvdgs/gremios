@@ -24,7 +24,9 @@ async function initProfile() {
         return;
     }
 
-    // Recarregar dados frescos do banco (bio/avatar podem ter mudado noutro device)
+    // Recarregar dados frescos do banco ANTES de preencher o form (fix race:
+    // antes o form era preenchido com dados do storage e o fresh chegava depois,
+    // salvando valores velhos por cima dos novos)
     try {
         const fresh = await UTILS.supabaseQuery('profiles', { where: { id: user.id }, limit: 1 });
         if (fresh && fresh[0] && fresh[0].id === user.id) {  // guard: confere que é o MESMO usuário

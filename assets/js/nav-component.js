@@ -14,7 +14,7 @@ const NavComponent = {
       { href: 'tasks.html', icon: 'fa-solid fa-list-check', label: 'Tarefas' },
       { href: 'suporte.html', icon: 'fa-solid fa-headset', label: 'Suporte' },
       { href: 'perfil.html', icon: 'fa-solid fa-user', label: 'Perfil' },
-      { href: 'aparencia.html', icon: 'fa-solid fa-palette', label: 'Aparência' },
+      { href: 'perfil.html', icon: 'fa-solid fa-palette', label: 'Aparência' },
       { href: 'admin.html', icon: 'fa-solid fa-shield-halved', label: 'Admin', adminOnly: true },
       { href: 'sobre.html', icon: 'fa-solid fa-circle-info', label: 'Sobre' },
       { href: 'instalar.html', icon: 'fa-solid fa-mobile-screen-button', label: 'Instalar App', browserOnly: true },
