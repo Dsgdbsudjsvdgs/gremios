@@ -10,11 +10,12 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <style>
+    /* ═══ Diretoria — estrutura unificada com as páginas de departamento ═══ */
     .director-grid {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
       gap: 16px;
-      margin-top: 16px;
+      margin-top: 4px;
     }
     .director-card {
       text-align: center;
@@ -26,13 +27,15 @@
       font-weight: 700; margin: 0 auto 12px; color: #000;
       background: var(--primary);
       border: 3px solid var(--primary);
-      box-shadow: 0 4px 16px rgba(143, 18, 18, 0.25);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.25);
       transition: var(--transition);
+      overflow: hidden;
     }
     .director-card:hover .director-avatar {
       transform: scale(1.05);
-      box-shadow: 0 8px 24px rgba(143, 18, 18, 0.4);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
     }
+    .director-avatar img.avatar-photo { width: 100%; height: 100%; object-fit: cover; }
     .director-name { font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 2px; }
     .director-role { font-size: 0.8rem; color: var(--primary); font-weight: 600; margin-bottom: 4px; }
     .director-dept { font-size: 0.75rem; color: var(--text-muted); }
@@ -42,9 +45,9 @@
       border-radius: 12px;
       font-size: 0.65rem;
       font-weight: 700;
-      background: rgba(143, 18, 18, 0.15);
-      color: var(--primary);
-      border: 1px solid rgba(143, 18, 18, 0.3);
+      background: rgba(255, 255, 255, 0.08);
+      color: var(--text-main);
+      border: 1px solid var(--glass-border);
       margin-top: 8px;
     }
     .director-section {
@@ -69,9 +72,43 @@
       padding: 24px;
       color: var(--text-muted);
       font-size: 0.85rem;
-      background: rgba(143, 18, 18, 0.05);
+      background: rgba(255, 255, 255, 0.03);
       border-radius: var(--radius-md);
-      border: 1px dashed rgba(143, 18, 18, 0.2);
+      border: 1px dashed var(--glass-border);
+    }
+    .empty-director i { font-size: 1.4rem; display: block; margin-bottom: 8px; opacity: 0.6; }
+
+    /* Banner unificado — mesma linguagem visual das páginas de departamento */
+    .dept-banner {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      padding: 20px;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--dept-color, var(--primary)) 0%, rgba(0,0,0,0.55) 100%);
+      border: 1px solid var(--glass-border);
+    }
+    .dept-banner::after {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.18) 0%, transparent 45%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0 2px, transparent 2px 12px);
+    }
+    .dept-banner > * { position: relative; z-index: 1; }
+    .dept-banner-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; color: #fff;
+      background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.25);
+      margin-bottom: 10px;
+    }
+    .dept-banner h2 { margin: 0 0 4px; font-size: 1.2rem; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.4); }
+    .dept-banner p { margin: 0; font-size: 0.82rem; color: rgba(255,255,255,0.85); }
+
+    @media (max-width: 480px) {
+      .director-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+      .dept-banner { padding: 16px; }
     }
   </style>
 </head>
@@ -85,10 +122,11 @@
       </div>
     </div>
 
-    <!-- Welcome -->
-    <div class="glass-card glass-card-accent mb-2">
-      <h2 style="margin:0;font-size:1.1rem;color:var(--primary);"><i class="fa-solid fa-crown"></i> Diretoria do Grêmio Conecta Jovem</h2>
-      <p style="margin:4px 0 0;color:var(--text-muted);font-size:0.85rem;">Membros que compõem a gestão atual — organização por hierarquia e departamentos</p>
+    <!-- Banner da Diretoria — mesma estrutura das páginas de departamento -->
+    <div class="glass-card dept-banner" id="dept-banner" style="--dept-color:var(--primary)">
+      <div class="dept-banner-icon"><i class="fa-solid fa-crown"></i></div>
+      <h2>Diretoria do Grêmio Conecta Jovem</h2>
+      <p id="dept-member-count">Membros que compõem a gestão atual — organização por hierarquia e departamentos</p>
     </div>
 
     <!-- Presidência -->

@@ -9,6 +9,101 @@
   <link rel="stylesheet" href="../assets/css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <style>
+    /* ═══ Página de Departamento — estrutura unificada com Diretoria ═══ */
+    .dept-banner {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      padding: 20px;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, var(--dept-color) 0%, rgba(0,0,0,0.55) 100%);
+      border: 1px solid var(--glass-border);
+    }
+    .dept-banner::after {
+      content: '';
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.18) 0%, transparent 45%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0 2px, transparent 2px 12px);
+    }
+    .dept-banner > * { position: relative; z-index: 1; }
+    .dept-banner-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; color: #fff;
+      background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.25);
+      margin-bottom: 10px;
+    }
+    .dept-banner h2 { margin: 0 0 4px; font-size: 1.2rem; color: #fff; text-shadow: 0 1px 3px rgba(0,0,0,0.4); }
+    .dept-banner p { margin: 0; font-size: 0.82rem; color: rgba(255,255,255,0.85); }
+
+    .dept-section-title {
+      display: flex; align-items: center; gap: 10px;
+      color: var(--primary);
+      font-size: 1rem; font-weight: 700;
+      margin-bottom: 12px; padding-bottom: 8px;
+      border-bottom: 2px solid rgba(143, 18, 18, 0.2);
+    }
+    .dept-section-title i { font-size: 1.1rem; }
+
+    /* Cards de membros — mesmo padrão visual da Diretoria */
+    .member-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 16px; margin-top: 4px; }
+    .member-card { text-align: center; padding: 16px; }
+    .member-avatar {
+      width: 72px; height: 72px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem; font-weight: 700; margin: 0 auto 12px; color: #000;
+      background: var(--dept-color); border: 3px solid var(--dept-color);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+      transition: var(--transition);
+      overflow: hidden;
+    }
+    .member-card:hover .member-avatar { transform: scale(1.05); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+    .member-card img.avatar-photo { width: 100%; height: 100%; object-fit: cover; }
+    .member-name { font-size: 0.95rem; font-weight: 700; color: var(--text-main); margin-bottom: 2px; }
+    .member-role { font-size: 0.8rem; color: var(--dept-color); font-weight: 600; margin-bottom: 4px; }
+    .member-dept { font-size: 0.75rem; color: var(--text-muted); }
+    .member-badge {
+      display: inline-block; padding: 4px 10px; border-radius: 12px;
+      font-size: 0.65rem; font-weight: 700; margin-top: 8px;
+      background: rgba(255,255,255,0.08); color: var(--text-main);
+      border: 1px solid var(--glass-border);
+    }
+
+    /* Lista de tarefas do departamento */
+    .dept-tasks { display: grid; grid-template-columns: 1fr; gap: 10px; }
+    .dept-task { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; }
+    .dept-task-icon { color: var(--dept-color); font-size: 1rem; margin-top: 2px; }
+    .dept-task-title { font-size: 0.9rem; font-weight: 600; color: var(--text-main); }
+    .dept-task-meta { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+    .dept-task .task-status-chip { margin-left: auto; flex-shrink: 0; }
+
+    .task-status-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 12px; border-radius: 999px;
+      font-size: 0.65rem; font-weight: 700; letter-spacing: 0.5px;
+    }
+    .task-status-chip.pending { background: rgba(255,193,7,0.15); color: #ffc107; border: 1px solid rgba(255,193,7,0.3); }
+    .task-status-chip.in_progress { background: rgba(0,229,255,0.12); color: #00e5ff; border: 1px solid rgba(0,229,255,0.3); }
+    .task-status-chip.completed { background: rgba(16,185,129,0.15); color: #10b981; border: 1px solid rgba(16,185,129,0.3); }
+
+    /* Estado vazio */
+    .dept-empty {
+      text-align: center; padding: 24px;
+      color: var(--text-muted); font-size: 0.85rem;
+      background: rgba(255,255,255,0.03);
+      border-radius: var(--radius-md);
+      border: 1px dashed var(--glass-border);
+    }
+    .dept-empty i { font-size: 1.4rem; display: block; margin-bottom: 8px; opacity: 0.6; }
+
+    @media (max-width: 480px) {
+      .member-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 12px; }
+      .dept-banner { padding: 16px; }
+    }
+
+  </style>
 </head>
 <body>
   <!-- Nav injetada via nav-component.js -->
@@ -21,16 +116,126 @@
       </div>
     </div>
 
-    <section id="content-container" class="content-grid">
-      <!-- Conteúdo injetado via JS -->
+    <!-- Banner do departamento (mesma linguagem visual da capa do perfil) -->
+    <div class="glass-card dept-banner" id="dept-banner" style="--dept-color:#85C1E2">
+      <div class="dept-banner-icon"><i class="fa-solid fa-trophy"></i></div>
+      <h2>Esportes</h2>
+      <p id="dept-member-count">Carregando...</p>
+    </div>
+
+    <!-- Membros -->
+    <div class="dept-section-title"><i class="fa-solid fa-users"></i> Membros do Departamento</div>
+    <section id="content-container" class="member-grid">
+      <div class="dept-empty"><i class="fa-solid fa-hourglass-half"></i>Carregando...</div>
     </section>
+
+    <!-- Tarefas atribuídas ao departamento -->
+    <div style="margin-top:20px">
+      <div class="dept-section-title"><i class="fa-solid fa-list-check"></i> Tarefas do Departamento</div>
+      <div id="dept-tasks" class="dept-tasks">
+        <div class="dept-empty"><i class="fa-solid fa-hourglass-half"></i>Carregando...</div>
+      </div>
+    </div>
+
   </main>
 
   <script src="../assets/js/config.js"></script>
   <script src="../assets/js/utils.js"></script>
   <script src="../assets/js/logout.js"></script>
- <script src="../assets/js/nav-component.js"></script>
-    <script src="../assets/js/core-guard.js"></script>
- <script src="../assets/js/theme-manager.js"></script>
+  <script src="../assets/js/nav-component.js"></script>
+  <script src="../assets/js/theme-manager.js"></script>
+  <script src="../assets/js/core-guard.js"></script>
+  <script>
+    // ═══ Dept page: popula banner + membros + tarefas (dados reais do Supabase) ═══
+    // Estrutura idêntica em todos os departamentos — só DEPT_NAME/COLOR/ICON mudam.
+    (function () {
+      var DEPT_NAME = 'Esportes';
+      var DEPT_COLOR = '#85C1E2';
+      var DEPT_ICON = 'fa-trophy';
+      var stChips = { pending: 'Pendente', in_progress: 'Em Progresso', completed: 'Concluída' };
+      var stIcons = { pending: 'fa-clock', in_progress: 'fa-spinner', completed: 'fa-circle-check' };
+      var prioLabels = { low: 'Baixa', medium: 'Média', high: 'Alta' };
+
+      // XSS: delega ao escapeHtml global (utils.js) — não duplicar lógica aqui
+      function esc(s) { return (window.UTILS && UTILS.escapeHtml) ? UTILS.escapeHtml(s) : String(s); }
+      function initials(name) {
+        if (!name) return '?';
+        var parts = name.trim().split(/\s+/);
+        return (parts.length === 1)
+          ? parts[0].charAt(0).toUpperCase()
+          : (parts[0].charAt(0) + parts[parts.length-1].charAt(0)).toUpperCase();
+      }
+      function memberCard(m) {
+        var av = (m.avatar_url && String(m.avatar_url).indexOf('http') === 0)
+          ? '<img class="avatar-photo" src="' + esc(m.avatar_url) + '" alt="avatar">'
+          : '<span>' + initials(m.full_name) + '</span>';
+        return '<div class="glass-card member-card">'
+          + '<div class="member-avatar">' + av + '</div>'
+          + '<div class="member-name">' + esc(m.full_name || 'Sem nome') + '</div>'
+          + '<div class="member-role" style="color:' + esc(DEPT_COLOR) + '">' + esc(m.role || 'Membro') + '</div>'
+          + '<div class="member-dept">' + esc(DEPT_NAME) + '</div>'
+          + '<span class="member-badge">' + initials(m.full_name) + '</span>'
+          + '</div>';
+      }
+      function taskRow(t) {
+        var st = t.status || 'pending';
+        var chip = stChips[st] ? '<span class="task-status-chip ' + st + '">' + stChips[st] + '</span>' : '';
+        var meta = [];
+        if (t.due_date) meta.push('<i class="fa-regular fa-calendar"></i> ' + esc(t.due_date.split('T')[0]));
+        if (t.priority && prioLabels[t.priority]) meta.push('<i class="fa-solid fa-flag"></i> ' + prioLabels[t.priority]);
+        return '<div class="glass-card dept-task">'
+          + '<i class="fa-solid ' + (stIcons[st] || 'fa-clock') + ' dept-task-icon"></i>'
+          + '<div><div class="dept-task-title">' + esc(t.title || 'Sem título') + '</div>'
+          + (meta.length ? '<div class="dept-task-meta">' + meta.join(' · ') + '</div>' : '')
+          + '</div>' + chip + '</div>';
+      }
+
+      async function initDeptPage() {
+        try {
+          if (typeof UTILS === 'undefined' || !UTILS.requireAuth) return;
+          if (!UTILS.requireAuth()) return;
+          CONFIG.initSupabase();
+          var depts = await UTILS.supabaseQuery('departments', {});
+          var dept = (depts || []).find(function (d) { return d.name === DEPT_NAME; });
+          if (!dept) throw new Error('Departamento não encontrado: ' + DEPT_NAME);
+          var allProfiles = await UTILS.supabaseQuery('profiles', {});
+          var members = (allProfiles || []).filter(function (p) { return p.department_id === dept.id; });
+
+          var countEl = document.getElementById('dept-member-count');
+          if (countEl) countEl.textContent = members.length + (members.length === 1 ? ' membro' : ' membros') + ' neste departamento';
+          var iconEl = document.querySelector('.dept-banner-icon');
+          if (iconEl) iconEl.innerHTML = '<i class="fa-solid ' + DEPT_ICON + '"></i>';
+
+          var grid = document.getElementById('content-container');
+          if (grid) {
+            grid.innerHTML = members.length
+              ? members.map(memberCard).join('')
+              : '<div class="dept-empty"><i class="fa-solid fa-user-slash"></i>Nenhum membro vinculado a este departamento</div>';
+          }
+
+          // Tarefas do dept: department_id do dept OU assigned_to de um membro dele
+          var memberIds = members.map(function (m) { return m.id; });
+          var tasks = (await UTILS.supabaseQuery('tasks', {})) || [];
+          var deptTasks = tasks.filter(function (t) {
+            return (t.department_id && t.department_id === dept.id) || (t.assigned_to && memberIds.indexOf(t.assigned_to) !== -1);
+          });
+          var tasksEl = document.getElementById('dept-tasks');
+          if (tasksEl) {
+            tasksEl.innerHTML = deptTasks.length
+              ? deptTasks.map(taskRow).join('')
+              : '<div class="dept-empty"><i class="fa-solid fa-clipboard-check"></i>Nenhuma tarefa atribuída a este departamento</div>';
+          }
+        } catch (err) {
+          console.error('Dept page error:', err);
+          var grid = document.getElementById('content-container');
+          if (grid) grid.innerHTML = '<div class="dept-empty"><i class="fa-solid fa-triangle-exclamation"></i>Erro ao carregar: ' + esc(err.message) + '</div>';
+          var tasksEl = document.getElementById('dept-tasks');
+          if (tasksEl) tasksEl.innerHTML = '';
+        }
+      }
+      document.addEventListener('DOMContentLoaded', function () { initDeptPage(); });
+    })();
+
+  </script>
 </body>
 </html>
