@@ -147,6 +147,26 @@
     .theme-ctrl label small { display: block; color: var(--text-muted); font-size: 0.64rem; margin-top: 2px; }
     .theme-ctrl input[type=color] { width: 44px; height: 34px; border: 1px solid var(--glass-border); border-radius: 10px; background: transparent; padding: 2px; cursor: pointer; }
     .theme-ctrl .tval { font-size: 0.64rem; color: var(--text-dim); font-family: monospace; width: 60px; text-align: right; }
+    .theme-preview {
+      margin: 14px 0 4px; padding: 14px;
+      border-radius: 18px; border: 1px solid var(--glass-border);
+      background: var(--bg-dark, #0a0505);
+    }
+    .theme-preview .tpv-hero { display: flex; align-items: center; gap: 10px; font-size: 0.8rem; font-weight: 700; }
+    .theme-preview .tpv-hero small { color: var(--text-muted); font-weight: 400; }
+    .theme-preview .tpv-logo {
+      width: 36px; height: 36px; border-radius: 10px; font-weight: 900;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: var(--text-main); display: flex; align-items: center; justify-content: center;
+    }
+    .theme-preview .tpv-chip {
+      display: inline-block; margin: 10px 0 0; padding: 4px 10px; font-size: 0.58rem; font-weight: 800;
+      background: var(--bg-surface); color: var(--accent); border: 1px solid var(--primary); border-radius: 999px;
+    }
+    .theme-preview .tpv-btn {
+      display: inline-block; margin: 8px 0 0; padding: 6px 16px; font-size: 0.68rem; font-weight: 800;
+      background: var(--primary); color: var(--text-main); border-radius: 999px;
+    }
     .theme-btns { display: flex; gap: 10px; margin-top: 14px; }
     .theme-btns .btn { flex: 1; padding: 11px; border-radius: 999px; border: none; font-size: 0.78rem; font-weight: 800; cursor: pointer; }
     .theme-btns .btn-save-t { background: var(--primary); color: var(--text-main); }
@@ -177,7 +197,7 @@
 
       <!-- Edição -->
       <div class="glass-card profile-form-card">
-        <h3><i class="fa-solid fa-sliders"></i> Personalizar</h3>
+        <h3><i class="fa-solid fa-sliders"></i> Dados & Identidade</h3>
         <form id="profile-form">
           <div class="form-group">
             <label>Nome</label>
@@ -193,7 +213,7 @@
           </div>
 
           <div class="form-group">
-            <label>Cor de destaque</label>
+            <label>Cor da sua capa <small style="color:var(--text-muted);font-weight:400;">(sua identidade no perfil — não muda o app)</small></label>
             <div class="palette-grid" id="palette-grid"></div>
             <div class="custom-color-row">
               <input type="color" id="edit-color" title="Cor personalizada">
@@ -210,11 +230,16 @@
         <h3><i class="fa-solid fa-palette"></i> Aparência do app</h3>
         <div class="theme-presets" id="theme-presets"></div>
         <div id="theme-controls"></div>
+        <div class="theme-preview" id="theme-preview">
+          <div class="tpv-hero"><div class="tpv-logo">G</div><div>Grêmio Conecta Jovem<br><small>preview do tema</small></div></div>
+          <span class="tpv-chip">MEMBRO ATIVO</span>
+          <span class="tpv-btn">Participar</span>
+        </div>
         <div class="theme-btns">
           <button type="button" class="btn btn-reset-t" id="theme-reset">Restaurar padrão</button>
           <button type="button" class="btn btn-save-t" id="theme-save">Salvar tema</button>
         </div>
-        <p style="font-size:0.66rem;color:var(--text-muted);margin-top:10px;" id="theme-hint">O tema escolhido é aplicado no app inteiro e sincroniza com sua conta.</p>
+        <p style="font-size:0.66rem;color:var(--text-muted);margin-top:10px;" id="theme-hint">Aplicado em todas as páginas do app e sincronizado com sua conta.</p>
       </div>
 
     </div>

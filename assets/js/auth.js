@@ -87,6 +87,10 @@ async function handleLogin(codeInput, dateInput, loginBtn, errorMsg) {
     token: profile.access_code,
     department_id: profile.department_id,
     color_hex: profile.color_hex,
+    theme: profile.theme || null,
+    birth_date: profile.birth_date,
+    access_code: profile.access_code,
+    avatar_url: profile.avatar_url || null,
     timestamp: new Date().getTime()
   };
 

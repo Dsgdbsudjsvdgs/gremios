@@ -69,8 +69,10 @@
     }
 
     function applyUserTheme(color) {
+        // v2: cor de destaque e IDENTIDADE PESSOAL (capa/avatar/badge do perfil) --
+        // NUNCA sobrescreve --primary, que pertence ao tema global (Aparência).
         if (color && color.startsWith('#')) {
-            document.documentElement.style.setProperty('--primary', color);
+            document.documentElement.style.setProperty('--accent-color', color);
         }
     }
 
