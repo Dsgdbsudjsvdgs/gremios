@@ -1,0 +1,14 @@
+[
+  {
+    "relation": [
+      "delegate_permission/common.handle_all_urls"
+    ],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.gremio.estudantil",
+      "sha256_cert_fingerprints": [
+        "22:a2:c7:ef:0d:10:ae:94:94:e7:c6:0b:0e:47:86:74:da:7d:c1:22:a2:25:53:41:f6:6c:01:90:25:99:39:70"
+      ]
+    }
+  }
+]
