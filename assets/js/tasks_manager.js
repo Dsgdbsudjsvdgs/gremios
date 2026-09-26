@@ -43,27 +43,29 @@ function renderTasks() {
         return;
     }
 
-    container.innerHTML = tasks.map(task => `
-        <div class="task-item">
-            <div class="task-header">
-                <h3 class="task-title">${UTILS.escapeHtml(task.title || 'Sem título')}</h3>
-                <span class="task-status status-${task.status || 'pendente'}">${task.status || 'Pendente'}</span>
+    container.innerHTML = tasks.map(task => {
+        const st = (task.status || 'pendente').toLowerCase();
+        const stIcon = { 'pendente': 'fa-clock', 'pending': 'fa-clock', 'em andamento': 'fa-spinner', 'in_progress': 'fa-spinner', 'concluida': 'fa-circle-check', 'concluída': 'fa-circle-check', 'completed': 'fa-circle-check' };
+        const icon = stIcon[st] || 'fa-clock';
+        const stLabel = { 'pending': 'pendente', 'in_progress': 'em andamento', 'completed': 'concluída' }[st] || st;
+        const prio = task.priority ? ` · ${task.priority}` : '';
+        return `
+        <div class="glass-card dash-item">
+            <div class="dash-item-icon"><i class="fa-solid ${icon}"></i></div>
+            <div class="dash-item-body">
+                <h4 class="dash-item-title">${UTILS.escapeHtml(task.title || 'Sem título')}</h4>
+                <p class="dash-item-sub">${UTILS.escapeHtml((task.description || '') + prio)}</p>
             </div>
-            <p class="task-description">${UTILS.escapeHtml(task.description || '')}</p>
-            <div class="task-meta">
-                <span>Prioridade: ${task.priority || 'Média'}</span>
-                <span>Vencimento: ${UTILS.formatDate(task.due_date) || 'Sem data'}</span>
-            </div>
-            <div class="task-actions">
-    <select onchange="updateTaskStatus('${task.id}', this.value)">
+            <div class="dash-item-controls">
+                <select onchange="updateTaskStatus('${task.id}', this.value)" title="Status">
       <option value="pending" ${task.status === 'pending' ? 'selected' : ''}>Pendente</option>
       <option value="in_progress" ${task.status === 'in_progress' ? 'selected' : ''}>Em Andamento</option>
       <option value="completed" ${task.status === 'completed' ? 'selected' : ''}>Concluído</option>
     </select>
-                <button onclick="deleteTask('${task.id}')" class="btn-delete">Deletar</button>
+                <button onclick="deleteTask('${task.id}')" class="btn-delete" title="Deletar"><i class="fa-solid fa-trash-can"></i></button>
             </div>
-        </div>
-    `).join('');
+        </div>`;
+    }).join('');
 }
 
 function setupEventListeners() {

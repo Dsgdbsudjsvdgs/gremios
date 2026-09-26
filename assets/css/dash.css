@@ -1,0 +1,133 @@
+/* ============================================================================
+   🎨 DESIGN SYSTEM v2 — padrão visual unificado (extraído do dashboard v2)
+   Itens compactos de 1 linha: ícone | título+sub | data
+   Usado por: dashboard, tasks, diario, calendario
+   ============================================================================ */
+
+/* ---- Welcome / header compacto ---- */
+.dash-welcome {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px 16px; margin-bottom: 14px;
+  background: rgba(0,229,255,0.06);
+  border: 1px solid rgba(0,229,255,0.25);
+  border-radius: 14px;
+}
+.dash-welcome .dash-hello { flex: 1; min-width: 0; }
+.dash-welcome h2 {
+  margin: 0; font-size: 1.05rem; font-weight: 700;
+  color: var(--text-primary, #eee); white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+}
+.dash-welcome p { margin: 2px 0 0; font-size: 0.8rem; color: var(--text-muted); }
+
+/* ---- Stats clicáveis ---- */
+.dash-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 14px; }
+.dash-stat {
+  text-align: center; padding: 14px 6px 12px;
+  border-radius: 14px; cursor: pointer;
+  text-decoration: none; display: block;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.dash-stat:active { transform: scale(0.97); }
+.dash-stat .stat-value { font-size: 1.6rem; font-weight: 800; color: var(--primary); line-height: 1.1; }
+.dash-stat .stat-label {
+  font-size: 0.68rem; text-transform: uppercase; letter-spacing: 0.4px;
+  color: var(--text-muted); margin-top: 2px;
+}
+
+/* ---- Ações rápidas ---- */
+.dash-actions { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
+.dash-action {
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: 12px 4px; border-radius: 14px;
+  font-size: 0.7rem; color: var(--text-primary, #eee);
+  text-decoration: none; text-align: center;
+  transition: border-color 0.2s, transform 0.15s;
+}
+.dash-action:active { transform: scale(0.96); }
+.dash-action i { font-size: 1.15rem; color: var(--primary); }
+
+/* ---- Cabeçalho de seção ---- */
+.dash-section { margin-bottom: 14px; }
+.dash-section-head {
+  display: flex; align-items: center; justify-content: space-between;
+  margin: 0 2px 8px;
+}
+.dash-section-head h3 {
+  margin: 0; font-size: 0.85rem; font-weight: 600;
+  color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px;
+}
+.dash-section-head a { font-size: 0.75rem; text-decoration: none; color: var(--primary); }
+
+/* ---- Item compacto (lista de 1 linha) ---- */
+.dash-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 12px; border-radius: 12px; margin-bottom: 8px;
+  position: relative;
+}
+.dash-item .dash-item-icon {
+  width: 34px; height: 34px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 10px; background: rgba(0,229,255,0.10);
+  color: var(--primary); font-size: 0.85rem;
+}
+.dash-item .dash-item-body { flex: 1; min-width: 0; }
+.dash-item .dash-item-title {
+  margin: 0; font-size: 0.88rem; font-weight: 600;
+  color: var(--text-primary, #eee);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.dash-item .dash-item-sub {
+  margin: 1px 0 0; font-size: 0.73rem; color: var(--text-muted);
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.dash-item .dash-item-date {
+  font-size: 0.7rem; color: var(--primary);
+  flex-shrink: 0; text-align: right; line-height: 1.3;
+}
+.dash-item .dash-item-date small { display: block; color: var(--text-muted); font-size: 0.65rem; }
+
+/* ---- Item compacto com controles (tasks: status + delete) ---- */
+.dash-item-controls {
+  display: flex; align-items: center; gap: 6px; flex-shrink: 0;
+}
+.dash-item-controls select {
+  background: rgba(0,229,255,0.08);
+  border: 1px solid rgba(0,229,255,0.3);
+  color: var(--text-primary, #eee);
+  border-radius: 8px; padding: 4px 6px;
+  font-size: 0.68rem; outline: none; max-width: 90px;
+}
+.dash-item-controls .btn-delete {
+  background: none; border: none; color: var(--text-muted);
+  font-size: 0.75rem; cursor: pointer; padding: 4px;
+}
+.dash-item-controls .btn-delete:hover { color: #ff6b6b; }
+
+/* ---- Item de diário (compacto, conteúdo em 2 linhas) ---- */
+.diary-item-compact { display: block; padding: 12px 14px; }
+.diary-item-compact .dash-item-title { font-size: 0.9rem; margin-bottom: 4px; white-space: normal; }
+.diary-item-compact .diary-sub {
+  font-size: 0.73rem; color: var(--text-muted); margin: 0 0 6px;
+}
+.diary-item-compact .diary-body {
+  font-size: 0.82rem; color: var(--text-primary, #eee); margin: 0 0 8px;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+  overflow: hidden; line-height: 1.4;
+}
+.diary-item-compact .diary-footer {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+}
+.diary-item-compact .diary-tags { display: flex; gap: 4px; flex-wrap: wrap; }
+.diary-item-compact .diary-actions { margin: 0; }
+
+/* ---- Estado vazio ---- */
+.dash-empty {
+  text-align: center; font-size: 0.8rem; color: var(--text-muted);
+  padding: 18px 10px;
+}
+
+@media (max-width: 380px) {
+  .dash-stats, .dash-actions { grid-template-columns: repeat(3, 1fr); }
+  .dash-actions a:nth-child(4) { display: none; }
+}

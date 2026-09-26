@@ -64,17 +64,17 @@ function renderDiaryEntries() {
   container.innerHTML = diaryEntries.map(entry => {
     const isOwner = currentUser && entry.created_by === currentUser.id;
     return `
-    <div class="glass-card diary-item">
-      <div class="diary-header">
-        <h3 class="diary-title">${UTILS.escapeHtml(entry.title || 'Sem título')}</h3>
-        <small style="color:var(--text-muted);font-size:0.75rem;">✍️ ${UTILS.escapeHtml(entry.author_name)} · ${UTILS.formatDateTime(entry.created_at)}</small>
+    <div class="glass-card diary-item-compact">
+      <h4 class="dash-item-title">${UTILS.escapeHtml(entry.title || 'Sem título')}</h4>
+      <p class="diary-sub">✍️ ${UTILS.escapeHtml(entry.author_name || 'Anônimo')} · ${UTILS.formatDateTime(entry.created_at)}</p>
+      <p class="diary-body">${UTILS.escapeHtml(entry.content || '')}</p>
+      <div class="diary-footer">
+        ${entry.tags ? `<div class="diary-tags">${entry.tags.split(',').map(tag => `<span class="tag">${tag.trim()}</span>`).join('')}</div>` : '<span></span>'}
+        ${isOwner ? `
+        <div class="diary-actions">
+          <button onclick="deleteEntry('${entry.id}')" class="btn-delete" title="Deletar"><i class="fa-solid fa-trash-can"></i></button>
+        </div>` : ''}
       </div>
-      <p class="diary-content">${UTILS.escapeHtml(entry.content || '')}</p>
-      ${entry.tags ? `<div class="diary-tags">${entry.tags.split(',').map(tag => `<span class="tag">${tag.trim()}</span>`).join('')}</div>` : ''}
-      ${isOwner ? `
-      <div class="diary-actions">
-        <button onclick="deleteEntry('${entry.id}')" class="btn-delete">Deletar</button>
-      </div>` : ''}
     </div>
   `}).join('');
 }
