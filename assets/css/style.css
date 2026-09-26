@@ -187,12 +187,12 @@ body.login-page .btn-theme-toggle { display: none; }
 
 /* ── MAIN CONTENT ── */
 .main-content {
-  margin-left: 260px;
+  margin-left: 268px;
   flex: 1;
   padding: 24px;
   min-height: 100vh;
   min-height: 100dvh;
-  width: calc(100% - 260px);
+  width: calc(100% - 268px);
 }
 
 /* ── PAGE HEADER ── */
@@ -481,7 +481,7 @@ body.light .btn-primary {
   .side-nav {
     transform: translateX(-100%);
     width: 280px;
-    background: rgba(5, 10, 20, 0.98);
+    background: rgba(10, 5, 5, 0.98);
     box-shadow: none;
   }
 

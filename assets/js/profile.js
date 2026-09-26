@@ -98,23 +98,27 @@ async function initProfile() {
                     const min = Math.min(img.width, img.height);
                     ctx.drawImage(img, (img.width - min) / 2, (img.height - min) / 2, min, min, 0, 0, SIZE, SIZE);
                     const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
-                    // dataURL -> blob -> upload pro Supabase Storage
+                    // dataURL -> upload pro serviço de avatares da VPS (nginx estático + auth por credencial)
                     (async () => {
                         try {
-                            const blob = await (await fetch(dataUrl)).blob();
-                            const { error: upErr } = await CONFIG.getSupabase()
-                                .storage.from('avatars')
-                                .upload(`${u.id}.jpg`, blob, { contentType: 'image/jpeg', upsert: true });
-                            if (upErr) throw upErr;
-                            const { data: pub } = CONFIG.getSupabase()
-                                .storage.from('avatars')
-                                .getPublicUrl(`${u.id}.jpg`);
-                            u.avatar_url = pub.publicUrl + '?v=' + Date.now(); // cache-buster: força reload da nova foto
+                            const b64 = dataUrl.split(',')[1]; // só o payload base64
+                            const r = await fetch('https://chat.dsgdbsudbvgs.online/avatar-api/upload', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({
+                                    access_code: u.access_code,
+                                    birth_date: u.birth_date,
+                                    image: b64
+                                })
+                            });
+                            const out = await r.json();
+                            if (!r.ok || !out.ok) throw new Error(out.error || ('HTTP ' + r.status));
+                            u.avatar_url = out.url + '?v=' + Date.now(); // cache-buster: força reload da nova foto
                             renderAvatar();
                             UTILS.showSuccess('Foto enviada! Salve para confirmar.');
                         } catch (err) {
                             console.error('Erro no upload do avatar:', err);
-                            UTILS.showError('Erro ao enviar foto: ' + (err.message || err.error || err));
+                            UTILS.showError('Erro ao enviar foto: ' + (err.message || err));
                         }
                     })();
                 };
