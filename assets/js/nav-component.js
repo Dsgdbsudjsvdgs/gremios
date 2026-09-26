@@ -14,6 +14,7 @@ const NavComponent = {
       { href: 'tasks.html', icon: 'fa-solid fa-list-check', label: 'Tarefas' },
       { href: 'suporte.html', icon: 'fa-solid fa-headset', label: 'Suporte' },
       { href: 'perfil.html', icon: 'fa-solid fa-user', label: 'Perfil' },
+      { href: 'aparencia.html', icon: 'fa-solid fa-palette', label: 'Aparência' },
       { href: 'admin.html', icon: 'fa-solid fa-shield-halved', label: 'Admin', adminOnly: true },
       { href: 'sobre.html', icon: 'fa-solid fa-circle-info', label: 'Sobre' },
       { href: 'instalar.html', icon: 'fa-solid fa-mobile-screen-button', label: 'Instalar App', browserOnly: true },
@@ -72,7 +73,7 @@ const NavComponent = {
         <div class="nav-logo">
           <img src="${inPages ? '../' : ''}assets/img/brand/crest-dark.png" alt="Grêmio Conecta Jovem" class="brand-crest" data-theme-img="true">
         </div>
-        <span class="nav-brand">Conecta Jovem</span>
+        <span class="nav-brand">Conecta Jovem<small>GRÊMIO ESTUDANTIL</small></span>
       </div>
       <ul class="nav-links">
         ${this.links

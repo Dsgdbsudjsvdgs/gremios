@@ -49,7 +49,7 @@ body.login-page .btn-theme-toggle { display: none; }
 /* ── SIDE NAV ── */
 .side-nav {
   width: 260px;
-  background: rgba(10, 15, 25, 0.95);
+  background: rgba(10, 5, 5, 0.95);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border-right: 1px solid var(--glass-border);
@@ -78,7 +78,7 @@ body.login-page .btn-theme-toggle { display: none; }
   border-radius: 10px;
   overflow: hidden;
   flex-shrink: 0;
-  background: rgba(0, 229, 255, 0.1);
+  background: rgba(143, 18, 18, 0.12);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -127,12 +127,12 @@ body.login-page .btn-theme-toggle { display: none; }
 }
 
 .nav-link:hover {
-  background: rgba(0, 229, 255, 0.08);
+  background: rgba(143, 18, 18, 0.10);
   color: var(--text-main);
 }
 
 .nav-link.active {
-  background: rgba(0, 229, 255, 0.15);
+  background: rgba(143, 18, 18, 0.18);
   color: var(--primary);
   font-weight: 600;
   box-shadow: inset 3px 0 0 var(--primary);
@@ -162,7 +162,7 @@ body.login-page .btn-theme-toggle { display: none; }
   width: 44px;
   height: 44px;
   border-radius: 12px;
-  background: rgba(10, 15, 25, 0.9);
+  background: rgba(10, 5, 5, 0.92);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--glass-border);
@@ -231,7 +231,7 @@ body.login-page .btn-theme-toggle { display: none; }
 }
 
 .glass-card-accent {
-  background: linear-gradient(135deg, rgba(0, 229, 255, 0.08), var(--bg-surface));
+  background: linear-gradient(135deg, rgba(143, 18, 18, 0.10), var(--bg-surface));
 }
 
 /* ── BUTTONS ── */
@@ -256,7 +256,7 @@ body.login-page .btn-theme-toggle { display: none; }
 .btn-primary {
   background: var(--primary);
   color: #000;
-  box-shadow: 0 4px 12px rgba(0, 229, 255, 0.25);
+  box-shadow: 0 4px 12px rgba(143, 18, 18, 0.28);
 }
 
 .btn-primary:hover { filter: brightness(1.1); }
@@ -267,7 +267,7 @@ body.login-page .btn-theme-toggle { display: none; }
   border: 1px solid var(--primary);
 }
 
-.btn-outline:hover { background: rgba(0, 229, 255, 0.1); }
+.btn-outline:hover { background: rgba(143, 18, 18, 0.12); }
 
 .btn-ghost {
   background: rgba(255, 255, 255, 0.05);
@@ -310,7 +310,7 @@ body.login-page .btn-theme-toggle { display: none; }
 
 .form-input:focus {
   border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(0, 229, 255, 0.15);
+  box-shadow: 0 0 0 3px rgba(143, 18, 18, 0.18);
 }
 
 .form-input::placeholder { color: var(--text-muted); }
@@ -318,7 +318,7 @@ body.login-page .btn-theme-toggle { display: none; }
 /* ── TAGS & BADGES ── */
 .tag {
   display: inline-block;
-  background: rgba(0, 229, 255, 0.1);
+  background: rgba(143, 18, 18, 0.12);
   color: var(--primary);
   border: 1px solid var(--glass-border);
   padding: 3px 10px;
@@ -577,7 +577,7 @@ body.light .btn-primary {
   height: 72px;
   border-radius: 16px;
   margin: 0 auto 20px;
-  background: rgba(0, 229, 255, 0.08);
+  background: rgba(143, 18, 18, 0.10);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -672,3 +672,95 @@ body.light .btn-primary {
 .flex-between { display: flex; justify-content: space-between; align-items: center; }
 .gap-1 { gap: 8px; }
 .gap-2 { gap: 16px; }
+
+
+/* ═══════════════════════════════════════════════════
+   MENU LATERAL — estilo Student Space (tema Conecta)
+   ═══════════════════════════════════════════════════ */
+.side-nav {
+  width: 268px;
+  background: rgba(10, 5, 5, 0.96);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border-right: 1px solid rgba(246, 234, 222, 0.10);
+}
+.nav-header {
+  padding: 22px 18px;
+  border-bottom: 1px solid rgba(246, 234, 222, 0.08);
+  gap: 14px;
+}
+.nav-logo {
+  width: 44px; height: 44px;
+  border-radius: 14px;
+  background: rgba(143, 18, 18, 0.18);
+  border: 1px solid rgba(143, 18, 18, 0.4);
+}
+.nav-logo img { filter: drop-shadow(0 0 8px rgba(143, 18, 18, 0.6)); border-radius: 10px; }
+.nav-brand {
+  font-size: 1rem; font-weight: 800; letter-spacing: 0.6px;
+  color: var(--text-main); text-transform: uppercase;
+}
+.nav-brand small { display: block; font-size: 0.6rem; font-weight: 700; color: var(--accent); letter-spacing: 1.4px; margin-top: 2px; }
+
+.nav-links { padding: 14px 12px; }
+.nav-item { margin-bottom: 2px; }
+.nav-link {
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-size: 0.86rem; font-weight: 600;
+  color: var(--text-dim);
+  gap: 14px;
+}
+.nav-link i {
+  width: 22px; text-align: center; font-size: 0.95rem;
+  transition: var(--transition);
+}
+.nav-link:hover {
+  background: rgba(246, 234, 222, 0.06);
+  color: var(--text-main);
+}
+.nav-link.active {
+  background: var(--gradient-main);
+  color: var(--text-main);
+  font-weight: 800;
+  box-shadow: none;
+  border-radius: 14px;
+}
+.nav-link.active i { color: var(--text-main); }
+.nav-item-logout { border-top: 1px solid rgba(246, 234, 222, 0.08); }
+
+/* mobile trigger no tema */
+.mobile-nav-trigger {
+  background: rgba(10, 5, 5, 0.9);
+  border: 1px solid rgba(246, 234, 222, 0.12);
+}
+.mobile-nav-trigger.active { background: var(--primary); color: var(--text-main); }
+
+
+/* ═══════════════════════════════════════════════════
+   STUDENT SPACE — componentes globais (tema Conecta)
+   ═══════════════════════════════════════════════════ */
+.glass-card, .dash-card, .card {
+  border-radius: 24px;
+  border: 1px solid rgba(246, 234, 222, 0.12);
+}
+.chip, .role-badge, .badge { border-radius: 999px; letter-spacing: 0.6px; }
+.btn-primary, .btn-save { border-radius: 999px; font-weight: 800; }
+.section-title, .panel-title, .dash-title {
+  font-size: 0.68rem; font-weight: 800; letter-spacing: 1.2px;
+  text-transform: uppercase; color: var(--text-dim);
+}
+input, select, textarea {
+  background: rgba(246, 234, 222, 0.05);
+  border: 1px solid rgba(246, 234, 222, 0.14);
+  color: var(--text-main);
+  border-radius: 12px;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(143, 18, 18, 0.18);
+}
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-thumb { background: rgba(143, 18, 18, 0.4); border-radius: 999px; }
+::-webkit-scrollbar-track { background: transparent; }

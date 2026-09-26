@@ -8,8 +8,8 @@
 .dash-welcome {
   display: flex; align-items: center; gap: 12px;
   padding: 14px 16px; margin-bottom: 14px;
-  background: rgba(0,229,255,0.06);
-  border: 1px solid rgba(0,229,255,0.25);
+  background: rgba(143,18,18,0.06);
+  border: 1px solid rgba(143,18,18,0.28);
   border-radius: 14px;
 }
 .dash-welcome .dash-hello { flex: 1; min-width: 0; }
@@ -68,7 +68,7 @@
 .dash-item .dash-item-icon {
   width: 34px; height: 34px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  border-radius: 10px; background: rgba(0,229,255,0.10);
+  border-radius: 10px; background: rgba(143,18,18,0.12);
   color: var(--primary); font-size: 0.85rem;
 }
 .dash-item .dash-item-body { flex: 1; min-width: 0; }
@@ -92,8 +92,8 @@
   display: flex; align-items: center; gap: 6px; flex-shrink: 0;
 }
 .dash-item-controls select {
-  background: rgba(0,229,255,0.08);
-  border: 1px solid rgba(0,229,255,0.3);
+  background: rgba(143,18,18,0.10);
+  border: 1px solid rgba(143,18,18,0.32);
   color: var(--text-primary, #eee);
   border-radius: 8px; padding: 4px 6px;
   font-size: 0.68rem; outline: none; max-width: 90px;
@@ -131,3 +131,65 @@
   .dash-stats, .dash-actions { grid-template-columns: repeat(3, 1fr); }
   .dash-actions a:nth-child(4) { display: none; }
 }
+
+
+/* ═══════════════════════════════════════════════════
+   STUDENT SPACE — componentes globais (tema Conecta)
+   ═══════════════════════════════════════════════════ */
+
+/* Cards translúcidos 24px com borda creme */
+.glass-card, .dash-card, .card {
+  border-radius: 24px;
+  border: 1px solid rgba(246, 234, 222, 0.12);
+  background: rgba(26, 10, 10, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Chips pílula */
+.chip, .role-badge, .badge {
+  border-radius: 999px;
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+}
+
+/* Botões pílula */
+.btn-primary, .btn-save, .action-btn.primary {
+  border-radius: 999px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+.btn-outline, .btn-secondary {
+  border-radius: 999px;
+  border: 1px solid rgba(246, 234, 222, 0.16);
+  background: rgba(246, 234, 222, 0.06);
+  color: var(--text-main);
+}
+
+/* Section titles estilo Lovable */
+.section-title, .panel-title, .dash-title {
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+/* Inputs no tema */
+input, select, textarea {
+  background: rgba(246, 234, 222, 0.05);
+  border: 1px solid rgba(246, 234, 222, 0.14);
+  color: var(--text-main);
+  border-radius: 12px;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary);
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(143, 18, 18, 0.18);
+}
+
+/* Scrollbar discreta */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-thumb { background: rgba(143, 18, 18, 0.4); border-radius: 999px; }
+::-webkit-scrollbar-track { background: transparent; }

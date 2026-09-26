@@ -56,3 +56,19 @@
     --color-tecnologia: #8f1212;
     --color-ouvidoria: #c9b8a8;
 }
+
+
+/* ── Student Space: glow radial no topo de toda página interna ── */
+.main-content {
+  position: relative;
+}
+.main-content::before {
+  content: '';
+  position: absolute;
+  top: -40px; left: 50%; transform: translateX(-50%);
+  width: 130vw; height: 240px;
+  background: radial-gradient(ellipse at center top, rgba(143, 18, 18, 0.16) 0%, transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+.main-content > * { position: relative; z-index: 1; }
