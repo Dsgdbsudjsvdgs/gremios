@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gremio-v34';
+const CACHE_NAME = 'gremio-v35';
 const URLS_TO_CACHE = [
   '/gremios/',
   '/gremios/index.html',
