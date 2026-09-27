@@ -80,6 +80,28 @@ MUDANÇAS 11/09/2026: Samarone foi p/ Comunicação, Atyla p/ Meio Ambiente, Gui
 🚫 NÃO cite nomes como João, Sandra, Ruiva, Fritona, ou qualquer pessoa não listada
 🚫 Se perguntarem sobre alguém não listado: "Essa pessoa não faz parte do Grêmio Conecta Jovem"
 ✅ SOMENTE os 16 membros acima existem no seu conhecimento
+
+🔧 AÇÕES NO APP (BANCO DE DADOS) — PROTOCOLO:
+Você pode CRIAR registros e CONSULTAR dados reais do app. Para isso, inclua na sua resposta um bloco de código assim (o app executa sozinho):
+
+\`\`\`action
+{"type":"read","table":"events","where":{"date":"2026-09-30"},"limit":20}
+\`\`\`
+
+\`\`\`action
+{"type":"insert","table":"events","data":{"name":"Reunião da diretoria","date":"2026-10-01","time_start":"14:00","location":"Sala 3","description":"pauta semanal"}}
+\`\`\`
+
+REGRAS DAS AÇÕES:
+• INSERT permitido APENAS nas tabelas: events, tasks, diary, diary_entries, finances (e system_logs, só uso interno)
+• READ permitido em: events, tasks, departments, profiles, finances, diary, diary_entries
+• NUNCA apague ou edite nada — você não tem esse poder de propósito. Se pedirem edição/exclusão, explique que é pra fazer na página correspondente do app
+• Ao CRIAR: confirme pro usuário o que criou ("✅ Evento Reunião da diretoria criado pra 01/10")
+• Ao LER: responda a pergunta USANDO os dados retornados (o resultado vem logo após seu bloco action). Se a resposta depender do resultado, mande PRIMEIRO o read e diga que vai verificar — na próxima mensagem você terá os dados
+• Campos úteis: events(name,date,time_start,time_end,location,description,category,recurring) · tasks(title,description,due_date,priority,status) · finances(description,amount,type:"entrada"|"saida",date,category)
+• Datas SEMPRE em AAAA-MM-DD, horário HH:MM
+• Antes de inserir evento/tarefa financeira, CONFIRME com o usuário os dados ("Vou criar X em Y, confirma?") — só insira após o OK dele, EXCETO se ele acabou de pedir explicitamente com todos os dados
+
 🔒 ESCOPO RESTRITO - RESPONDA APENAS SOBRE:
   • Os 16 gremistas listados (cargos, departamentos, códigos, cores)
   • Histórico e atividades do Grêmio Conecta Jovem
@@ -359,10 +381,26 @@ async function sendMessage() {
   }
 
   const data = await response.json();
-  const reply = data.choices?.[0]?.message?.content || 'Sem resposta';
+  let reply = data.choices?.[0]?.message?.content || 'Sem resposta';
 
-  addMessage('assistant', reply);
-  chatHistory.push({ role: 'assistant', content: reply });
+  // 🤖 v4.2: processa blocos ```action``` da resposta — o Hermes pode ler/criar registros
+  const actions = (typeof extractHermesActions === 'function') ? extractHermesActions(reply) : [];
+  if (actions.length > 0) {
+    const user = (typeof UTILS !== 'undefined' && UTILS.getStorageUser) ? UTILS.getStorageUser() : null;
+    // mostra a resposta sem os blocos action (o usuário não precisa ver o JSON)
+    const cleanReply = reply.replace(/```action\s*\n[\s\S]*?```/g, '').trim();
+    if (cleanReply) addMessage('assistant', cleanReply);
+    for (const act of actions) {
+      const res = await HERMES_ACTIONS.execute(act, user);
+      addMessage('assistant', res.ok ? (res.human || '✅ Feito.') : ('⚠️ ' + res.error));
+      // devolve o resultado pro Hermes pra ele usar na próxima resposta
+      chatHistory.push({ role: 'assistant', content: (cleanReply || '(ação executada)') });
+      chatHistory.push({ role: 'user', content: '[RESULTADO DA AÇÃO]\n' + JSON.stringify(res.result !== undefined ? res.result : res).slice(0, 3000) });
+    }
+  } else {
+    addMessage('assistant', reply);
+    chatHistory.push({ role: 'assistant', content: reply });
+  }
 
   // Keep history manageable (last 20 messages + system)
   if (chatHistory.length > 21) {

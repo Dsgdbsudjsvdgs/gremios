@@ -294,6 +294,82 @@ async function supabaseQuery(table, options = {}) {
     }
 }
 
+// 🤖 HERMES ACTIONS v1 — executa ações NÃO-DESTRUTIVAS pedidas pelo assistente do chat.
+// Protocolo: o Hermes responde com um bloco ```action ... ``` e o frontend executa via Supabase.
+// SOMENTE INSERT/UPSERT em tabelas whitelistadas. NUNCA delete/update. NUNCA RLS bypass.
+const HERMES_ACTIONS = {
+  // tabelas onde o Hermes pode CRIAR registros (não-destrutivo)
+  INSERT_TABLES: {
+    events:      ['name', 'date', 'description', 'location', 'budget', 'status', 'category', 'time_start', 'time_end', 'recurring', 'created_by'],
+    tasks:       ['title', 'description', 'status', 'priority', 'department_id', 'assigned_to', 'due_date'],
+    diary:       ['user_id', 'content', 'entry_date'],
+    diary_entries: ['title', 'content', 'tags', 'created_by'],
+    finances:    ['description', 'amount', 'type', 'date', 'category'],
+    system_logs: ['user_id', 'action', 'details']
+  },
+  // tabelas que o Hermes pode LER pra responder perguntas
+  READ_TABLES: ['events', 'tasks', 'departments', 'profiles', 'finances', 'diary', 'diary_entries', 'app_updates'],
+
+  // executa uma ação vinda do chat. retorna {ok, result|error, human}
+  async execute(actionStr, currentUser) {
+    try {
+      const action = JSON.parse(actionStr);
+      const type = action.type;
+
+      // ---- READ ----
+      if (type === 'read') {
+        const table = action.table;
+        if (!this.READ_TABLES.includes(table)) return { ok: false, error: 'Tabela não permitida: ' + table };
+        const options = {};
+        if (action.where) options.where = action.where;
+        if (action.order) options.order = action.order;
+        if (action.limit) options.limit = Math.min(action.limit, 50); else options.limit = 30;
+        const data = await supabaseQuery(table, '*', options);
+        return { ok: true, result: data, human: 'Li ' + (data ? data.length : 0) + ' registros de ' + table + '.' };
+      }
+
+      // ---- INSERT ----
+      if (type === 'insert') {
+        const table = action.table;
+        const allowed = this.INSERT_TABLES[table];
+        if (!allowed) return { ok: false, error: 'Não posso criar registros em "' + table + '" — só em: ' + Object.keys(this.INSERT_TABLES).join(', ') };
+        // filtra só campos permitidos
+        const row = {};
+        Object.entries(action.data || {}).forEach(([k, v]) => { if (allowed.includes(k)) row[k] = v; });
+        // auto-atribui o usuário logado onde o schema pede
+        if (allowed.includes('created_by') && !row.created_by && currentUser) row.created_by = currentUser.id;
+        if (table === 'system_logs' && !row.user_id && currentUser) row.user_id = currentUser.id;
+        if (table === 'diary' && !row.user_id && currentUser) row.user_id = currentUser.id;
+        if (table === 'tasks' && !row.assigned_to && currentUser) row.assigned_to = currentUser.id;
+        // validações mínimas
+        if (table === 'events' && !row.name) return { ok: false, error: 'Evento precisa de nome.' };
+        if (table === 'events' && row.date && !/^\d{4}-\d{2}-\d{2}$/.test(row.date)) return { ok: false, error: 'Data inválida (use AAAA-MM-DD): ' + row.date };
+        if (table === 'tasks' && !row.title) return { ok: false, error: 'Tarefa precisa de título.' };
+        if (table === 'finances' && (row.amount == null || isNaN(Number(row.amount)))) return { ok: false, error: 'Valor financeiro inválido.' };
+        if (table === 'finances' && !['entrada', 'saida', 'income', 'expense'].includes(String(row.type || '').toLowerCase())) return { ok: false, error: 'Tipo financeiro inválido (use entrada/saida).' };
+
+        const result = await supabaseInsert(table, row);
+        // log da ação (auditoria, não-destrutivo)
+        try { await supabaseInsert('system_logs', { user_id: currentUser ? currentUser.id : null, action: 'hermes_chat_insert:' + table, details: JSON.stringify(row).slice(0, 500) }); } catch (e) {}
+        return { ok: true, result, human: '✅ Criado em ' + table + '.' };
+      }
+
+      return { ok: false, error: 'Tipo de ação desconhecido: ' + type + ' (só "read" e "insert")' };
+    } catch (e) {
+      return { ok: false, error: 'JSON inválido: ' + e.message };
+    }
+  }
+};
+
+// extrai blocos ```action ... ``` da resposta do assistente
+function extractHermesActions(text) {
+  const actions = [];
+  const re = /```action\s*\n([\s\S]*?)```/g;
+  let m;
+  while ((m = re.exec(text)) !== null) actions.push(m[1].trim());
+  return actions;
+}
+
 async function supabaseInsert(table, data) {
     try {
         const supabase = getSupabase();
